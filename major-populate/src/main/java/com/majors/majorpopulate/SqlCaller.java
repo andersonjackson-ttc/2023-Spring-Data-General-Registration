@@ -46,9 +46,6 @@ public class SqlCaller {
         
     }
 
-    private void getConnection(){
-        
-    }
 
     public ResultSet GetMajors(){
         String SQL = "SELECT * FROM tbl_majors";
@@ -64,5 +61,12 @@ public class SqlCaller {
         String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
         String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'";
 
+        try{
+            result = sqlSt.executeQuery(SQL);
+        }catch(SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+        return result;
     } */
 }
