@@ -3,6 +3,7 @@ package com.majors.majorpopulate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,10 @@ public class MajorPopulateController {
 
     @PostMapping("/submitMajor")
     public String handleMajor(Major major) {
+        //clear major choices here?
         majors.add(major);
         ConstantsAndStuff.showMajorRequirements(major.getMajorName());
+        
         return "redirect:/mainpage";
     }
 
