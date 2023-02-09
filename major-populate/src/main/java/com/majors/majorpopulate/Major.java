@@ -31,10 +31,10 @@ public class Major {
     }
     
 
-    @Override
-    public String toString() {
-        return "Hello, " + this.name + "\n Your Major is " + this.majorName + "\n Here is your Required Classes";  
-    }
+    // @Override
+    // public String toString() {
+    //     return "Hello, " + this.name + "\n Your Major is " + this.majorName + "\n Here is your Required Classes";  
+    // }
     
 
 }

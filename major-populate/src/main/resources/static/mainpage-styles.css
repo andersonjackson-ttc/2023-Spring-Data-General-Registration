@@ -10,7 +10,13 @@
     margin-top: 50px;
     
 
-  }      
+  }   
+  
+  #secondConatainer{
+    display: Hidden;
+  }
+
+  
   .update
   {
      display: inline-block;
@@ -68,7 +74,7 @@
   
   h2 {
     color: white;
-    font-size: 60px;
+    
     font-weight: 600;    
     font-family: Arial, Helvetica, sans-serif;
   }

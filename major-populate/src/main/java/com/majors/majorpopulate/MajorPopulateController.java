@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MajorPopulateController {
     
     List<Major> majors = new ArrayList<>();
+    // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
 
     @GetMapping("/form")
     public String getForm(Model model) {
@@ -31,9 +32,10 @@ public class MajorPopulateController {
 
     @GetMapping("/mainpage")
     public String populateInfo(Model model) {
-        model.addAttribute("information", majors);
+        model.addAttribute("information", majors.get(0));
         model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
         model.addAttribute("electives", ConstantsAndStuff.majorElectives);
+        // model.addAttribute("description", classDescription);
         return "mainpage";
     }
 
