@@ -41,7 +41,8 @@ public class SqlCaller {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
 
         }catch (FileNotFoundException ex){
-            //fdafdas
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Properties File Failed to Load" + ex.getMessage());
         }catch (Exception exception) {}
         
     }
@@ -57,16 +58,22 @@ public class SqlCaller {
         }
         return result;
     }
-    /* public ResultSet ShowMajorRequirementSet(){
-        String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
-        String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'";
-
+    public ResultSet ShowMajorRequirementSet(){
+        String SQLMajors = "select distinct g.major_id  'Major Id', g.major_name as 'Major Name', "+
+        "g.req_type as 'Requirment type', g.course_id as 'Course ID' " +
+        ", a.course_title " +
+"from tbl_grad_requirement g " +
+"join (select distinct substr(c.course_section,1, 7) as course_id, c.course_title from tbl_courses_offered c) a " +
+"on trim(a.course_id) = trim(g.course_id)";
+        
         try{
-            result = sqlSt.executeQuery(SQL);
+            result = sqlSt.executeQuery(SQLMajors);
         }catch(SQLException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL IS BAD!!" + ex.getMessage());
         }
         return result;
-    } */
+    }
 }
+/* String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
+String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'"; */

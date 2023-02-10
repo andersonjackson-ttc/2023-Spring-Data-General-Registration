@@ -30,8 +30,7 @@ public class ConstantsAndStuff {
             result = sql.GetMajors();
             while(result.next() != false) {
                 majorList.add(result.getString("major_name"));
-            }
-            //sqlSt.close();         
+            }         
         } catch (SQLException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL IS BAD!!" + ex.getMessage());
@@ -40,19 +39,14 @@ public class ConstantsAndStuff {
 
     //adds the major requirements and course id to the mainpage.html
     public static void showMajorRequirements(String nameOfMajor) {
-            String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
-            String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'";
+            
         try {
-            result = sqlSt.executeQuery(SQLMajors);
-
+            result = sql.ShowMajorRequirementSet();
+            
             while(result.next()) {
-               majorRequirement.add(new MajorRequirements(result.getString("major_name"), result.getString("req_type"), result.getString("course_id")));
+               majorRequirement.add(new MajorRequirements(result.getString("Major Name"), result.getString("Requirment type"), result.getString("Course ID"),result.getString("Course Title")));
+                //majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));
             }
-            result = sqlSt.executeQuery(SQLMajorElectives);
-            while (result.next()) {
-                majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));
-            }
-            //sqlSt.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);

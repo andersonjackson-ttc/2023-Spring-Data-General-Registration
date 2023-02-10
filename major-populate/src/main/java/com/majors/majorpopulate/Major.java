@@ -1,6 +1,7 @@
 package com.majors.majorpopulate;
 
 public class Major {
+
     private String name;
     private String majorName;
 
@@ -35,6 +36,7 @@ public class Major {
     // public String toString() {
     //     return "Hello, " + this.name + "\n Your Major is " + this.majorName + "\n Here is your Required Classes";  
     // }
+    
     
 
 }
