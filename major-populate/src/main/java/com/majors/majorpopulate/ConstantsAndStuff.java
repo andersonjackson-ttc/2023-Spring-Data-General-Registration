@@ -6,11 +6,16 @@ import java.util.logging.Logger;
 
 
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class ConstantsAndStuff {
+    
     
     public static List<String> majorList = new ArrayList<>();
     public static List<MajorRequirements> majorRequirement = new ArrayList<>();
@@ -27,6 +32,7 @@ public class ConstantsAndStuff {
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices(){ 
         try {
+            result = sql.GetMajors();
             result = sql.GetMajors();
             while(result.next() != false) {
                 majorList.add(result.getString("major_name"));
@@ -53,6 +59,8 @@ public class ConstantsAndStuff {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
         }  
     }   
-}
+}  
+       
+
 
 
