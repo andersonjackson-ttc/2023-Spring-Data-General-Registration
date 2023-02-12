@@ -4,6 +4,7 @@ public class Major {
 
     private String name;
     private String majorName;
+    
 
 
     public Major(String name, String majorName) {

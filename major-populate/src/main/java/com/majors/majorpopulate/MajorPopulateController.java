@@ -17,7 +17,7 @@ public class MajorPopulateController {
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
 
     @GetMapping("/form")
-    public String getForm(Model model) {
+    public String getForm(Model model) throws Exception{
         ConstantsAndStuff.populateMajorChoices();
         model.addAttribute("majorInfo", new Major());
         model.addAttribute("majorChoices", ConstantsAndStuff.majorList);
@@ -26,7 +26,6 @@ public class MajorPopulateController {
 
     @PostMapping("/submitMajor")
     public String handleMajor(Major major) {
-        //clear major choices here?
         majors.add(major);
         ConstantsAndStuff.showMajorRequirements(major.getMajorName());
         

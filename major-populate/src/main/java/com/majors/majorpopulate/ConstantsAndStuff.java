@@ -3,12 +3,6 @@ package com.majors.majorpopulate;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,31 +10,18 @@ import java.util.List;
 
 public class ConstantsAndStuff {
     
-    
-    public static List<String> majorList = new ArrayList<>();
-    public static List<MajorRequirements> majorRequirement = new ArrayList<>();
-    public static List<MajorElectives> majorElectives = new ArrayList<>();
-
     //make single connection to SQL. SqlCaller Class.  
     public static SqlCaller sql = new SqlCaller();
-    public static ResultSet result;
-    public static Statement sqlSt;
-
+    public static List<String> majorList;
     
     public ConstantsAndStuff(){}
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
-    public static void populateMajorChoices(){ 
-        try {
-            result = sql.GetMajors();
-            result = sql.GetMajors();
-            while(result.next() != false) {
-                majorList.add(result.getString("major_name"));
-            }         
-        } catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-        }
+    public static void populateMajorChoices() throws Exception{ 
+        majorList = new ArrayList<>();        
+        
+        majorList = sql.GetMajors();
+        
     }
 
     //adds the major requirements and course id to the mainpage.html
