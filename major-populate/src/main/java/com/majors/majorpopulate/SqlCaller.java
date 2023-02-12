@@ -67,7 +67,7 @@ public class SqlCaller {
         return majorList;
     }
 
-    public List<Course> GetElectiveGroupsByMajor(String MajorId) throws Exception{
+    /* public List<Course> GetElectiveGroupsByMajor(String MajorId) throws Exception{
         List<Course> electiveGroupList =  new ArrayList<>();
         String query = String.format("SELECT major_name, elective_group, nbr_required "+
                                         "FROM cpt275_db.tbl_major_electives " +
@@ -86,7 +86,9 @@ public class SqlCaller {
             throw new SQLException(ex);
         }
         return 
-    }
+    } */
+
+
     public List<MajorRequirements> ShowMajorRequirementSet() throws Exception{
 
         List<MajorRequirements> listOfMajors = new ArrayList<>();
@@ -94,9 +96,9 @@ public class SqlCaller {
         String SQLMajors = "select distinct g.major_id  'Major Id', g.major_name as 'Major Name', "+
         "g.req_type as 'Requirment type', g.course_id as 'Course ID' " +
         ", a.course_title " +
-    "from tbl_grad_requirement g " +
-    "join (select distinct substr(c.course_section,1, 7) as course_id, c.course_title from tbl_courses_offered c) a " +
-    "on trim(a.course_id) = trim(g.course_id)";
+        "from tbl_grad_requirement g " +
+        "join (select distinct substr(c.course_section,1, 7) as course_id, c.course_title from tbl_courses_offered c) a " +
+        "on trim(a.course_id) = trim(g.course_id)";
         
         try{
             result = sqlSt.executeQuery(SQLMajors);
