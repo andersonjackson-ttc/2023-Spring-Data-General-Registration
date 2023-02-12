@@ -13,7 +13,7 @@
     <h2>Major Portal</h2>
     <form method="post" th:object="${majorInfo}" th:action="@{/submitMajor}">
         <input type="text" th:field="*{name}" placeholder="Name">
-        <select class="select" th:field="*{majorName}">
+        <select class="select" th:field="*{name}">
             <option value="">Choose a Major</option>
             <option th:each="major : ${majorChoices}" th:text="${major}" th:value="${major}"></option>
         </select>

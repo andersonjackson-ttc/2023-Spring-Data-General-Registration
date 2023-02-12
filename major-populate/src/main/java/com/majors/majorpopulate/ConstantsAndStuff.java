@@ -20,12 +20,12 @@ public class ConstantsAndStuff {
     public static void populateMajorChoices() throws Exception{ 
         majorList = new ArrayList<>();        
         
-        majorList = sql.GetMajors();
+        majorList = sql.ShowMajorNames();
         
     }
 
     //adds the major requirements and course id to the mainpage.html
-    public static void showMajorRequirements(String nameOfMajor) {
+    /* public static void showMajorRequirements(String nameOfMajor) {
             
         try {
             result = sql.ShowMajorRequirementSet();
@@ -39,7 +39,7 @@ public class ConstantsAndStuff {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL IS BAD!!" + ex.getMessage());
         }  
-    }   
+    } */   
 }  
        
 

@@ -27,7 +27,7 @@ public class MajorPopulateController {
     @PostMapping("/submitMajor")
     public String handleMajor(Major major) {
         majors.add(major);
-        ConstantsAndStuff.showMajorRequirements(major.getMajorName());
+        //ConstantsAndStuff.showMajorRequirements(major.getName());
         
         return "redirect:/mainpage";
     }
@@ -35,8 +35,8 @@ public class MajorPopulateController {
     @GetMapping("/mainpage")
     public String populateInfo(Model model) {
         model.addAttribute("information", majors.get(0));
-        model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-        model.addAttribute("electives", ConstantsAndStuff.majorElectives);
+       // model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
+        //model.addAttribute("electives", ConstantsAndStuff.majorElectives);
         // model.addAttribute("description", classDescription);
         return "mainpage";
     }
