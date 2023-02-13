@@ -35,9 +35,9 @@ public class MajorPopulateController {
     @GetMapping("/mainpage")
     public String populateInfo(Model model) {
         model.addAttribute("information", majors.get(0));
-       // model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-        //model.addAttribute("electives", ConstantsAndStuff.majorElectives);
-        // model.addAttribute("description", classDescription);
+        model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
+        model.addAttribute("electives", ConstantsAndStuff.majorElectives);
+        model.addAttribute("description", classDescription);
         return "mainpage";
     }
 

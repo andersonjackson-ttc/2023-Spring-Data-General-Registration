@@ -104,18 +104,18 @@ public class SqlCaller {
         return course;
     }
 
-    /* public List<Course> GetElectiveGroupsByMajor(String MajorId) throws Exception{
+    public List<String> GetElectiveGroupsByMajor(String MajorId) throws Exception{
         List<Course> electiveGroupList =  new ArrayList<>();
-        String query = String.format("SELECT major_name, elective_group, nbr_required "+
+        String query = String.format("SELECT major_name, elective_group, nbr_required, elective_id "+
                                         "FROM cpt275_db.tbl_major_electives " +
-                                        "where major_id = %s" +
-                                        "order by 2;", MajorId);
+                                        "where major_id = %s", MajorId);
 
         try {
-            result = sqlSt.executeQuery(query);
+            ResultSet result = sqlSt.executeQuery(query);
             while (result.next()){
-                
-                
+                //get electives in each elective group
+                String electiveGroupId = result.getString("elective_id"); 
+                GetElectivesByElectiveGroup(electiveGroupId);
             }
         }catch(SQLException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,7 +123,19 @@ public class SqlCaller {
             throw new SQLException(ex);
         }
         return 
-    } */
+    }
+    public void GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
+        String query = String.format("select * from tbl_elective_courses where elective_id = %s", electiveGroupId);
+        try {
+            ResultSet result = sqlSt.executeQuery(query);
+            
+            
+        }catch(SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+            throw new SQLException(ex);
+        }
+    }
 
     //public List<Course> GetPreReqsByCourseId(String CourseId){}
 

@@ -25,21 +25,17 @@ public class ConstantsAndStuff {
     }
 
     //adds the major requirements and course id to the mainpage.html
-    /* public static void showMajorRequirements(String nameOfMajor) {
+     public static void showMajorRequirements(String nameOfMajor) throws Exception{
             
-        try {
-            result = sql.ShowMajorRequirementSet();
+        
+             List<MajorRequirements> result = sql.ShowMajorRequirementSet();
             
-            while(result.next()) {
-               majorRequirement.add(new MajorRequirements(result.getString("Major Name"), result.getString("Requirment type"), result.getString("Course ID"),result.getString("Course Title")));
-                //majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));
-            }
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-        }  
-    } */   
+             for (MajorRequirements majorRequirements : result) {
+                
+             }
+               
+                //majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));   
+    }    
 }  
        
 
