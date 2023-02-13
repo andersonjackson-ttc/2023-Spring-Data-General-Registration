@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainpage-styles.css">
+    <title>Main Page</title>
+</head>
+<body>
+  <h1 style="color:white; margin-bottom: 50px;"  th:text="${information.toString}"></h1>
+    <div class= "container">
+        <table id="table"> 
+          <tr>
+            <th>Major Name</th>
+            <th>Required Type</th>
+            <th>Course Id</th>
+          </tr>
+          <tr th:each="classInfo: ${classes}">
+            <td th:text="${classInfo.name}"></td>
+            <td th:text="${classInfo.reqType}"></td>
+            <td th:text="${classInfo.courseId}"></td>
+            <!-- <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
+          </tr>
+          <tr>
+            <th>Major Name</th>
+            <th>Elective Group</th>
+            <th>Number Required</th>
+          </tr>
+          <tr th:each="elective : ${electives}">
+            <td th:text="${elective.majorName}"></td>
+            <td th:text="${elective.electiveGroup}"></td>
+            <td th:text="${elective.numbRequired}"></td>
+          </tr>
+        </table>
+      </div>
+
+</body>
+</html>
