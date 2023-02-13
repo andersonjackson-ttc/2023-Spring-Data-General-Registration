@@ -3,38 +3,36 @@ package com.majors.majorpopulate;
 public class Major {
     private String name;
     private String majorName;
-
-
-    public Major(String name, String majorName) {
-        this.name = name;
+    private String MajorId;
+    
+    public Major(String majorName) {
         this.majorName = majorName;
     }
-
+    
     public Major() {
     }
-
-
+    
+    public String getMajorName() {
+        return this.majorName;
+    }
+    
+    public void setMajorName(String name) {
+        this.majorName = name;
+    }
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getMajorName() {
-        return this.majorName;
+    public String getMajorId() {
+        return this.MajorId;
     }
 
-    public void setMajorName(String majorName) {
-        this.majorName = majorName;
+    public void setMajorId(String id) {
+        this.MajorId = MajorId;
     }
-    
-
-    // @Override
-    // public String toString() {
-    //     return "Hello, " + this.name + "\n Your Major is " + this.majorName + "\n Here is your Required Classes";  
-    // }
-    
 
 }

@@ -3,6 +3,7 @@ package com.majors.majorpopulate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class MajorPopulateController {
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
 
     @GetMapping("/form")
-    public String getForm(Model model) {
+    public String getForm(Model model) throws Exception{
         ConstantsAndStuff.populateMajorChoices();
         model.addAttribute("majorInfo", new Major());
         model.addAttribute("majorChoices", ConstantsAndStuff.majorList);
@@ -26,7 +27,8 @@ public class MajorPopulateController {
     @PostMapping("/submitMajor")
     public String handleMajor(Major major) {
         majors.add(major);
-        ConstantsAndStuff.showMajorRequirements(major.getMajorName());
+        //ConstantsAndStuff.showMajorRequirements(major.getName());
+        
         return "redirect:/mainpage";
     }
 
@@ -35,7 +37,7 @@ public class MajorPopulateController {
         model.addAttribute("information", majors.get(0));
         model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
         model.addAttribute("electives", ConstantsAndStuff.majorElectives);
-        // model.addAttribute("description", classDescription);
+        model.addAttribute("description", classDescription);
         return "mainpage";
     }
 

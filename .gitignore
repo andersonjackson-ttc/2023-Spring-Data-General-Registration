@@ -9,3 +9,7 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+major-populate/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+major-populate/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+major-populate/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
+major-populate/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst

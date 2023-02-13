@@ -18,7 +18,6 @@ public class MajorRequirements {
     public MajorRequirements() {
     }
 
-
     public String getName() {
         return this.name;
     }
