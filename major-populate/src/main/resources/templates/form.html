@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form-stylesheet.css">
+    <title>Student Login</title>
+</head>    
+<body>
+  <div class="topnav">
+    <a th:href="@{/}">Login</a>
+    <a th:href="@{/register}">New Student Register</a>
+  </div>   
+  <div class="container">
+    <h2>Student Login</h2>
+    <form method="post" th:action="@{/studentLogin}">
+        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Password">
+        <a id="new-student-link" th:href="@{/register}" style="color:white">New student? click here</a>
+        <p></p>
+        </select>
+        <input type="submit" value="Login">
+    </form>
+    <!-- <form method="post" th:object="${}" th:action="@{/submitMajor}">
+      <input type="text" th:field="*{}" placeholder="Name">
+      <select class="select" th:field="*{}">
+          <option value="">Choose a Major</option>
+          <option th:each=" : ${}" th:text="${}" th:value="${}"></option>
+      </select>
+      <input type="submit" value="Submit">
+      
+  </form> -->
+  </div>
+</body>
+</html>

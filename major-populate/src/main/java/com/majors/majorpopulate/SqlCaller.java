@@ -122,7 +122,7 @@ public class SqlCaller {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
             throw new SQLException(ex);
         }
-        return 
+        return null;   //This was blank Just put null to get rid of error. 
     }
     public void GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
         String query = String.format("select * from tbl_elective_courses where elective_id = %s", electiveGroupId);
