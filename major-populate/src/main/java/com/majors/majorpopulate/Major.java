@@ -1,6 +1,8 @@
 package com.majors.majorpopulate;
 
+
 public class Major {
+
     private String name;
     private String majorName;
     private String MajorId;
