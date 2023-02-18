@@ -1,7 +1,5 @@
 package com.majors.majorpopulate;
 
-
-
 import jakarta.validation.constraints.NotBlank;
 
 

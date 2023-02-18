@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.majors.majorpopulate.MajorPopulateApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.945 s - in com.majors.majorpopulate.MajorPopulateApplicationTests
