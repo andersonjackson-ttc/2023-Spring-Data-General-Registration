@@ -3,6 +3,9 @@ package com.majors.majorpopulate;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.majors.service.SqlCaller;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +13,8 @@ import java.util.List;
 
 public class ConstantsAndStuff {
     
-    //make single connection to SQL. SqlCaller Class.  
+    //make single connection to SQL. SqlCaller Class.
+    //@Service 
     public static SqlCaller sql = new SqlCaller();
     public static List<String> majorList;
     
@@ -19,7 +23,8 @@ public class ConstantsAndStuff {
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
         majorList = new ArrayList<>();        
-        
+        sql.GetCourseById("ART-101");
+       // sql.GetMajorById("1042");
         majorList = sql.ShowMajorNames();
         
     }

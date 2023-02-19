@@ -1,7 +1,7 @@
 //This class will handle all of the calls to SQL.  eventually the url/username/password could be added to a settings file. Or taken as input and used for login purposes.
 // Place all calls to Join tables to filter SQL results here.
 
-package com.majors.majorpopulate;
+package com.majors.service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,9 +16,17 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.MajorElectives;
+import com.majors.majorpopulate.MajorPopulateApplication;
+import com.majors.majorpopulate.MajorRequirements;
 
+//@Component
 public class SqlCaller {
     
+    //@Autowired
+    //SqlRepository sqlRepo
     Statement sqlSt;
     Course course;
     
@@ -69,7 +77,7 @@ public class SqlCaller {
 
     public Major GetMajorById(String majorId) throws Exception{
         Major major = new Major();
-        String query = String.format("SELECT major_name"
+        String query = String.format("SELECT major_name "
                                     +"FROM tbl_majors "
                                     +"WHERE major_id = %s", majorId);
         ResultSet result = sqlSt.executeQuery(query);
@@ -81,10 +89,10 @@ public class SqlCaller {
     }
 
     public Course GetCourseById(String CourseId) throws Exception{
-        
+        List<Course> courseList = new ArrayList<>();
         String query = String.format("Select * "
-                                    +"FROM tbl_courses_offered"
-                                    +"WHERE substr(course_section,1, 7) = %s" , CourseId);
+                                    +"FROM tbl_courses_offered "
+                                    +"WHERE substr(course_section,1, 7) = '%s'" , CourseId);
         ResultSet result = sqlSt.executeQuery(query);
         while(result.next()) {
           course = new Course(
@@ -98,13 +106,13 @@ public class SqlCaller {
                 result.getString("course_building_nbr"),
                 result.getString("course_room"),
                 result.getString("course_type"),
-                result.getInt("idk_seats_available"),
+                result.getInt("idk_seats_avail"),
                 result.getInt("idk_seats_waitlist"));
         }
         return course;
     }
 
-    public List<String> GetElectiveGroupsByMajor(String MajorId) throws Exception{
+    public List<Course> GetElectiveGroupsByMajor(String MajorId) throws Exception{
         List<Course> electiveGroupList =  new ArrayList<>();
         String query = String.format("SELECT major_name, elective_group, nbr_required, elective_id "+
                                         "FROM cpt275_db.tbl_major_electives " +
@@ -122,6 +130,7 @@ public class SqlCaller {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
             throw new SQLException(ex);
         }
+        return electiveGroupList;
     }
     public void GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
         String query = String.format("select * from tbl_elective_courses where elective_id = %s", electiveGroupId);
