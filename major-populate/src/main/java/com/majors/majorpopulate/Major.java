@@ -36,7 +36,7 @@ public class Major {
     }
 
     public void setMajorId(String id) {
-        this.MajorId = MajorId;
+        this.MajorId = id;
     }
     public List<MajorElectiveGroup> getMajorElectiveGroups(){
         return MajorElectiveGroups;
