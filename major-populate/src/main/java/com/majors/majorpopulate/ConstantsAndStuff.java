@@ -19,24 +19,17 @@ public class ConstantsAndStuff {
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
-        majorList = new ArrayList<>();        
-        //sql.GetCourseById("ART-101");
-       sql.GetMajorById("1042");
+        majorList = new ArrayList<>();
+        
         majorList = sql.ShowMajorNames();
         
     }
 
     //adds the major requirements and course id to the mainpage.html
-     public static void showMajorRequirements(String nameOfMajor) throws Exception{
+     public static void showMajorRequirements(String MajorId) throws Exception{
             
-        
-             List<MajorRequirements> result = sql.ShowMajorRequirementSet();
-            
-             for (MajorRequirements majorRequirements : result) {
-                
-             }
-               
-                //majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));   
+             Major major = sql.GetMajorById(MajorId);
+                  
     }
     
       public static void CreateStudent(Student student){

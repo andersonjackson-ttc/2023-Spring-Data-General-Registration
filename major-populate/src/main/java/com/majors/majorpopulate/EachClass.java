@@ -21,7 +21,7 @@ public record EachClass (
                         Objects.requireNonNull(CourseTitle);
                         Objects.requireNonNull(CourseSection);
                         Objects.requireNonNull(CourseTerm);
-                        Objects.requireNonNull(CourseTermDates);
+                        //Objects.requireNonNull(CourseTermDates);
                         Objects.requireNonNull(CourseLocation);
                         Objects.requireNonNull(CourseType);
                         

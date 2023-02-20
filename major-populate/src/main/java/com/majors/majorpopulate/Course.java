@@ -5,10 +5,9 @@ import java.util.List;
 
 public record Course (
         List<EachClass> Classes,
-        String MajorName,
         String CourseName,
         String CourseId,
-        List<EachClass> PreRequisites,
-        List<EachClass> CoRequisites
+        List<Course> PreRequisites,
+        List<Course> CoRequisites
 ) {
 }

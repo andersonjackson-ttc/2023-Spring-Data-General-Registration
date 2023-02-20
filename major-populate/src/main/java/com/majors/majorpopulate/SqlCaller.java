@@ -72,19 +72,30 @@ public class SqlCaller {
         return majorList;
     }
 
-    public Major GetMajorById(String majorId) throws Exception{
+    public Major GetMajorById(String majorid) throws Exception{
         sqlSt = dbConnect.createStatement();
         Major major = new Major();
-        String query = String.format("SELECT major_name "
-                                    +"FROM tbl_majors "
-                                    +"WHERE major_id = %s", majorId);
+        String query = String.format("SELECT * FROM tbl_majors WHERE major_id = '%s'", majorid);
         ResultSet result = sqlSt.executeQuery(query);
         while(result.next() != false) {
             major.setMajorName(result.getString("major_name"));
-            major.setMajorId(majorId);
-            major.setMajorElectiveGroups(GetElectiveGroupsByMajor(majorId));
+            major.setMajorId(result.getString("major_id"));
+            major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
+            major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
         }        
        return major;                        
+    }
+
+    private List<Course> GetRequiredCoursesByMajorId(String MajorId) throws Exception{
+        List<Course> RequiredCourseList = new ArrayList<>();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s",MajorId);
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next()){
+            Course course = GetCourseById(result.getString("course_id"));
+            RequiredCourseList.add(course);
+        }
+        return RequiredCourseList;
     }
 
     public List<EachClass> GetClassesByCourseId(String CourseId) throws Exception{
@@ -92,40 +103,74 @@ public class SqlCaller {
         List<EachClass> classList = new ArrayList<>();
         String query = String.format("Select * "
                                     +"FROM tbl_courses_offered "
-                                    +"WHERE substr(course_section,1, 7) = '%s'" , CourseId);
+                                    +"WHERE substr(course_section,1, 7) = '%s'" , CourseId.trim());
         ResultSet result = sqlSt.executeQuery(query);
-        while(result.next()) {
-          EachClass eachClass = new EachClass(
-                result.getString("course_title"),
-                result.getString("course_section"),
-                result.getString("course_days"),
-                result.getString("course_term"),
-                null,
-                null,
-                result.getString("course_location"),
-                result.getString("course_building_nbr"),
-                result.getString("course_room"),
-                result.getString("course_type"),
-                result.getInt("idk_seats_avail"),
-                result.getInt("idk_seats_waitlist"));
-        classList.add(eachClass);
-        }
-        return classList;
+            while(result.next()) {
+                EachClass eachClass = new EachClass(
+                      result.getString("course_title"),
+                      result.getString("course_section"),
+                      result.getString("course_days"),
+                      result.getString("course_term"),
+                      null,
+                      null,
+                      result.getString("course_location"),
+                      result.getString("course_building_nbr"),
+                      result.getString("course_room"),
+                      result.getString("course_type"),
+                      result.getInt("idk_seats_avail"),
+                      result.getInt("idk_seats_waitlist"));
+              classList.add(eachClass);
+              }
+              return classList;
+    
+        
     }
-    public Course GetCourseById(String CourseId){
+
+    public Course GetCourseById(String CourseId) throws Exception{
+        Course course;
         sqlSt = dbConnect.createStatement();
+        try{
         classList = GetClassesByCourseId(CourseId);
-        prereqList = GetRequisites(CourseId);
-        Course course = new Course(
-            Classes: classList, 
-            MajorName, 
-            CourseName,
+        course = new Course(
+            classList, 
+            classList.get(0).CourseTitle(),
             CourseId, 
-            prereqlist, 
-            CoReqClassList);
+            GetPreReqCoursesByCourseId(CourseId), 
+            GetCoReqCoursesByCourseId(CourseId));
+        }catch (Exception ex){
+            return null;
+        }
         return course;
     }
 
+private List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception{
+    List<Course> coReqCourseList = new ArrayList<>();
+    sqlSt = dbConnect.createStatement();
+    String query = String.format("SELECT course_id_c2 FROM tbl_co_req WHERE course_id_c1 = '%s'",CourseId);
+    ResultSet result = sqlSt.executeQuery(query);
+    if(!result.next()){
+        return coReqCourseList;
+    }
+    while(result.next()){
+        Course course = GetCourseById(result.getString("course_id_c2"));
+        coReqCourseList.add(course);
+    }
+    return coReqCourseList;
+}
+private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception{
+    List<Course> preReqCourseList = new ArrayList<>();
+    sqlSt = dbConnect.createStatement();
+    String query = String.format("SELECT prereq FROM tbl_pre_reqs WHERE course_id = '%s'",CourseId.trim());
+    ResultSet result = sqlSt.executeQuery(query);
+    if(!result.next()){
+        return preReqCourseList;
+    }
+    while(result.next()){
+        Course course = GetCourseById(result.getString("prereq"));
+        preReqCourseList.add(course);
+    }
+    return preReqCourseList;
+}
     private List<MajorElectiveGroup> GetElectiveGroupsByMajor(String MajorId) throws Exception{
         sqlSt = dbConnect.createStatement();
         MajorElectiveGroup meg;
@@ -160,12 +205,15 @@ public class SqlCaller {
     public List<Course> GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
         sqlSt = dbConnect.createStatement();
         List<Course> electiveCourses = new ArrayList<>();
-        String query = String.format("SELECT course_id FROM tbl_elective_courses where elective_id = %s", electiveGroupId);
+        String query = String.format("SELECT course_id FROM tbl_elective_courses where elective_id = '%s'", electiveGroupId);
         try {
             ResultSet result = sqlSt.executeQuery(query);
+            if(!result.next()){
+                return electiveCourses;
+            }
             while(result.next()){
-               List<Course> courses = GetCourseById(result.getString("course_id"));
-               
+               Course course = GetCourseById(result.getString("course_id"));
+               electiveCourses.add(course);
             }
             
             
@@ -177,7 +225,6 @@ public class SqlCaller {
         return electiveCourses;
     }
 
-    //public List<Course> GetPreReqsByCourseId(String CourseId){}
 
     public List<MajorRequirements> ShowMajorRequirementSet() throws Exception{
         sqlSt = dbConnect.createStatement();
