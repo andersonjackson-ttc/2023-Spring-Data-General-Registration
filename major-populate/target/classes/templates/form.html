@@ -8,14 +8,15 @@
 </head>    
 <body>
   <div class="topnav">
-    <a th:href="@{/}">Login</a>
+    <a th:href="@{/form}">Login</a>
     <a th:href="@{/register}">New Student Register</a>
   </div>   
   <div class="container">
     <h2>Student Login</h2>
-    <form method="post" th:action="@{/studentLogin}">
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="Password">
+    <form method="post" th:object="${loginInfo}" th:action="@{/studentLogin}">
+        <p style="color:red" th:if="${incorrect == true}">Invalid Name or Password</p>
+        <input type="text" th:field="*{name}" placeholder="Name">
+        <input type="password" th:field="*{password}" placeholder="Password">
         <a id="new-student-link" th:href="@{/register}" style="color:white">New student? click here</a>
         <p></p>
         </select>

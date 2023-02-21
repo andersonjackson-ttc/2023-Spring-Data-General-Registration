@@ -14,7 +14,7 @@
       <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.majorName} "></h1>
       <h2 style="color:white;">Here are your Courses...</h2>
     </div>
-      <div class= "container">
+      <!-- <div class= "container">
         <table id="table"> 
           <tr>
               <th>Major Name</th>
@@ -28,8 +28,8 @@
               <td th:text="${classInfo.courseId}"></td>
               <td th:text="${classInfo.courseName}"  th:onclick='tdclick("value")'>
               </td>
-              <!-- <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
-            </tr>
+               <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
+            <!-- </tr>
             <tr>
               <th>Major Name</th>
               <th>Elective Group</th>
@@ -48,7 +48,7 @@
         </div>
         <div id="secondContainer">
           <p th:text="${description}"></p>
-        </div>
-    </div>
+        </div> -->
+    </div> 
 </body>
 </html>
