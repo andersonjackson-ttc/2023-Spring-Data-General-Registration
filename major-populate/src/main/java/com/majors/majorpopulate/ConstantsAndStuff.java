@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import org.springframework.boot.rsocket.server.ConfigurableRSocketServerFactory;
 
+import com.majors.majorpopulate.Major.MajorElectiveGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +32,13 @@ public class ConstantsAndStuff {
     }
 
     //adds the major requirements and course id to the mainpage.html
-     public static void showMajorRequirements(String MajorId) throws Exception{
-            
+     public static List<MajorElectiveGroup> showMajorRequirements(String MajorId) throws Exception{
+        List<MajorElectiveGroup> megs = new ArrayList<>();
              Major major = sql.GetMajorById(MajorId);
+             
+            megs = major.getMajorElectiveGroups();
+            
+            return megs;
                   
     }
     
