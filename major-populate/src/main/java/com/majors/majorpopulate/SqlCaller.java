@@ -161,6 +161,7 @@ public class SqlCaller {
         return course;
     }
 
+<<<<<<< Updated upstream
 private List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception{
     List<Course> coReqCourseList = new ArrayList<>();
     sqlSt = dbConnect.createStatement();
@@ -194,6 +195,11 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
         MajorElectiveGroup meg;
         List<MajorElectiveGroup> electiveGroupList =  new ArrayList<>();
         String query = String.format("SELECT * "+
+=======
+    public List<Course> GetElectiveGroupsByMajor(String MajorId) throws Exception{
+        List<Course> electiveGroupList =  new ArrayList<>();
+        String query = String.format("SELECT major_name, elective_group, nbr_required, elective_id "+
+>>>>>>> Stashed changes
                                         "FROM cpt275_db.tbl_major_electives " +
                                         "where major_id = %s", MajorId);
 
@@ -216,7 +222,10 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
             System.out.println("SQL IS BAD!!" + ex.getMessage());
             throw new SQLException(ex);
         }
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         return electiveGroupList;
     }
 
