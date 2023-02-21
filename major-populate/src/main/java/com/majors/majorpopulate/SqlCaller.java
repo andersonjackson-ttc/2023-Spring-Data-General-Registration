@@ -53,7 +53,25 @@ public class SqlCaller {
         }catch (Exception exception) {}
         
     }
+    public List<Major> getAllMajors()throws Exception{
+        sqlSt = dbConnect.createStatement();
+        List<Major> majorList = new ArrayList<>();
+        String SQL = "SELECT major_id FROM tbl_majors";
+        try{
+            ResultSet result = sqlSt.executeQuery(SQL);
+            while(result.next() != false) {
+                Major major = GetMajorById(result.getString("major_id"));
+                majorList.add(major);
+            }         
 
+        }catch(SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+            throw new SQLException(ex);
+        }
+        
+        return majorList;
+    }
     public List<String> ShowMajorNames() throws Exception{
         sqlSt = dbConnect.createStatement();
         List<String> majorList = new ArrayList<>();

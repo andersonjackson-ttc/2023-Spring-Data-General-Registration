@@ -3,6 +3,9 @@ package com.majors.majorpopulate;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.springframework.boot.rsocket.server.ConfigurableRSocketServerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +22,10 @@ public class ConstantsAndStuff {
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
-        majorList = new ArrayList<>();
-        
-        majorList = sql.ShowMajorNames();
+        List<Major> majorList = new ArrayList<>();
+        majorList = sql.getAllMajors();
+        //majorList = sql.ShowMajorNames();
+        System.out.println(majorList.get(0).getMajorName());
         
     }
 
