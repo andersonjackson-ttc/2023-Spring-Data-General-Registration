@@ -21,8 +21,13 @@ public class ConstantsAndStuff {
     //@Service 
     public static SqlCaller sql = new SqlCaller();
     public static List<String> majorList;
+<<<<<<< Updated upstream
     public static List<Login> loggedInUser = new ArrayList<>();
 
+=======
+    public static List<LoginCredentials> loggedInStudent;
+    
+>>>>>>> Stashed changes
     public ConstantsAndStuff(){}
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
@@ -83,6 +88,7 @@ public class ConstantsAndStuff {
         }
     }
 
+<<<<<<< Updated upstream
     //gets credentials from database to see if there is user
     public static String doesCredentialsMatch(String name, String password) {
         java.sql.Statement sqlSt; //runs sql
@@ -179,6 +185,10 @@ public class ConstantsAndStuff {
             
         }
         return "No Course Name";
+=======
+    public static void getLoggedInStudent(String name, String password) {
+        loggedInStudent.add(new LoginCredentials(name, password));
+>>>>>>> Stashed changes
     }
 
 
