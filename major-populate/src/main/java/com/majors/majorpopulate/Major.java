@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Major {
 
-    private String name;
-    private String majorName;
-    private String MajorId;
-    private List<MajorElectiveGroup> MajorElectiveGroups;
-    private List<Course> requiredCourses;
+    public String name;
+    public String majorName;
+    public String MajorId;
+    public List<MajorElectiveGroup> MajorElectiveGroups;
+    public List<Course> requiredCourses;
     
     public Major(String majorName) {
         this.majorName = majorName;
