@@ -62,4 +62,7 @@ public class Student {
                 ", major='" + major + '\'' +
                 '}';
     }
+    ///completed courses student->many courses
+    ///registered courses student->many courses
+
 }

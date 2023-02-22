@@ -23,21 +23,19 @@ public class MajorPopulateController {
     //ConstantsandStuff cs;
     //SqlRepository sqlRepo = new SqlRepository();
 
-    List<Major> majors = new ArrayList<>();
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
-        /* ConstantsAndStuff.populateMajorChoices();
         model.addAttribute("majorInfo", new Major());
-        model.addAttribute("majorChoices", ConstantsAndStuff.majorList); */
+        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
         
         return "form";
     }
 
     @PostMapping("/submitRegister")
-    public String HandlerRegister(@Valid Student student, BindingResult result, Model model) {
-        model.addAttribute("majorChoices", ConstantsAndStuff.majorList);
+    public String HandlerRegister(@Valid Student student, BindingResult result, Model model) throws Exception {
+        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
         if (!(student.getPassword().equals(student.getPasswordValidation()))) result.rejectValue("passwordValidation", "", "Passwords Must Match");
         if (result.hasErrors()) return "register";
         ConstantsAndStuff.CreateStudent(student);
@@ -49,8 +47,8 @@ public class MajorPopulateController {
     public String register(Model model) throws Exception {
         Student student = new Student();
         model.addAttribute("student", student);
-        ConstantsAndStuff.populateMajorChoices();
-        model.addAttribute("majorChoices", ConstantsAndStuff.majorList);
+        //ConstantsAndStuff.populateMajorChoices();
+        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
         return "register";
     }
 
@@ -64,13 +62,13 @@ public class MajorPopulateController {
     //     return "redirect:/mainpage";
     // }
 
-    // @GetMapping("/mainpage")
-    // public String populateInfo(Model model) {
-    //     model.addAttribute("information", majors.get(0));
-    //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-    //     model.addAttribute("electives", ConstantsAndStuff.majorElectives);
-    //     model.addAttribute("description", classDescription);
-    //     return "mainpage";
-    // }
+    @GetMapping("/mainpage")
+    public String populateInfo(Model model) {
+         model.addAttribute("information", major.majorName);
+         model.addAttribute("classes", ConstantsAndStuff.showRequiredCourses(MajorId:null));
+         model.addAttribute("electives", ConstantsAndStuff.showMajorElectiveCourses(null));
+         model.addAttribute("description", major.getDescription);
+         return "mainpage";
+     }
 
 }
