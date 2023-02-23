@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.majors.majorpopulate.ConstantsAndStuff;
-<<<<<<< HEAD
 import com.majors.majorpopulate.Login;
-=======
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Student;
 
@@ -32,16 +29,10 @@ public class MajorPopulateController {
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
-<<<<<<< HEAD
         boolean invalid = false;
         Login login = new Login();
         model.addAttribute("incorrect", invalid);
         model.addAttribute("loginInfo", login);
-=======
-        /* ConstantsAndStuff.populateMajorChoices();
-        model.addAttribute("majorInfo", new Major());
-        model.addAttribute("majorChoices", ConstantsAndStuff.majorList); */
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
         
         return "form";
     }
@@ -52,11 +43,7 @@ public class MajorPopulateController {
         if (!(student.getPassword().equals(student.getPasswordValidation()))) result.rejectValue("passwordValidation", "", "Passwords Must Match");
         if (result.hasErrors()) return "register";
         ConstantsAndStuff.CreateStudent(student);
-<<<<<<< HEAD
        
-=======
-
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
         return "redirect:/form";
     }
 
@@ -69,7 +56,6 @@ public class MajorPopulateController {
         return "register";
     }
 
-<<<<<<< HEAD
     @PostMapping("/studentLogin")
     public String findStudent(@Valid Login login, Model model) throws Exception {
         String correctCredentials = ConstantsAndStuff.doesCredentialsMatch(login.getName(), login.getPassword());
@@ -83,8 +69,6 @@ public class MajorPopulateController {
         return "redirect:/mainpage";
     }
 
-=======
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
     //Commented out for now. Main Page not working just yet
 
     // @PostMapping("/submitMajor")
@@ -95,7 +79,6 @@ public class MajorPopulateController {
     //     return "redirect:/mainpage";
     // }
 
-<<<<<<< HEAD
     @GetMapping("/mainpage")
     public String populateInfo(Model model) {
         String majorName = ConstantsAndStuff.getMajorNameFromLoggedInUser(ConstantsAndStuff.loggedInUser.get(0).getName(), ConstantsAndStuff.loggedInUser.get(0).getPassword());
@@ -103,6 +86,7 @@ public class MajorPopulateController {
         model.addAttribute("information", new Major(name, majorName));
         System.out.println(name);
         String majorId = ConstantsAndStuff.getMajorIdFromName(majorName);
+        
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
@@ -111,15 +95,5 @@ public class MajorPopulateController {
     //     model.addAttribute("description", classDescription);
         return "mainpage";
     }
-=======
-    // @GetMapping("/mainpage")
-    // public String populateInfo(Model model) {
-    //     model.addAttribute("information", majors.get(0));
-    //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-    //     model.addAttribute("electives", ConstantsAndStuff.majorElectives);
-    //     model.addAttribute("description", classDescription);
-    //     return "mainpage";
-    // }
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
 
 }

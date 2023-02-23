@@ -107,7 +107,7 @@ public class SqlCaller {
     private List<Course> GetRequiredCoursesByMajorId(String MajorId) throws Exception{
         List<Course> RequiredCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s",MajorId);
+        String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s", MajorId);
         ResultSet result = sqlSt.executeQuery(query);
         while(result.next()){
             Course course = GetCourseById(result.getString("course_id"));
@@ -216,6 +216,7 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
             System.out.println("SQL IS BAD!!" + ex.getMessage());
             throw new SQLException(ex);
         }
+        
         return electiveGroupList;
     }
 
@@ -270,6 +271,9 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
         }
         return majorRequirements;
     }
+
+
+    
 }
 /* String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
 String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'"; */

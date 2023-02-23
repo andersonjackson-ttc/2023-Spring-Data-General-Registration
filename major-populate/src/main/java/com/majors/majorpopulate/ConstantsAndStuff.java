@@ -4,11 +4,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-<<<<<<< HEAD
 
-=======
-import org.springframework.boot.rsocket.server.ConfigurableRSocketServerFactory;
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,46 +17,36 @@ public class ConstantsAndStuff {
     //@Service 
     public static SqlCaller sql = new SqlCaller();
     public static List<String> majorList;
-<<<<<<< Updated upstream
     public static List<Login> loggedInUser = new ArrayList<>();
 
-=======
-    public static List<LoginCredentials> loggedInStudent;
-    
->>>>>>> Stashed changes
     public ConstantsAndStuff(){}
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
-<<<<<<< HEAD
         List<Major> totalMajorList = new ArrayList<>();
         //totalMajorList = sql.getAllMajors();
         majorList = sql.ShowMajorNames();
-        System.out.println(majorList);
-=======
-        List<Major> majorList = new ArrayList<>();
-        majorList = sql.getAllMajors();
-        //majorList = sql.ShowMajorNames();
-        System.out.println(majorList.get(0).getMajorName());
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
-        
     }
+
+    //Gets required classes from SQLcaller Class
+    // public static List<String> showRequiredCourses(Major major){
+    //     Course course;
+    //     List<String> requiredCourses = new ArrayList<>();
+    //     foreach (course: major.getRequiredCourses()){
+    //         requiredCourses.add(course.CourseName());
+    //     }
+    //     return requiredCourses;
+    // }
 
     
 
     
 
     //adds the major requirements and course id to the mainpage.html
-<<<<<<< HEAD
      public static Major showMajorRequirements(String MajorId) throws Exception{
             
              Major major = sql.GetMajorById(MajorId);
              return major;
-=======
-     public static void showMajorRequirements(String MajorId) throws Exception{
-            
-             Major major = sql.GetMajorById(MajorId);
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
                   
     }
     
@@ -88,7 +74,6 @@ public class ConstantsAndStuff {
         }
     }
 
-<<<<<<< Updated upstream
     //gets credentials from database to see if there is user
     public static String doesCredentialsMatch(String name, String password) {
         java.sql.Statement sqlSt; //runs sql
@@ -185,10 +170,6 @@ public class ConstantsAndStuff {
             
         }
         return "No Course Name";
-=======
-    public static void getLoggedInStudent(String name, String password) {
-        loggedInStudent.add(new LoginCredentials(name, password));
->>>>>>> Stashed changes
     }
 
 
