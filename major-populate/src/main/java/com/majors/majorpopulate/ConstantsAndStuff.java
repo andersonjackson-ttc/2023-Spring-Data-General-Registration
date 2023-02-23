@@ -18,39 +18,37 @@ public class ConstantsAndStuff {
     //make single connection to SQL. SqlCaller Class.
     //@Service 
     public static SqlCaller sql = new SqlCaller();
+    public static List<String> majorList;
     
-    public static List<Login> loggedInUser = new ArrayList<>();
-
     public ConstantsAndStuff(){}
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
-    public static List<String> populateMajorChoices() throws Exception{ 
-        List<String> majorList = new ArrayList<>();
+    public static void populateMajorChoices() throws Exception{ 
+        List<Major> majorList = new ArrayList<>();
+        majorList = sql.getAllMajors();
+        //majorList = sql.ShowMajorNames();
+        System.out.println(majorList.get(0).getMajorName());
         
-            majorList = sql.ShowMajorNames();   
-        
-        return majorList;
-    }
-
-    public static List<String> showRequiredCourses(String MajorId) throws Exception{ 
-        Major major = sql.GetMajorById(MajorId);   
-        List<String> listOfRequiredCourses = new ArrayList<>();
-        for (Course course : major.requiredCourses) {
-            listOfRequiredCourses.add(course.CourseName())
-        }
-        return listOfRequiredCourses;
     }
 
     //adds the major requirements and course id to the mainpage.html
-     public static List<String> showMajorElectiveCourses(String MajorId) throws Exception{
+     public static List<MajorElectiveGroup> showMajorRequirements(String MajorId) throws Exception{
+        List<MajorElectiveGroup> megs = new ArrayList<>();
              Major major = sql.GetMajorById(MajorId);
-             List<String> listOfElectives = new ArrayList<>();
-            for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
-                for (Course course : meg.CoursesInElectiveGroup()) {
-                    listOfElectives.add(course.CourseName());
-                }
-            }
-             return listOfElectives;              
+             
+            megs = major.getMajorElectiveGroups();
+            
+            return megs;
+                  
+    }
+    
+    public static List<String> showRequiredCourses(Major major){
+        Course course;
+        List<String> requiredCourses = new ArrayList<>();
+        foreach (course: major.getRequiredCourses()){
+            requiredCourses.add(course.CourseName());
+        }
+        return requiredCourses;
     }
     
       public static void CreateStudent(Student student){
@@ -92,11 +90,12 @@ public class ConstantsAndStuff {
             result = sqlSt.executeQuery(SQL);
             while(result.next() != false) { 
                 if(result.getString("count(id)").equals("1")){
-                    if (loggedInUser.size() == 1){
+                    List<Student> loggedInUser;
+                    /* if (loggedInUser.size() == 1){
                         loggedInUser.set(0, new Login(name, password));
                     } else {
                         loggedInUser.add(new Login(name, password));
-                    }
+                    } */
                 }
              return result.getString("count(id)");
             }
@@ -130,8 +129,8 @@ public class ConstantsAndStuff {
             result = sqlSt.executeQuery(SQL);
             while(result.next() != false) {
              
-             Major major = sql.GetMajorById(result.getString("major"));
-             return major.majorName;
+             Major major = sql.GetMajorById(result.getString("1001"));
+             return major.getMajorName();
             }
             sqlSt.close();
             
