@@ -20,9 +20,6 @@ import jakarta.validation.Valid;
 
 @Controller
 public class MajorPopulateController {
-    //@Autowired
-    //ConstantsandStuff cs;
-    //SqlRepository sqlRepo = new SqlRepository();
 
     List<Major> majors = new ArrayList<>();
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
@@ -80,13 +77,13 @@ public class MajorPopulateController {
     // }
 
     @GetMapping("/mainpage")
-    public String populateInfo(Model model) {
+    public String populateInfo(Model model) throws Exception {
         String majorName = ConstantsAndStuff.getMajorNameFromLoggedInUser(ConstantsAndStuff.loggedInUser.get(0).getName(), ConstantsAndStuff.loggedInUser.get(0).getPassword());
         String name = ConstantsAndStuff.loggedInUser.get(0).getName();
         model.addAttribute("information", new Major(name, majorName));
         System.out.println(name);
         String majorId = ConstantsAndStuff.getMajorIdFromName(majorName);
-        
+        model.addAttribute("coreRequirements", ConstantsAndStuff.getRequiredCoursesFromSQLcaller(majorId));
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))

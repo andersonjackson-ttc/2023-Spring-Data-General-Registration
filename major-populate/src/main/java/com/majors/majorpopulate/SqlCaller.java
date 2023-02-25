@@ -116,6 +116,22 @@ public class SqlCaller {
         return RequiredCourseList;
     }
 
+    /*
+     * 
+     * ADDED BY STEPHEN 
+     * till line 133
+     */
+    public List<String> getRequiredCoreClasses(String majorId) throws Exception{
+        List<String> requiredCoreCourses = new ArrayList<>();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s", majorId);
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            requiredCoreCourses.add(result.getString("course_id"));
+        }
+        return requiredCoreCourses;
+    }
+
     public List<EachClass> GetClassesByCourseId(String CourseId) throws Exception{
         sqlSt = dbConnect.createStatement();
         List<EachClass> classList = new ArrayList<>();

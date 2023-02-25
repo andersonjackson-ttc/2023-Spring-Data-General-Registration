@@ -23,8 +23,8 @@ public class ConstantsAndStuff {
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
-        List<Major> totalMajorList = new ArrayList<>();
-        //totalMajorList = sql.getAllMajors();
+        //List<Major> totalMajorList = new ArrayList<>();
+        //totalMajorList = sql.getAllMajors();                  //This is the total major object builder.
         majorList = sql.ShowMajorNames();
     }
 
@@ -37,6 +37,12 @@ public class ConstantsAndStuff {
     //     }
     //     return requiredCourses;
     // }
+
+    public static List<String> getRequiredCoursesFromSQLcaller(String majorId) throws Exception {
+        List<String> coursesList = new ArrayList<>();
+        coursesList = sql.getRequiredCoreClasses(majorId);
+        return coursesList;
+    }
 
     
 
@@ -75,6 +81,7 @@ public class ConstantsAndStuff {
     }
 
     //gets credentials from database to see if there is user
+    //if a user "logs out" and someone else logs in it will replace who the user is. 
     public static String doesCredentialsMatch(String name, String password) {
         java.sql.Statement sqlSt; //runs sql
         
@@ -148,7 +155,7 @@ public class ConstantsAndStuff {
         
         ResultSet result; //holds the output from the sql
         
-        String SQL = "SELECT major_id FROM tbl.majors where major_name = '" + majorName +"'";
+        String SQL = "SELECT major_id FROM tbl_majors where major_name = '" + majorName +"'";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
