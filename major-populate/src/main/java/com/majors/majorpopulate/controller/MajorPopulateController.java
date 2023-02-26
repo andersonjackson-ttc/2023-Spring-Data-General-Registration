@@ -36,7 +36,7 @@ public class MajorPopulateController {
     }
 
     @PostMapping("/submitRegister")
-    public String HandlerRegister(@Valid Student student, BindingResult result, Model model) {
+    public String HandlerRegister(@Valid Student student, BindingResult result, Model model) throws Exception {
         model.addAttribute("majorChoices", MajorService.majorList);
         if (!(student.getPassword().equals(student.getPasswordValidation()))) result.rejectValue("passwordValidation", "", "Passwords Must Match");
         if (result.hasErrors()) return "register";
@@ -56,7 +56,7 @@ public class MajorPopulateController {
 
     @PostMapping("/studentLogin")
     public String findStudent(@Valid Login login, Model model) throws Exception {
-        String correctCredentials = MajorService.doesCredentialsMatch(login.getName(), login.getPassword());
+        String correctCredentials = MajorService.validateLogin(login.getName(), login.getPassword());
         if(correctCredentials.equals("0")) {
             boolean invalid = true;
             model.addAttribute("incorrect", invalid);
@@ -83,7 +83,7 @@ public class MajorPopulateController {
         String name = MajorService.loggedInUser.get(0).getName();
         model.addAttribute("information", new Major(name, majorName));
         System.out.println(name);
-        model.addAttribute("coreRequirements", MajorService.getRequiredCoursesFromSQLcaller(MajorService.loggedInUser.get(0).getMajorID()));
+        model.addAttribute("coreRequirements", MajorService.showRequiredCourses(MajorService.loggedInUser.get(0).getMajorID()));
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
