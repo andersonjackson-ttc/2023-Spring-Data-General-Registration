@@ -117,9 +117,53 @@ public class SqlCaller {
     }
 
     /*
-     * 
      * ADDED BY STEPHEN 
-     * till line 133
+     * make sure credentails for login match a registered student in database
+     */
+     public boolean matchCredentials(String name, String password) throws Exception{
+        boolean studentInDatabase = false;
+        sqlSt = dbConnect.createStatement();
+        String query = String.format( "SELECT count(id) FROM tbl_student where name = '" + name + "' and password = '" + password + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next() != false){
+            if (result.getString("count(id)").equals("1")) {
+                studentInDatabase = true;
+            }
+        }
+        return studentInDatabase;
+    }
+
+     /*  
+     * ADDED BY STEPHEN 
+     * gets majorID from first getting major name from user if users credentials match. 
+     */
+     public String getMajorNameFromStudent(String name, String password) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT major_name FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next() != false){
+         return result.getString("major_name");
+        }
+        return "could not find major name";
+     }
+
+     /*
+      * STEPHEN 
+      * A CONTINUATION of getting the major id from the name _ FROM user trying to log in
+      */
+     public String getMajorId(String majorName) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT major_id FROM tbl_majors where major_name = '" + majorName +"'";
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next() != false) {
+            return result.getString("major_id");
+        }
+        return "could not find major ID";
+     }
+
+    /*
+     * ADDED BY STEPHEN 
+     * Gets required "Core Sections" (classes) just there to populate the main page with something
      */
     public List<String> getRequiredCoreClasses(String majorId) throws Exception{
         List<String> requiredCoreCourses = new ArrayList<>();
@@ -131,6 +175,9 @@ public class SqlCaller {
         }
         return requiredCoreCourses;
     }
+    /*
+     * END OF STEPHENS ADDITIONS
+     */
 
     public List<Section> GetClassesByCourseId(String CourseId) throws Exception{
         sqlSt = dbConnect.createStatement();
@@ -287,6 +334,7 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
         }
         return majorRequirements;
     }
+
 
 
     

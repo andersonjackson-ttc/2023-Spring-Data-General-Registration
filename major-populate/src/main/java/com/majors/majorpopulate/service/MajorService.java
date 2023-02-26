@@ -86,104 +86,23 @@ public class MajorService {
         }
     }
 
-    //gets credentials from database to see if there is user
+    //Calls database from SQLcaller to see if there is user
     //if a user "logs out" and someone else logs in it will replace who the user is. 
-    public static String doesCredentialsMatch(String name, String password) {
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT count(id) FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) { 
-                if(result.getString("count(id)").equals("1")){
-                    if (loggedInUser.size() == 1){
-                        loggedInUser.set(0, new Login(name, password));
-                    } else {
-                        loggedInUser.add(new Login(name, password));
-                    }
-                }
-             return result.getString("count(id)");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
-        }
-        return "No Course Name";
-       
+    public static String doesCredentialsMatch(String name, String password) throws Exception {
+        boolean isThereAStudent = sql.matchCredentials(name, password);
+        if (isThereAStudent == true){
+            String majorName = sql.getMajorNameFromStudent(name, password);
+            String majorId = sql.getMajorId(majorName);
+            if (loggedInUser.size() == 1) { 
+                loggedInUser.set(0, new Login(name, password, majorName, majorId)); return "1";
+            } else {
+                loggedInUser.add(new Login(name, password, majorName, majorId)); return "1";
+            } 
+        }   
+        return "0";  
     }
 
-    //gets major from logged in user
-    public static String getMajorNameFromLoggedInUser(String name, String password){
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT major_name FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) {
-             return result.getString("major_name");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-        }
-        return "No Course Name";
-    }
-
-    //gets the major ID from the name of major
-    public static String getMajorIdFromName(String majorName){
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT major_id FROM tbl_majors where major_name = '" + majorName +"'";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) {
-             return result.getString("major_id");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
-        }
-        return "No Course Name";
-    }
-
+  
     public static List<String> showCoursesByTerm(String term, Major major){
         List<String> courseList = new ArrayList<>();
 

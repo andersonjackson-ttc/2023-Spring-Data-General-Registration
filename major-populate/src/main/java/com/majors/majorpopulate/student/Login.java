@@ -4,6 +4,8 @@ public class Login {
     
     private String name;
     private String password;
+    private String majorName;
+    private String majorID;
     
     public Login() {
     }
@@ -11,6 +13,13 @@ public class Login {
     public Login(String name, String password) {
         this.name = name;
         this.password = password;
+    }
+
+    public Login(String name, String password, String majorName, String majorID) {
+        this.name = name;
+        this.password = password;
+        this.majorName = majorName;
+        this.majorID = majorID;
     }
 
     public String getName() {
@@ -37,5 +46,21 @@ public class Login {
     public Login password(String password) {
         setPassword(password);
         return this;
+    }
+
+    public String getMajorID() {
+        return this.majorID;
+    }
+
+    public void setMajorID(String majorID) {
+        this.majorID = majorID;
+    }
+
+    public String getMajorName() {
+        return this.majorName;
+    }
+
+    public void setMajorName(String majorName) {
+        this.majorName = majorName;
     }
 }

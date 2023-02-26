@@ -79,12 +79,11 @@ public class MajorPopulateController {
 
     @GetMapping("/mainpage")
     public String populateInfo(Model model) throws Exception {
-        String majorName = MajorService.getMajorNameFromLoggedInUser(MajorService.loggedInUser.get(0).getName(), MajorService.loggedInUser.get(0).getPassword());
+        String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
         model.addAttribute("information", new Major(name, majorName));
         System.out.println(name);
-        String majorId = MajorService.getMajorIdFromName(majorName);
-        model.addAttribute("coreRequirements", MajorService.getRequiredCoursesFromSQLcaller(majorId));
+        model.addAttribute("coreRequirements", MajorService.getRequiredCoursesFromSQLcaller(MajorService.loggedInUser.get(0).getMajorID()));
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
