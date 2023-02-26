@@ -9,7 +9,7 @@ import java.util.List;
 
 
 
-public class ConstantsAndStuff {
+public class MajorService {
     
     //make single connection to SQL. SqlCaller Class.
     //@Service 
@@ -17,7 +17,7 @@ public class ConstantsAndStuff {
     public static List<String> majorList;
     public static List<Login> loggedInUser = new ArrayList<>();
 
-    public ConstantsAndStuff(){}
+    public MajorService(){}
        
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static void populateMajorChoices() throws Exception{ 
