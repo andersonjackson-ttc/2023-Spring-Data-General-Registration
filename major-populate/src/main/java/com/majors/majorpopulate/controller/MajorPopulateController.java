@@ -10,10 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.majors.majorpopulate.MajorService;
-import com.majors.majorpopulate.Login;
 import com.majors.majorpopulate.Major;
-import com.majors.majorpopulate.Student;
+
+import com.majors.majorpopulate.service.MajorService;
+import com.majors.majorpopulate.student.Login;
+import com.majors.majorpopulate.student.Student;
 
 import jakarta.validation.Valid;
 

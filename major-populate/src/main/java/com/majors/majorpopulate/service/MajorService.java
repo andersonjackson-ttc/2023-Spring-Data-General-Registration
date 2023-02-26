@@ -1,8 +1,16 @@
-package com.majors.majorpopulate;
+package com.majors.majorpopulate.service;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.MajorPopulateApplication;
+import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.SqlCaller;
+import com.majors.majorpopulate.student.Login;
+import com.majors.majorpopulate.student.Student;
 
 import java.util.ArrayList;
 import java.util.List;

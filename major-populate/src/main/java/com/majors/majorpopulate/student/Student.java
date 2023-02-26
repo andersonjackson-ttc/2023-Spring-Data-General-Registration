@@ -1,4 +1,4 @@
-package com.majors.majorpopulate;
+package com.majors.majorpopulate.student;
 
 import jakarta.validation.constraints.NotBlank;
 
