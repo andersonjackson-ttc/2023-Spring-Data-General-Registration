@@ -13,3 +13,5 @@ major-populate/target/maven-status/maven-compiler-plugin/compile/default-compile
 major-populate/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 major-populate/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst
 major-populate/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+*.class
+*.class

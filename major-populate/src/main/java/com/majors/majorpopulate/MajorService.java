@@ -4,8 +4,6 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,7 +142,6 @@ public class ConstantsAndStuff {
         catch (SQLException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
         }
         return "No Course Name";
     }
@@ -179,7 +176,18 @@ public class ConstantsAndStuff {
         return "No Course Name";
     }
 
+    public static List<String> showCoursesByTerm(String term, Major major){
+        List<String> courseList = new ArrayList<>();
 
+        for (Course course: major.getRequiredCourses()) {
+           for (Section eachClass : course.Classes()) {
+                if (eachClass.CourseTerm() == term){
+                    courseList.add(course.CourseName());
+                }
+           } 
+        }
+        return courseList;
+    }
 }  
        
 
