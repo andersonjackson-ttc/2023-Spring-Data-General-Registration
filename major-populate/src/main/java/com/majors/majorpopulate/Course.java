@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public record Course (
-        List<EachClass> Classes,
+        List<Section> Classes,
         String CourseName,
         String CourseId,
         List<Course> PreRequisites,

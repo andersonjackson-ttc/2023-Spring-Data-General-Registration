@@ -3,7 +3,7 @@ package com.majors.majorpopulate;
 import java.sql.Date;
 import java.util.Objects;
 
-public record EachClass (
+public record Section (
         String CourseTitle,
         String CourseSection,
         String CourseDays,
@@ -17,7 +17,7 @@ public record EachClass (
         int CourseRegistered,
         int CourseAvailable) {
 
-                public EachClass{
+                public Section{
                         Objects.requireNonNull(CourseTitle);
                         Objects.requireNonNull(CourseSection);
                         Objects.requireNonNull(CourseTerm);

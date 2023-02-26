@@ -25,7 +25,7 @@ public class SqlCaller {
     //SqlRepository sqlRepo
     Statement sqlSt;
     Connection dbConnect;
-    private List<EachClass> classList;
+    private List<Section> classList;
     
     public SqlCaller(){
         try{
@@ -132,15 +132,15 @@ public class SqlCaller {
         return requiredCoreCourses;
     }
 
-    public List<EachClass> GetClassesByCourseId(String CourseId) throws Exception{
+    public List<Section> GetClassesByCourseId(String CourseId) throws Exception{
         sqlSt = dbConnect.createStatement();
-        List<EachClass> classList = new ArrayList<>();
+        List<Section> classList = new ArrayList<>();
         String query = String.format("Select * "
                                     +"FROM tbl_courses_offered "
                                     +"WHERE substr(course_section,1, 7) = '%s'" , CourseId.trim());
         ResultSet result = sqlSt.executeQuery(query);
             while(result.next()) {
-                EachClass eachClass = new EachClass(
+                Section eachClass = new Section(
                       result.getString("course_title"),
                       result.getString("course_section"),
                       result.getString("course_days"),
