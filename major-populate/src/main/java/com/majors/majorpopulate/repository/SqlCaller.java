@@ -1,7 +1,7 @@
 //This class will handle all of the calls to SQL.  eventually the url/username/password could be added to a settings file. Or taken as input and used for login purposes.
 // Place all calls to Join tables to filter SQL results here.
 
-package com.majors.majorpopulate;
+package com.majors.majorpopulate.repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,6 +16,10 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.MajorPopulateApplication;
+import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 
 //@Component

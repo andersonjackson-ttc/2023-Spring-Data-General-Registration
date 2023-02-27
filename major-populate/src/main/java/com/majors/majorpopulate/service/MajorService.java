@@ -1,14 +1,9 @@
 package com.majors.majorpopulate.service;
 
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
-import com.majors.majorpopulate.MajorPopulateApplication;
 import com.majors.majorpopulate.Section;
-import com.majors.majorpopulate.SqlCaller;
+import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
@@ -65,6 +60,13 @@ public class MajorService {
             } 
         }   
         return "0";  
+    }
+
+    //Calls getMajorById from sqlCaller and populates the logged in "users" major in the controller
+    public static Major getMajorById(String majorId) throws Exception{
+        Major major = sql.GetMajorById(majorId);
+        return major;
+        
     }
 
   

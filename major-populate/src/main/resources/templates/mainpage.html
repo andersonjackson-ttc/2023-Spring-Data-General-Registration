@@ -9,6 +9,7 @@
 </head>
 <body>
   <div class="topnav">
+    <a th:href="@{/courseSearch}">Course Search</a>
     <a th:href="@{/form}">Logout</a>
   </div>
   <div class="main-container">
@@ -21,14 +22,14 @@
     <div class="container">
         <table id="table">
           <tr>
-            <th>Course ID</th>
+            <th>Core Requirements</th>
           </tr>
           <tr th:each="coreRequirement : ${coreRequirements}">
-            <td th:th:text="${coreRequirement}"></td>
+            <td th:text="${coreRequirement.CourseName}"></td>
           </tr>
         </table>
     </div>
-      <!-- <div class= "container">
+     <!-- <div class= "container">
         <table id="table"> 
           <tr>
               <th>Major Name</th>
@@ -42,13 +43,10 @@
               <td th:text="${classInfo.courseId}"></td>
               <td th:text="${classInfo.courseName}"  th:onclick='tdclick("classInfo.courseName")'>
               </td>
-               <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
-            <!-- </tr>
+               <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td>
+            </tr>
             <tr>
-              <th>Major Name</th>
-              <th>Elective Group</th>
-              <th>Number Required</th>
-              <th>Courses</th>
+              <th>Electives</th>
             </tr>
             <tr th:each="elective : ${electives}">
               <td th:text="${elective.majorName}"></td>
@@ -59,10 +57,10 @@
               </td>
             </tr>
           </table>
-        </div>
+        </div> -->
         <div id="secondContainer">
           <p th:text="${description}"></p>
-        </div> -->
+        </div>
     </div> 
 </body>
 </html>
