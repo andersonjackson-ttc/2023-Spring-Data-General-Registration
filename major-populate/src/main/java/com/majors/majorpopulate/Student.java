@@ -1,8 +1,7 @@
 package com.majors.majorpopulate;
 
 import jakarta.validation.constraints.NotBlank;
-
-
+.
 public class Student {
     @NotBlank (message = "Cannot Be Blank")
     private String name;
