@@ -10,4 +10,5 @@ public record Course (
         List<Course> PreRequisites,
         List<Course> CoRequisites
 ) {
+        
 }

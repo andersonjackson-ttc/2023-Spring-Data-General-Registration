@@ -63,17 +63,14 @@ public class MajorPopulateController {
     public String populateInfo(Model model) throws Exception {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
-        // Major major = MajorService.getMajorById(majorName);
-        // System.out.println(major.getRequiredCourses());
-        // System.out.println(major.getRequiredCourses());
+        Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         model.addAttribute("information", new Major(name, majorName));
-        System.out.println(name);
-        model.addAttribute("coreRequirements", MajorService.showRequiredCourses(MajorService.loggedInUser.get(0).getMajorID()));
+        model.addAttribute("coreRequirements", major.getRequiredCourses());
+        // model.addAttribute("electives", major.getMajorElectiveGroups());
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
     //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-    //     model.addAttribute("electives", ConstantsAndStuff.majorElectives);
     //     model.addAttribute("description", classDescription);
         return "mainpage";
     }
