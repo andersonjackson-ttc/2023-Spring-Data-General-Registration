@@ -22,14 +22,22 @@ public class MajorService {
     //make single connection to SQL. SqlCaller Class.
     //@Service 
     public static SqlCaller sql = new SqlCaller();
-    public static List<String> majorList;
+    
     public static List<Login> loggedInUser = new ArrayList<>();
 
-    public MajorService(){}
+    public MajorService(){
+        
+    }
        
+    public static Major getMajor(String MajorId) throws Exception{
+        Major major = sql.GetMajorById(MajorId);
+        return major;
+    }
     //adds all the majors to a list to add to the dropdown Select option on form.html
-    public static void populateMajorChoices() throws Exception{ 
+    public static List<String> populateMajorChoices() throws Exception{ 
+        List<String> majorList = new ArrayList<>();
         majorList = sql.ShowMajorNames();
+        return majorList;
     }
 
     //Gets required classes from SQLcaller Class

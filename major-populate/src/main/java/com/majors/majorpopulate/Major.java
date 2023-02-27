@@ -69,8 +69,7 @@ public class Major {
     }
     
     public record MajorElectiveGroup(
-        String MajorId,
-        String MajorName,
+        String ElectiveGroupName,
         String ElectiveGroupId,
         int NumRequired,
         List<Course> CoursesInElectiveGroup

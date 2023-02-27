@@ -40,7 +40,7 @@
               <td th:text="${classInfo.name}"></td>
               <td th:text="${classInfo.reqType}"></td>
               <td th:text="${classInfo.courseId}"></td>
-              <td th:text="${classInfo.courseName}"  th:onclick='tdclick("value")'>
+              <td th:text="${classInfo.courseName}"  th:onclick='tdclick("classInfo.courseName")'>
               </td>
                <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
             <!-- </tr>

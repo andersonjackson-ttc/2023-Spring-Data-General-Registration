@@ -265,8 +265,7 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
             while (result.next()){
                 //get electives in each elective group
                 meg = new MajorElectiveGroup(
-                    result.getString("major_id"), 
-                    result.getString("major_name"), 
+                    result.getString("elective_name"),
                     result.getString("elective_id"), 
                     result.getInt("nbr_required"),
                     GetElectivesByElectiveGroup(result.getString("elective_id"))
