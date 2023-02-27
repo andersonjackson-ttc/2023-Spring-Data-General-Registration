@@ -93,4 +93,9 @@ public class MajorPopulateController {
         return "mainpage";
     }
 
+    @GetMapping("/courseSearch")
+    public String getCourseSearch(){
+        return "course-search";
+    }
+
 }
