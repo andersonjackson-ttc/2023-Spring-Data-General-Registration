@@ -1,9 +1,5 @@
 package com.majors.majorpopulate.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +18,6 @@ import jakarta.validation.Valid;
 @Controller
 public class MajorPopulateController {
 
-    List<Major> majors = new ArrayList<>();
-    // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
-
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
         boolean invalid = false;
@@ -37,11 +30,10 @@ public class MajorPopulateController {
 
     @PostMapping("/submitRegister")
     public String HandlerRegister(@Valid Student student, BindingResult result, Model model) throws Exception {
-        model.addAttribute("majorChoices", MajorService.majorList);
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
         if (!(student.getPassword().equals(student.getPasswordValidation()))) result.rejectValue("passwordValidation", "", "Passwords Must Match");
         if (result.hasErrors()) return "register";
         MajorService.CreateStudent(student);
-       
         return "redirect:/form";
     }
 
@@ -50,7 +42,7 @@ public class MajorPopulateController {
         Student student = new Student();
         model.addAttribute("student", student);
         MajorService.populateMajorChoices();
-        model.addAttribute("majorChoices", MajorService.majorList);
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
         return "register";
     }
 
@@ -67,20 +59,13 @@ public class MajorPopulateController {
         return "redirect:/mainpage";
     }
 
-    //Commented out for now. Main Page not working just yet
-
-    // @PostMapping("/submitMajor")
-    // public String handleMajor(Major major) {
-    //     majors.add(major);
-    //     //ConstantsAndStuff.showMajorRequirements(major.getName());
-        
-    //     return "redirect:/mainpage";
-    // }
-
     @GetMapping("/mainpage")
     public String populateInfo(Model model) throws Exception {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
+        // Major major = MajorService.getMajorById(majorName);
+        // System.out.println(major.getRequiredCourses());
+        // System.out.println(major.getRequiredCourses());
         model.addAttribute("information", new Major(name, majorName));
         System.out.println(name);
         model.addAttribute("coreRequirements", MajorService.showRequiredCourses(MajorService.loggedInUser.get(0).getMajorID()));
