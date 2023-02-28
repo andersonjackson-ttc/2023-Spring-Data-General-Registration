@@ -6,12 +6,14 @@ public class MajorRequirements {
     private String courseId;
     private String courseName;
 
+
     public MajorRequirements(String name, String reqType, String courseId, String courseName) {
         this.name = name;
         this.reqType = reqType;
         this.courseId = courseId;
         this.courseName = courseName;
     }
+
 
     public MajorRequirements() {
     }
@@ -43,7 +45,7 @@ public class MajorRequirements {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
-
+    
     public String getCourseName() {
         return courseName;
     }

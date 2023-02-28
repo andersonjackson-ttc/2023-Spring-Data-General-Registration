@@ -2,7 +2,7 @@ package com.majors.majorpopulate;
 
 import java.util.Date;
 
-public record Course(
+public record Course (
         String CourseTitle,
         String CourseSection,
         String CourseDays,
@@ -16,3 +16,4 @@ public record Course(
         int CourseRegistered,
         int CourseAvailable) {
 }
+ 

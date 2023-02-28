@@ -2,8 +2,9 @@ package com.majors.majorpopulate;
 
 public class MajorElectives {
     private String majorName;
-    private String electiveGroup;
+    private String electiveGroup; 
     private String numbRequired;
+
 
     public MajorElectives() {
     }
@@ -38,4 +39,6 @@ public class MajorElectives {
         this.numbRequired = numbRequired;
     }
 
+  
+ 
 }
