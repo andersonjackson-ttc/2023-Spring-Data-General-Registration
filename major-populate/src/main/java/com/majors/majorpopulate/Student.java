@@ -1,5 +1,7 @@
 package com.majors.majorpopulate;
 
+import com.majors.majorpopulate.Major;
+
 import jakarta.validation.constraints.NotBlank;
 
 
@@ -11,11 +13,11 @@ public class Student {
     @NotBlank (message = "Cannot Be Blank")
     private String passwordValidation;
     @NotBlank (message = "Cannot Be Blank")
-    private String major;
+    private Major major;
      
     public Student()
     {}
-    public Student(String name, String password, String passwordValidation, String major) {
+    public Student(String name, String password, String passwordValidation, Major major) {
         this.name = name;
         this.password = password;
         this.passwordValidation = passwordValidation;
@@ -38,11 +40,11 @@ public class Student {
         this.password = password;
     }
 
-    public String getMajor() {
+    public Major getMajor() {
         return major;
     }
 
-    public void setMajor(String major) {
+    public void setMajor(Major major) {
         this.major = major;
     }
 
@@ -54,6 +56,9 @@ public class Student {
         return passwordValidation;
     }
     
+    public String getMajorId(){
+        return major.getMajorId();
+    }
     @Override
     public String toString() {
         return "Student{" +

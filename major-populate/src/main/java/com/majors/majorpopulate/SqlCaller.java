@@ -16,6 +16,14 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/SqlCaller.java
+=======
+import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.MajorPopulateApplication;
+import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.student.Student;
+>>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 
 //@Component
@@ -115,6 +123,72 @@ public class SqlCaller {
         return RequiredCourseList;
     }
 
+<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/SqlCaller.java
+=======
+    /*
+     * ADDED BY STEPHEN 
+     * make sure credentails for login match a registered student in database
+     */
+     public boolean matchCredentials(String name, String password) throws Exception{
+        boolean studentInDatabase = false;
+        sqlSt = dbConnect.createStatement();
+        String query = String.format( "SELECT count(id) FROM tbl_student where name = '" + name + "' and password = '" + password + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next() != false){
+            if (result.getString("count(id)").equals("1")) {
+                studentInDatabase = true;
+            }
+        }
+        return studentInDatabase;
+    }
+
+     /*  
+     * ADDED BY STEPHEN 
+     * gets majorID from first getting major name from user if users credentials match. 
+     */
+     public String getMajorNameFromStudent(String name, String password) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT major_name FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next() != false){
+         return result.getString("major_name");
+        }
+        return "could not find major name";
+     }
+
+      /*
+      * STEPHEN 
+      * A CONTINUATION of getting the major id from the name _ FROM user trying to log in
+      */
+     public String getMajorId(String majorName) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT major_id FROM tbl_majors where major_name = '" + majorName +"'";
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next() != false) {
+            return result.getString("major_id");
+        }
+        return "could not find major ID";
+     }
+ 
+    /*
+     * ADDED BY STEPHEN 
+     * Gets required "Core Sections" (classes) just there to populate the main page with something
+     */
+    public List<String> getRequiredCoreClasses(String majorId) throws Exception{
+        List<String> requiredCoreCourses = new ArrayList<>();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s", majorId);
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            requiredCoreCourses.add(result.getString("course_id"));
+        }
+        return requiredCoreCourses;
+    }
+    /*
+     * END OF STEPHENS ADDITIONS
+     */
+
+>>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java
     public List<Section> GetClassesByCourseId(String CourseId) throws Exception{
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
@@ -241,5 +315,38 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
         return electiveCourses;
     }
 
+<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/SqlCaller.java
 
 }
+=======
+    public void CreateStudent(String name, String password, Major major)throws Exception{
+        sqlSt = dbConnect.createStatement(); //allows SQL to be executed
+        String SQL = "INSERT tbl_student(name,password,major_name) VALUES('"+name+"',+'"+password+
+                "','"+major.getMajorName()+"')";
+        try {
+            sqlSt.execute(SQL);
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+    }
+
+    /* public void GetStudent(String name)throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)
+    } */
+
+    public void updateCourseRegistered(Student student, Course course)throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String SQL = String.format("INSERT INTO tbl_registration (student_id, major_id, course_id, reg_dts)"+
+                    "VALUES (%s, %s, %s, %s)",student.getName(),student.getMajorId(),course.CourseId(), null);
+        try {
+            sqlSt.execute(SQL);
+        } catch (Exception ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        } 
+    }
+}
+>>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java
