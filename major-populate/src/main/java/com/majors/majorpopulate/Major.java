@@ -4,21 +4,22 @@ public class Major {
     private String name;
     private String majorName;
     private String MajorId;
-    
+
     public Major(String majorName) {
         this.majorName = majorName;
     }
-    
+
     public Major() {
     }
-    
+
     public String getMajorName() {
         return this.majorName;
     }
-    
+
     public void setMajorName(String name) {
         this.majorName = name;
     }
+
     public String getName() {
         return name;
     }
@@ -36,3 +37,4 @@ public class Major {
     }
 
 }
+// .
