@@ -41,7 +41,6 @@
   
   
   #table {
-    table-layout: fixed;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -49,7 +48,7 @@
     border-color: white;
     border-style: solid;
     font-size: 18px;
-    overflow-y: scroll visible;
+    overflow-y: scroll;
 
   
   }
