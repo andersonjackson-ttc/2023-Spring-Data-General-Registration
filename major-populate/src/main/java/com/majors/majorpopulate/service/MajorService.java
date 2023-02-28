@@ -30,6 +30,7 @@ public class MajorService {
     }
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static List<String> populateMajorChoices() throws Exception{ 
+        //List<Major> listofmajors = sql.getAllMajors();
         List<String> majorList = new ArrayList<>();
         majorList = sql.ShowMajorNames();
         return majorList;

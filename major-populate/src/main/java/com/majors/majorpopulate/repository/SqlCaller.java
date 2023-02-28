@@ -261,8 +261,10 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         MajorElectiveGroup meg;
         List<MajorElectiveGroup> electiveGroupList =  new ArrayList<>();
         String query = String.format("SELECT * "+
-                                        "FROM cpt275_db.tbl_major_electives " +
-                                        "where major_id = %s", MajorId);
+        "FROM cpt275_db.tbl_major_electives electives "+
+        "Join tbl_elective_groups eg "+
+        "ON electives.elective_id = eg.elective_id "+
+        "WHERE major_id = %s", MajorId);
 
         try {
             ResultSet result = sqlSt.executeQuery(query);
