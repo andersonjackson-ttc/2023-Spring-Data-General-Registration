@@ -14,8 +14,8 @@ public record Section (
         String CourseBuildingNum,
         String CourseRoomNum,
         String CourseType,
-        int CourseRegistered,
-        int CourseAvailable) {
+        int SeatsTaken,
+        int SeatsAvailable) {
 
                 public Section{
                         Objects.requireNonNull(CourseTitle);

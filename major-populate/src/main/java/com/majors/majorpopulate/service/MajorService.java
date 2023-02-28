@@ -3,12 +3,17 @@ package com.majors.majorpopulate.service;
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 
 
@@ -23,14 +28,9 @@ public class MajorService {
     public MajorService(){
         
     }
-       
-    public static Major getMajor(String MajorId) throws Exception{
-        Major major = sql.GetMajorById(MajorId);
-        return major;
-    }
+    
     //adds all the majors to a list to add to the dropdown Select option on form.html
     public static List<String> populateMajorChoices() throws Exception{ 
-        //List<Major> listofmajors = sql.getAllMajors();
         List<String> majorList = new ArrayList<>();
         majorList = sql.ShowMajorNames();
         return majorList;
@@ -42,7 +42,7 @@ public class MajorService {
         coursesList = sql.getRequiredCoreClasses(majorId);
         return coursesList;
     }
-
+    //Enters new user login credentials into the sql-db
       public static void CreateStudent(Student student) throws Exception{
         sql.CreateStudent(student.getName(), student.getPassword(), student.getMajor());
     }
@@ -83,7 +83,16 @@ public class MajorService {
         }
         return courseList;
     }
-}  
+
+    public static Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
+        Hashtable<MajorElectiveGroup, List<Course>> courseList = new Hashtable<>();
+
+        for (MajorElectiveGroup meg: major.getMajorElectiveGroups()) {
+                courseList.put(meg, meg.CoursesInElectiveGroup());    
+           } 
+           return courseList;
+        }
+    }
        
 
 

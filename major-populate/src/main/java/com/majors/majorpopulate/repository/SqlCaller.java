@@ -202,8 +202,8 @@ public class SqlCaller {
                       result.getString("course_building_nbr"),
                       result.getString("course_room"),
                       result.getString("course_type"),
-                      result.getInt("idk_seats_avail"),
-                      result.getInt("idk_seats_waitlist"));
+                      result.getInt("total_seats"),
+                      result.getInt("seats_taken"));
               classList.add(eachClass);
               }
               return classList;
@@ -322,4 +322,9 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
             System.out.println("SQL IS BAD!!" + ex.getMessage());
         }
     }
+
+    /* public void BuildStudent(String name)throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)
+    } */
 }
