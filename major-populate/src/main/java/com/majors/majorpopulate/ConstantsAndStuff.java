@@ -1,70 +1,73 @@
 package com.majors.majorpopulate;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-<<<<<<< HEAD
-
-=======
-import org.springframework.boot.rsocket.server.ConfigurableRSocketServerFactory;
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+@Component
 public class ConstantsAndStuff {
     
-    //make single connection to SQL. SqlCaller Class.
-    //@Service 
-    public static SqlCaller sql = new SqlCaller();
-    public static List<String> majorList;
-<<<<<<< Updated upstream
-    public static List<Login> loggedInUser = new ArrayList<>();
+    //make single connection to SQL. SqlCaller Class.  
+    private  SqlCaller sql ;
+    public  List<String> majorList;
+    public static List<MajorRequirements> majorRequirement = new ArrayList<>();
+    public static List<MajorElectives> majorElectives = new ArrayList<>();
 
-=======
-    public static List<LoginCredentials> loggedInStudent;
-    
->>>>>>> Stashed changes
-    public ConstantsAndStuff(){}
-       
+    public ConstantsAndStuff()
+    {
+        majorList = new ArrayList<>();
+        sql = new SqlCaller();
+    }
     //adds all the majors to a list to add to the dropdown Select option on form.html
-    public static void populateMajorChoices() throws Exception{ 
-<<<<<<< HEAD
-        List<Major> totalMajorList = new ArrayList<>();
-        //totalMajorList = sql.getAllMajors();
+    public  void populateMajorChoices() throws Exception{
+
         majorList = sql.ShowMajorNames();
-        System.out.println(majorList);
-=======
-        List<Major> majorList = new ArrayList<>();
-        majorList = sql.getAllMajors();
-        //majorList = sql.ShowMajorNames();
-        System.out.println(majorList.get(0).getMajorName());
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
         
     }
 
-    
-
-    
-
     //adds the major requirements and course id to the mainpage.html
-<<<<<<< HEAD
-     public static Major showMajorRequirements(String MajorId) throws Exception{
+     public  void showMajorRequirements(String nameOfMajor) throws Exception{
             
-             Major major = sql.GetMajorById(MajorId);
-             return major;
-=======
-     public static void showMajorRequirements(String MajorId) throws Exception{
+        
+             List<MajorRequirements> result = sql.ShowMajorRequirementSet();
             
-             Major major = sql.GetMajorById(MajorId);
->>>>>>> d7e293ae3eb7dcb4cf16b2832683471041c7df94
-                  
+             for (MajorRequirements majorRequirements : result) {
+                
+             }
+               
+                //majorElectives.add(new MajorElectives(result.getString("major_name"), result.getString("elective_group"), result.getString("nbr_required")));   
     }
-    
-      public static void CreateStudent(Student student){
+    public  int Login(Student student) {
+        try {
+            return sql.Login(student);
+        } catch (Exception ex) {
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+            return 0;
+        }
+    }
+    public  Student GetStudent(int idStudent) {
+        try {
+            return sql.GetStudent(idStudent);
+        } catch (Exception ex) {
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+            return null;
+        }
+    }
+    public  void CreateStudent(Student student){
+        try {
+            sql.CreateStudent(student);
+        }
+        catch (Exception ex)
+        {
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+
+        }
+        /*
         java.sql.Statement sqlSt; //runs sql
 
         String SQL = "INSERT tbl_student(name,password,major_name) VALUES('"+student.getName()+"',+'"+student.getPassword()+
@@ -72,7 +75,7 @@ public class ConstantsAndStuff {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
+            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "");
             sqlSt = dbConnect.createStatement(); //allows SQL to be executed
             sqlSt.execute(SQL);
             sqlSt.close();
@@ -86,111 +89,20 @@ public class ConstantsAndStuff {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
 
         }
+        */
     }
-
-<<<<<<< Updated upstream
-    //gets credentials from database to see if there is user
-    public static String doesCredentialsMatch(String name, String password) {
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT count(id) FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
+    public void MajorRequirements(String nameOfMajor)
+    {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) { 
-                if(result.getString("count(id)").equals("1")){
-                    if (loggedInUser.size() == 1){
-                        loggedInUser.set(0, new Login(name, password));
-                    } else {
-                        loggedInUser.add(new Login(name, password));
-                    }
-                }
-             return result.getString("count(id)");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
+           var result =  sql.GetRequirements(nameOfMajor);
+            majorRequirement = result.getMajorRequirement();
+            majorElectives = result.getMajorElectives();
         }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+        catch (Exception ex)
+        {
             System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
         }
-        return "No Course Name";
-       
     }
-
-    //gets major from logged in user
-    public static String getMajorNameFromLoggedInUser(String name, String password){
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT major_name FROM tbl_student where name = '" + name + "' and password = '" + password + "'";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) {
-             return result.getString("major_name");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
-        }
-        return "No Course Name";
-    }
-
-    //gets the major ID from the name of major
-    public static String getMajorIdFromName(String majorName){
-        java.sql.Statement sqlSt; //runs sql
-        
-        ResultSet result; //holds the output from the sql
-        
-        String SQL = "SELECT major_id FROM tbl.majors where major_name = '" + majorName +"'";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbURL = "jdbc:mysql://127.0.0.1:3306/cpt275_db";
-            Connection dbConnect = DriverManager.getConnection(dbURL, "root", "root");
-            sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-            result = sqlSt.executeQuery(SQL);
-            while(result.next() != false) {
-             return result.getString("major_id");
-            }
-            sqlSt.close();
-            
-        }catch(ClassNotFoundException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Class not Found, Check the JAR");
-        }
-        catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("SQL IS BAD!!" + ex.getMessage());
-            
-        }
-        return "No Course Name";
-=======
-    public static void getLoggedInStudent(String name, String password) {
-        loggedInStudent.add(new LoginCredentials(name, password));
->>>>>>> Stashed changes
-    }
-
 
 }  
        

@@ -1,13 +1,19 @@
 package com.majors.majorpopulate;
 
-import java.util.List;
-
+import java.util.Date;
 
 public record Course (
-        List<EachClass> Classes,
-        String CourseName,
-        String CourseId,
-        List<Course> PreRequisites,
-        List<Course> CoRequisites
-) {
+        String CourseTitle,
+        String CourseSection,
+        String CourseDays,
+        String CourseTerm,
+        Date[] CourseTermDates,
+        Date[] CourseTime,
+        String CourseLocation,
+        String CourseBuildingNum,
+        String CourseRoomNum,
+        String CourseType,
+        int CourseRegistered,
+        int CourseAvailable) {
 }
+ 
