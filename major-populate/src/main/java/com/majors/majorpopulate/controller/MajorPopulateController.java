@@ -66,7 +66,7 @@ public class MajorPopulateController {
         Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
-        model.addAttribute("electives", major.getMajorElectiveGroups());
+        model.addAttribute("electives", major.MajorElectiveGroups);
     
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))

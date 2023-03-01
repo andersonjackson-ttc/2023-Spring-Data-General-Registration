@@ -1,4 +1,4 @@
-package com.majors.majorpopulate;
+/* package com.majors.majorpopulate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.majors.majorpopulate.student.Student;
+
 
 @Controller
 public class MajorPopulateController {
     @Autowired
-    private ConstantsAndStuff _constantsAndStuff;
+    MajorService MajorService;
+
     private List<Major> majors = new ArrayList<>();
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
     @GetMapping("/")
@@ -91,4 +94,4 @@ public class MajorPopulateController {
          return "mainpage";
      }
 
-}
+} */

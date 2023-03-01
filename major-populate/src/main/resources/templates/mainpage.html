@@ -19,6 +19,25 @@
       <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.getMajor()} "></h1>
       <h2 style="color:white;">Here are your Courses...</h2>
     </div>
+    <div class="container">
+      <table id="table">
+        <tr>
+          <th>Core Requirements</th>
+        </tr>
+        <tr th:each="coreRequirement : ${coreRequirements}">
+          <td th:text="${coreRequirement?.CourseName} "></td>
+        </tr>
+        <tr>
+          <th>Electives / Number of Electives Required</th>
+        </tr>
+        <tr th:each="elective : ${electives}">
+          <!-- <td th:text="${elective.ElectiveGroupId}"></td> -->
+          <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}" ></td>
+          <!-- <td th:text="${elective?.CourseName}"></td> -->
+          <!-- <td th:th:text="${elective.NumRequired}"></td> -->
+        </tr>
+      </table>
+    </div>
       <!-- <div class= "container">
         <table id="table"> 
           <tr>

@@ -74,7 +74,7 @@ public class MajorService {
     public static List<String> showCoursesByTerm(String term, Major major){
         List<String> courseList = new ArrayList<>();
 
-        for (Course course: major.getRequiredCourses()) {
+        for (Course course: major.RequiredCourses) {
            for (Section eachClass : course.Classes()) {
                 if (eachClass.CourseTerm() == term){
                     courseList.add(course.CourseName());
@@ -87,7 +87,7 @@ public class MajorService {
     public static Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
         Hashtable<MajorElectiveGroup, List<Course>> courseList = new Hashtable<>();
 
-        for (MajorElectiveGroup meg: major.getMajorElectiveGroups()) {
+        for (MajorElectiveGroup meg: major.MajorElectiveGroups) {
                 courseList.put(meg, meg.CoursesInElectiveGroup());    
            } 
            return courseList;

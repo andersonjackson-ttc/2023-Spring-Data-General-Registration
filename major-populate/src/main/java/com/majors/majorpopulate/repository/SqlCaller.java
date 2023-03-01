@@ -5,6 +5,7 @@ package com.majors.majorpopulate.repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,6 +21,7 @@ import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.MajorPopulateApplication;
 import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.student.Student;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 
 public class SqlCaller {
@@ -41,7 +43,6 @@ public class SqlCaller {
             Connection dbConnect = DriverManager.getConnection(props.getProperty("spring.datasource.url"), 
             props.getProperty("spring.datasource.username"), props.getProperty("spring.datasource.password"));
             sqlSt = dbConnect.createStatement();
-            var t = 4;
             
         }catch(ClassNotFoundException ex) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,8 +55,9 @@ public class SqlCaller {
         }catch (FileNotFoundException ex){
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Properties File Failed to Load" + ex.getMessage());
-        }catch (Exception exception) {
-            var l = 4;
+        }catch(IOException ex){
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("IOException" + ex.getMessage());
         }
         
     }
@@ -86,6 +88,9 @@ public class SqlCaller {
         while(result.next() != false) {
             major.setMajorName(result.getString("major_name"));
             major.setMajorId(majorId);
+            major.setMajorId(result.getString("major_id"));
+            major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
+            major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
         }        
        return major;                        
     }
@@ -192,31 +197,22 @@ public class SqlCaller {
     
         
     }
-
     public Course GetCourseById(String CourseId) throws Exception{
-        
-        String query = String.format("Select * "
-                                    +"FROM tbl_courses_offered"
-                                    +"WHERE substr(course_section,1, 7) = %s" , CourseId);
-        ResultSet result = sqlSt.executeQuery(query);
-        while(result.next()) {
-          course = new Course(
-                result.getString("course_title"),
-                result.getString("course_section"),
-                result.getString("course_days"),
-                result.getString("course_term"),
-                null,
-                null,
-                result.getString("course_location"),
-                result.getString("course_building_nbr"),
-                result.getString("course_room"),
-                result.getString("course_type"),
-                result.getInt("idk_seats_available"),
-                result.getInt("idk_seats_waitlist"));
+        Course course;
+        sqlSt = dbConnect.createStatement();
+        try{
+        classList = GetClassesByCourseId(CourseId);
+        course = new Course(
+            classList, 
+            classList.get(0).CourseTitle(),
+            CourseId, 
+            GetPreReqCoursesByCourseId(CourseId), 
+            GetCoReqCoursesByCourseId(CourseId));
+        }catch (Exception ex){
+            return null;
         }
         return course;
     }
-
 public List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception{
     List<Course> coReqCourseList = new ArrayList<>();
     sqlSt = dbConnect.createStatement();
@@ -276,7 +272,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         
         return electiveGroupList;
     }
-    public void GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
+    public List<Course> GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
+        List<Course> electiveCourses = new ArrayList<>();
         String query = String.format("select * from tbl_elective_courses where elective_id = %s", electiveGroupId);
         try {
             ResultSet result = sqlSt.executeQuery(query);
@@ -293,6 +290,7 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
             System.out.println("SQL IS BAD!!" + ex.getMessage());
             throw new SQLException(ex);
         }
+        return electiveCourses;
     }
 
     public void CreateStudent(String name, String password, String major_name)throws Exception{
@@ -312,7 +310,7 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         sqlSt = dbConnect.createStatement();
         String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)
     } */
-}
+/* }
     public void CreateStudent(Student student) throws Exception{
 
         try {
@@ -328,7 +326,7 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
             System.out.println("SQL IS BAD!!" + ex.getMessage());
 
         }
-    }
+    } */
     public int Login(Student student)throws Exception
     {
         String sql = "select * from tbl_student where name= '"+student.getName()+"' and password ='"+student.getPassword()+"'";
@@ -337,14 +335,13 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         while(result.next())
         {
              value = result.getInt(1);
-
         }
         if(value >= 1)
             return  value;
         else
             return  value;
     }
-    public Student GetStudent(int id)throws Exception
+    /* public Student GetStudent(int id)throws Exception
     {
         String sql = "select * from tbl_student where student_id= '"+id+"'";
         ResultSet result = sqlSt.executeQuery(sql);
@@ -357,8 +354,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
 
         }
         return student;
-    }
-    public RequirementsForMajor GetRequirements(String nameOfMajor)
+    } */
+    /* public RequirementsForMajor GetRequirements(String nameOfMajor)
     {
         RequirementsForMajor resultData = new RequirementsForMajor();
         ResultSet result;
@@ -389,7 +386,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
 
         }
         return resultData;
-    }
+    } */
 }
 /* String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '" + nameOfMajor + "'";
 String SQLMajorElectives = "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'"; */
+
