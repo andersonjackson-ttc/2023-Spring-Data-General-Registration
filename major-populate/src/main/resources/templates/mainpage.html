@@ -24,7 +24,7 @@
             <th>Core Requirements</th>
           </tr>
           <tr th:each="coreRequirement : ${coreRequirements}">
-            <td th:text="${coreRequirement.CourseName}"></td>
+            <td th:text="${coreRequirement?.CourseName} "></td>
           </tr>
           <tr>
             <th>Electives / Number of Electives Required</th>
@@ -32,7 +32,7 @@
           <tr th:each="elective : ${electives}">
             <!-- <td th:text="${elective.ElectiveGroupId}"></td> -->
             <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}" ></td>
-            <!-- <td th:text="${elective.CourseName}"></td> -->
+            <!-- <td th:text="${elective?.CourseName}"></td> -->
             <!-- <td th:th:text="${elective.NumRequired}"></td> -->
           </tr>
         </table>
