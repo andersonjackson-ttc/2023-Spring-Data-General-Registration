@@ -1,9 +1,13 @@
 package com.majors.majorpopulate.controller;
 
+<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.List;
 
 
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> Stashed changes
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +28,9 @@ public class MajorPopulateController {
     //SqlRepository sqlRepo = new SqlRepository();
 
     // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
+
+    @Autowired
+    MajorService MajorService;
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
@@ -47,8 +54,12 @@ public class MajorPopulateController {
     public String register(Model model) throws Exception {
         Student student = new Student();
         model.addAttribute("student", student);
+<<<<<<< Updated upstream
         //ConstantsAndStuff.populateMajorChoices();
         model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
+=======
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
+>>>>>>> Stashed changes
         return "register";
     }
 
@@ -63,6 +74,7 @@ public class MajorPopulateController {
     // }
 
     @GetMapping("/mainpage")
+<<<<<<< Updated upstream
     public String populateInfo(Model model) {
          model.addAttribute("information", major.majorName);
          model.addAttribute("classes", ConstantsAndStuff.showRequiredCourses(MajorId:null));
@@ -70,5 +82,27 @@ public class MajorPopulateController {
          model.addAttribute("description", major.getDescription);
          return "mainpage";
      }
+=======
+    public String populateInfo(Model model) throws Exception {
+        Student student = MajorService.getStudent(MajorService.loggedInUser.get(0).getName());
+        String majorName = student.getMajor();
+        String name = student.getName();
+        Major major = MajorService.getMajorById(student.getMajorId());
+        model.addAttribute("information", new Major(name, majorName));
+        model.addAttribute("coreRequirements", major.getRequiredCourses());
+        model.addAttribute("electives", major.getMajorElectiveGroups());
+    
+
+    // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
+    //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
+    //     model.addAttribute("description", classDescription);
+        return "mainpage";
+    }
+
+    @GetMapping("/courseSearch")
+    public String getCourseSearch(){
+        return "course-search";
+    }
+>>>>>>> Stashed changes
 
 }

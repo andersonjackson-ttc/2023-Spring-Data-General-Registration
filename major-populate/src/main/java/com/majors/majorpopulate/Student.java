@@ -2,6 +2,8 @@ package com.majors.majorpopulate;
 
 import com.majors.majorpopulate.Major;
 
+import com.majors.majorpopulate.repository.SqlCaller;
+
 import jakarta.validation.constraints.NotBlank;
 
 
@@ -55,9 +57,16 @@ public class Student {
     public String getPasswordValidation() {
         return passwordValidation;
     }
+<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/Student.java
     
     public String getMajorId(){
         return major.getMajorId();
+=======
+    public String getMajorId() throws Exception{
+        SqlCaller sql = new SqlCaller();
+        String majorId = sql.getMajorId(major);
+        return majorId;
+>>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/student/Student.java
     }
     @Override
     public String toString() {

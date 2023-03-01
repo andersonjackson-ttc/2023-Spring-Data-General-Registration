@@ -25,6 +25,7 @@ import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.student.Student;
 >>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
+import com.majors.majorpopulate.student.Student;
 
 //@Component
 public class SqlCaller {
@@ -332,6 +333,7 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
         }
     }
 
+<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/SqlCaller.java
     /* public void GetStudent(String name)throws Exception{
         sqlSt = dbConnect.createStatement();
         String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)
@@ -347,6 +349,30 @@ private List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exceptio
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("SQL IS BAD!!" + ex.getMessage());
         } 
+    }
+}
+>>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java
+=======
+    public Student GetStudent(String name)throws Exception{
+        Student student = new Student();
+        sqlSt = dbConnect.createStatement();
+        String SQL = String.format("Select * FROM tbl_student WHERE name = '%s'", name);
+        try {
+            
+            ResultSet result = sqlSt.executeQuery(SQL);
+            while(result.next()){
+               student = new Student(
+                result.getString("name"),
+               result.getString("password"),
+               null,
+               result.getString("major_name")); 
+            } 
+        }catch(SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+            throw new SQLException(ex);
+        }
+        return student;
     }
 }
 >>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/repository/SqlCaller.java

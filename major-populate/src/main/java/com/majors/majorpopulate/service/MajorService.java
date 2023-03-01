@@ -15,44 +15,59 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
 
 
+
+@Service 
 public class MajorService {
     
     //make single connection to SQL. SqlCaller Class.
-    //@Service 
+
     public static SqlCaller sql = new SqlCaller();
     
-    public static List<Login> loggedInUser = new ArrayList<>();
+    public List<Login> loggedInUser = new ArrayList<>();
 
     public MajorService(){
         
     }
     
     //adds all the majors to a list to add to the dropdown Select option on form.html
-    public static List<String> populateMajorChoices() throws Exception{ 
+    public List<String> populateMajorChoices() throws Exception{ 
         List<String> majorList = new ArrayList<>();
         majorList = sql.ShowMajorNames();
         return majorList;
     }
 
     //Gets required classes from SQLcaller Class
-    public static List<String> showRequiredCourses(String majorId) throws Exception {
+    public List<String> showRequiredCourses(String majorId) throws Exception {
         List<String> coursesList = new ArrayList<>();
         coursesList = sql.getRequiredCoreClasses(majorId);
         return coursesList;
     }
     //Enters new user login credentials into the sql-db
+<<<<<<< Updated upstream
       public static void CreateStudent(Student student) throws Exception{
         sql.CreateStudent(student.getName(), student.getPassword(), sql.GetMajorById(null));
+=======
+      public void CreateStudent(Student student) throws Exception{
+        sql.CreateStudent(student.getName(), student.getPassword(), student.getMajor());
+>>>>>>> Stashed changes
+    }
+
+    public Student getStudent(String name)throws Exception{
+        Student student = sql.GetStudent(name);
+        return student;
     }
 
     //Calls database from SQLcaller to see if there is user
     //if a user "logs out" and someone else logs in it will replace who the user is. 
-    public static String validateLogin(String name, String password) throws Exception {
+    public String validateLogin(String name, String password) throws Exception {
+        
         boolean isThereAStudent = sql.matchCredentials(name, password);
         if (isThereAStudent == true){
-            String majorName = sql.getMajorNameFromStudent(name, password);
+            Student student = sql.GetStudent(name);
+            String majorName = student.getMajor();
             String majorId = sql.getMajorId(majorName);
             if (loggedInUser.size() == 1) { 
                 loggedInUser.set(0, new Login(name, password, majorName, majorId)); return "1";
@@ -64,14 +79,14 @@ public class MajorService {
     }
 
     //Calls getMajorById from sqlCaller and populates the logged in "users" major in the controller
-    public static Major getMajorById(String majorId) throws Exception{
+    public Major getMajorById(String majorId) throws Exception{
         Major major = sql.GetMajorById(majorId);
         return major;
         
     }
 
   
-    public static List<String> showCoursesByTerm(String term, Major major){
+    public List<String> showCoursesByTerm(String term, Major major){
         List<String> courseList = new ArrayList<>();
 
         for (Course course: major.getRequiredCourses()) {
@@ -84,7 +99,7 @@ public class MajorService {
         return courseList;
     }
 
-    public static Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
+    public Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
         Hashtable<MajorElectiveGroup, List<Course>> courseList = new Hashtable<>();
 
         for (MajorElectiveGroup meg: major.getMajorElectiveGroups()) {
