@@ -19,15 +19,13 @@
   border-color: white;
   background-color: #263238;
 } 
-.error{
-    color:red;
-}
+
 body {
 background: #263238;
 }
 
 
-input[type=text],input[type=password], select, textarea  {
+input[type=text], input[type=password], select, textarea {
 width: 100%; 
 padding: 12px; 
 border: 1px solid #ccc;

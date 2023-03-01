@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="topnav">
-    <a th:href="@{/}">Login</a>
+    <a th:href="@{/form}">Login</a>
     <a th:href="@{/register}">New Student Register</a> 
 </div>
 <div class="container">
@@ -19,9 +19,9 @@
         <p style="color:red" th:errors="*{name}"></p>
         <input type="text" th:field="*{name}" placeholder="Name">
         <p style="color:red" th:errors="*{password}"></p>
-        <input type="text" th:field="*{password}" placeholder="Password">
+        <input type="password" th:field="*{password}" placeholder="Password">
         <p style="color:red" th:errors="*{passwordValidation}"></p>
-        <input type="text" th:field="*{passwordValidation}" placeholder="Re-Enter Password">
+        <input type="password" th:field="*{passwordValidation}" placeholder="Re-Enter Password">
         <p style="color:red" th:errors="*{major}"></p>
         <select class="select" th:field="*{major}">
             <option value="">Choose a Major</option>

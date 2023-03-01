@@ -1,13 +1,16 @@
 .container {
-    margin: auto;
+    position: absolute;
     left: 50%;
     top: 50%;
+    transform: translate(-50%, -50%);
     width: 50%;
     background-color: #263238;
-    text-align: center
+    text-align: center;
+    overflow-y:auto;
+    margin-top: 50px;
+    
 
-
-  }
+  }   
   
   #secondConatainer{
     display: Hidden;

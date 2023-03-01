@@ -2,11 +2,7 @@ package com.majors.majorpopulate;
 
 import jakarta.validation.constraints.NotBlank;
 
-
 public class Student {
-
-
-    private int studentId;
     @NotBlank (message = "Cannot Be Blank")
     private String name;
     @NotBlank (message = "Cannot Be Blank")
@@ -24,13 +20,7 @@ public class Student {
         this.passwordValidation = passwordValidation;
         this.major = major;
     }
-    public int getStudentId() {
-        return studentId;
-    }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
     public String getName() {
         return name;
     }
