@@ -40,7 +40,7 @@ public class SqlCaller {
             props.load(fr);
 
             Class.forName(props.getProperty("spring.datasource.database"));
-            Connection dbConnect = DriverManager.getConnection(props.getProperty("spring.datasource.url"), 
+            dbConnect = DriverManager.getConnection(props.getProperty("spring.datasource.url"), 
             props.getProperty("spring.datasource.username"), props.getProperty("spring.datasource.password"));
             sqlSt = dbConnect.createStatement();
             
@@ -80,19 +80,25 @@ public class SqlCaller {
     }
 
     public Major GetMajorById(String majorId) throws Exception{
+        sqlSt = dbConnect.createStatement();
         Major major = new Major();
-        String query = String.format("SELECT major_name"
-                                    +"FROM tbl_majors "
-                                    +"WHERE major_id = %s", majorId);
-        ResultSet result = sqlSt.executeQuery(query);
-        while(result.next() != false) {
-            major.setMajorName(result.getString("major_name"));
-            major.setMajorId(majorId);
-            major.setMajorId(result.getString("major_id"));
-            major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
-            major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
-        }        
-       return major;                        
+        try {
+            
+            String query = String.format("SELECT * "
+            +"FROM tbl_majors "
+            +"WHERE major_id = %s", majorId);
+            ResultSet result = sqlSt.executeQuery(query);
+            while(result.next() != false) {
+                major.setMajorName(result.getString("major_name"));
+                major.setMajorId(majorId);
+                major.setMajorId(result.getString("major_id"));
+                major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
+                major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
+            }        
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+            return major;                        
     }
 
     public List<Course> GetRequiredCoursesByMajorId(String MajorId) throws Exception{
@@ -242,7 +248,6 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
     return preReqCourseList;
 }
     public List<MajorElectiveGroup> GetElectiveGroupsByMajor(String MajorId) throws Exception{
-        sqlSt = dbConnect.createStatement();
         MajorElectiveGroup meg;
         List<MajorElectiveGroup> electiveGroupList =  new ArrayList<>();
         String query = String.format("SELECT * "+
@@ -250,7 +255,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         "Join tbl_elective_groups eg "+
         "ON electives.elective_id = eg.elective_id "+
         "WHERE major_id = %s", MajorId);
-
+        
+        sqlSt = dbConnect.createStatement();
         try {
             ResultSet result = sqlSt.executeQuery(query);
             while (result.next()){
