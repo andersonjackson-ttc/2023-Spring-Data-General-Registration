@@ -55,7 +55,6 @@ public class MajorPopulateController {
             model.addAttribute("loginInfo", login);
             return "form";
         }
-
         return "redirect:/mainpage";
     }
 

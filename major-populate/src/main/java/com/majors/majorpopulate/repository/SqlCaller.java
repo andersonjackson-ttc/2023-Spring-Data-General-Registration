@@ -63,10 +63,11 @@ public class SqlCaller {
     }
 
     public List<String> ShowMajorNames() throws Exception{
+        sqlSt = dbConnect.createStatement();
         List<String> majorList = new ArrayList<>();
         String SQL = "SELECT * FROM tbl_majors";
         try{
-            ResultSet result = this.sqlSt.executeQuery(SQL);
+            ResultSet result = sqlSt.executeQuery(SQL);
             while(result.next() != false) {
                 majorList.add(result.getString("major_name"));
             }         
@@ -80,8 +81,8 @@ public class SqlCaller {
     }
 
     public Major GetMajorById(String majorId) throws Exception{
-        sqlSt = dbConnect.createStatement();
         Major major = new Major();
+        sqlSt = dbConnect.createStatement();
         try {
             
             String query = String.format("SELECT * "
@@ -94,9 +95,12 @@ public class SqlCaller {
                 major.setMajorId(result.getString("major_id"));
                 major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
                 major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
-            }        
+            }  
+            //sqlSt.close();    
         } catch (Exception e) {
-            // TODO: handle exception
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("SQL IS BAD!!" + e.getMessage());
+            throw new SQLException(e);
         }
             return major;                        
     }
@@ -279,6 +283,7 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         return electiveGroupList;
     }
     public List<Course> GetElectivesByElectiveGroup(String electiveGroupId)throws Exception{
+        sqlSt = dbConnect.createStatement();
         List<Course> electiveCourses = new ArrayList<>();
         String query = String.format("select * from tbl_elective_courses where elective_id = %s", electiveGroupId);
         try {
