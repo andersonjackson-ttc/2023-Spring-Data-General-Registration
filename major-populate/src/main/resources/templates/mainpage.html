@@ -20,21 +20,21 @@
       <h2 style="color:white;">Here are your Courses...</h2>
     </div>
     <div class="container">
-      <table id="table">
+      <table class="table">
         <tr>
           <th>Core Requirements</th>
         </tr>
         <tr th:each="coreRequirement : ${coreRequirements}">
           <td th:text="${coreRequirement?.CourseName} "></td>
+          <td><button class="update">Click for Section Times</button></td>
         </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>
         </tr>
         <tr th:each="elective : ${electives}">
           <!-- <td th:text="${elective.ElectiveGroupId}"></td> -->
-          <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}" ></td>
-          <!-- <td th:text="${elective?.CourseName}"></td> -->
-          <!-- <td th:th:text="${elective.NumRequired}"></td> -->
+          <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
+          <td><button class="update" th:attr="onclick=|showElect()|">Click for Electives</button></td>
         </tr>
       </table>
     </div>
@@ -70,6 +70,17 @@
         <div id="secondContainer">
           <p th:text="${description}"></p>
         </div> -->
-    </div> 
+        <div id="electivesToggle">
+          <table class="table" style="width: 50%; margin-left: 25%;">
+          <tr>
+            <th>Electives Choices</th>
+          </tr>
+          <tr th:each="fakeCourse : ${fakeCourses}">
+            <td th:text="${#strings.substring(fakeCourse.value, 0, #strings.length(fakeCourse.value)-1)}"></td>
+            <td><a role="button" class="update">Check Section Times</a></td>
+          </tr>
+        </table>
+        </div>
+    
 </body>
 </html>

@@ -9,6 +9,7 @@ import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -89,7 +90,15 @@ public class MajorService {
            } 
            return courseList;
         }
-    }
+
+        public static HashMap<Integer, String> getFakeCourses(){
+            HashMap<Integer, String> hm = new HashMap<>();
+            for (int i = 0; i < 7; i++) {
+                hm.put(i, "fake course" + String.valueOf(i));
+            }
+            return hm;
+        }
+}
        
 
 

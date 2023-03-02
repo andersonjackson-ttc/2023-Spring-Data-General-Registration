@@ -66,7 +66,7 @@ public class MajorPopulateController {
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
-    
+        model.addAttribute("fakeCourses", MajorService.getFakeCourses());
 
     // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
     //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
