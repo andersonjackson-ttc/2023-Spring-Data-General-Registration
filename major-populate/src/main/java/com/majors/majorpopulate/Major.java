@@ -12,7 +12,9 @@ public class Major {
     public Major() {
     }
 
-    public Major(String name2, String majorName2) {
+    public Major(String name, String majorName) {
+        this.name = name;
+        this.majorName = majorName;
     }
 
     public String getMajorName() {
