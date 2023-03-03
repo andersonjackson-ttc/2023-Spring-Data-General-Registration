@@ -317,6 +317,36 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
         }
     }
 
+     /*
+     * ADDED by STEPHEN
+     * gets sections information from database from course button on mainpage.html
+     */
+    public List<Section> getSectionTimesByCourseName(String courseName) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        List<Section> classList = new ArrayList<>();
+        String query = String.format("Select * "
+                                    +"FROM tbl_courses_offered "
+                                    +"WHERE course_title = '%s'" , courseName);
+        ResultSet result = sqlSt.executeQuery(query);
+            while(result.next()) {
+                Section eachClass = new Section(
+                      result.getString("course_title"),
+                      result.getString("course_section"),
+                      result.getString("course_days"),
+                      result.getString("course_term"),
+                      null,
+                      null,
+                      result.getString("course_location"),
+                      result.getString("course_building_nbr"),
+                      result.getString("course_room"),
+                      result.getString("course_type"),
+                      result.getInt("total_seats"),
+                      result.getInt("seats_taken"));
+              classList.add(eachClass);
+              }
+              return classList;
+    }
+
     /* public void BuildStudent(String name)throws Exception{
         sqlSt = dbConnect.createStatement();
         String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)

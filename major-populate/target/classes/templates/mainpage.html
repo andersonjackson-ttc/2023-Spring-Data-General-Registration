@@ -26,7 +26,7 @@
         </tr>
         <tr th:each="coreRequirement : ${coreRequirements}">
           <td th:text="${coreRequirement?.CourseName} "></td>
-          <td><button class="update" th:attr="onclick=|tdclick('This will take you to new page with times for ${coreRequirement?.CourseName}')|">Click for Section Times</button></td>
+          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
         </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>

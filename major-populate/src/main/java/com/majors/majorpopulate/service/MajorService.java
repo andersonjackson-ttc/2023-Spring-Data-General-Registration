@@ -98,6 +98,12 @@ public class MajorService {
             }
             return hm;
         }
+
+        //gets sections times and info for the selected course from mainpage.html 
+        public static List<Section> getSectionTimesByCourseName(String name) throws Exception {
+            List<Section> section = sql.getSectionTimesByCourseName(name);
+            return section;
+        }
 }
        
 

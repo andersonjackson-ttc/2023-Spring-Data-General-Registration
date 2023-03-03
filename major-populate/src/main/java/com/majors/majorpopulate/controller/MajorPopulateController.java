@@ -1,5 +1,7 @@
 package com.majors.majorpopulate.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.majors.majorpopulate.Major;
-
+import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
@@ -75,7 +77,14 @@ public class MajorPopulateController {
     }
 
     @GetMapping("/courseSearch")
-    public String getCourseSearch(){
+    public String getCourseSearch(Model model, String name) throws Exception{
+        boolean courseSelected = false;
+        if (name != null) {
+            courseSelected = true;
+        }
+        model.addAttribute("showTable", courseSelected);
+        List<Section> section = MajorService.getSectionTimesByCourseName(name);
+        model.addAttribute("sectionTimes", section);
         return "course-search";
     }
 

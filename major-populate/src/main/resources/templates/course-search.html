@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="course-search-styles.css">
+    <script src="javascript.js"></script>
     <title>Course Search</title>
 </head>
 <body>
@@ -12,7 +13,33 @@
         <a th:href="@{/courseSearch}">Course Search</a>
         <a th:href="@{/form}">Logout</a>
     </div>    
-    <h1>JOHNS PAGE THAT WILL LET YOU SEARCH FOR A COURSE</h1>
-    
+    <h1 th:if="${showTable == false}">Go to Main page to find a course to select</h1>
+    <table class="table" th:if="${showTable == true}">
+        <tr>
+            <th>Course Title</th>
+            <th>Section</th>
+            <th>Schedule</th>
+            <th>Term</th>
+            <th>Location</th>
+            <th>Bldg</th>
+            <th>Room</th>
+            <th>Method</th>
+            <th>Capacity</th>
+            <th>Used</th>
+        </tr>
+        <tr th:each="section : ${sectionTimes}">
+            <td th:text="${section.CourseTitle}"></td>
+            <td th:text="${section.CourseSection}"></td>
+            <td th:text="${section.CourseDays}"></td>
+            <td th:text="${section.CourseTerm}"></td>
+            <td th:text="${section.CourseLocation}"></td>
+            <td th:text="${section.CourseBuildingNum}"></td>
+            <td th:text="${section.CourseRoomNum}"></td>
+            <td th:text="${section.CourseType}"></td>
+            <td th:text="${section.SeatsTaken}"></td>
+            <td th:text="${section.SeatsAvailable}"></td>
+            <td><a role="button" class="register" th:attr="onclick=|tdclick('This will register this specific section to student profile?')|">Register</a></td>
+        </tr>
+    </table>
 </body>
 </html>
