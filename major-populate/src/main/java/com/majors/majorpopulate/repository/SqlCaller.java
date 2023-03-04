@@ -347,6 +347,25 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
               return classList;
     }
 
+    public int getStudentId(String name, String password) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT id FROM tbl_student WHERE name = '" + name + "' AND password = '" + password + "'";
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next()) {
+            return result.getInt("id");
+        }
+        return -1000;
+    }
+    
+    /*
+     * Creates a entry for the registered class for a student
+     */
+    public void createRegisteredSection(String courseId){
+        sqlSt = dbConnect.createStatement(); //allows SQL to be executed
+        String SQL = "INSERT tbl_student(name,password,major_name) VALUES('"+name+"',+'"+password+
+                "','"+major_name+"')";
+    }
+
     /* public void BuildStudent(String name)throws Exception{
         sqlSt = dbConnect.createStatement();
         String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)

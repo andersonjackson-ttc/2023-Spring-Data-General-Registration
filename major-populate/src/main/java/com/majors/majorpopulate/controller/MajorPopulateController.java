@@ -70,9 +70,6 @@ public class MajorPopulateController {
         model.addAttribute("electives", major.MajorElectiveGroups);
         model.addAttribute("fakeCourses", MajorService.getFakeCourses());
 
-    // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
-    //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-    //     model.addAttribute("description", classDescription);
         return "mainpage";
     }
 
@@ -88,4 +85,12 @@ public class MajorPopulateController {
         return "course-search";
     }
 
+    @GetMapping("/schedule")
+    public String getSchedule(Model model, String sectionId) throws Exception{
+        String courseId = MajorService.gettingCorrectCourseId(sectionId);    
+        System.out.println(sectionId);
+        System.out.println(courseId);
+        MajorService.createRegisteredSection(sectionId, courseId);
+        return "schedule";
+    }
 }

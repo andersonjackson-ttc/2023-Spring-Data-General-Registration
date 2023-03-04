@@ -104,6 +104,25 @@ public class MajorService {
             List<Section> section = sql.getSectionTimesByCourseName(name);
             return section;
         }
+
+        //calls the SqlCaller to add the students registered coruse to their schedule
+        public static void createRegisteredSection(String sectionId, String courseId) throws Exception{
+            int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
+            sql.createRegisteredSection(studentId, loggedInUser.get(0).getMajorID(), courseId, sectionId);
+        }
+
+        /*
+         * takes the last 4 characters off the section name to pass 
+         */
+        public static String gettingCorrectCourseId(String courseId){
+            StringBuffer sb = new StringBuffer(courseId);
+            sb.deleteCharAt(sb.length()-4);
+            sb.deleteCharAt(sb.length()-3);
+            sb.deleteCharAt(sb.length()-2);
+            sb.deleteCharAt(sb.length()-1);
+            String correctedCourseId = sb.toString();
+            return correctedCourseId;
+        } 
 }
        
 
