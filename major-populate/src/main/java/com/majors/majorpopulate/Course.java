@@ -1,6 +1,6 @@
 package com.majors.majorpopulate;
 
-import java.util.Date;
+
 import java.util.List;
 
 public record Course (

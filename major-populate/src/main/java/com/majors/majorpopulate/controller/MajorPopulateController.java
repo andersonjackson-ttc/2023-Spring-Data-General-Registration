@@ -85,12 +85,20 @@ public class MajorPopulateController {
         return "course-search";
     }
 
-    @GetMapping("/schedule")
-    public String getSchedule(Model model, String sectionId) throws Exception{
+    @GetMapping("/handleRegistration")
+    public String handleRegistration(Model model, String sectionId, String term) throws Exception{
         String courseId = MajorService.gettingCorrectCourseId(sectionId);    
         System.out.println(sectionId);
         System.out.println(courseId);
-        MajorService.createRegisteredSection(sectionId, courseId);
+        System.out.println(term);
+        MajorService.createRegisteredSection(sectionId, courseId, term);
+        
+        return "registration";
+    }
+
+    @GetMapping("/schedule")
+    public String getSchedule(Model model) throws Exception {
+        model.addAttribute("registeredSections", MajorService.getRegisteredSections());
         return "schedule";
     }
 }

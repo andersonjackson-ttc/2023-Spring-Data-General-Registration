@@ -4,6 +4,7 @@ import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
+import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
@@ -106,13 +107,13 @@ public class MajorService {
         }
 
         //calls the SqlCaller to add the students registered coruse to their schedule
-        public static void createRegisteredSection(String sectionId, String courseId) throws Exception{
+        public static void createRegisteredSection(String sectionId, String courseId, String term) throws Exception{
             int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
-            sql.createRegisteredSection(studentId, loggedInUser.get(0).getMajorID(), courseId, sectionId);
+            sql.createRegisteredSection(studentId, loggedInUser.get(0).getMajorID(), courseId, sectionId, term);
         }
 
         /*
-         * takes the last 4 characters off the section name to pass 
+         * takes the last 4 characters off the section name to pass to SqlCaller
          */
         public static String gettingCorrectCourseId(String courseId){
             StringBuffer sb = new StringBuffer(courseId);
@@ -122,6 +123,15 @@ public class MajorService {
             sb.deleteCharAt(sb.length()-1);
             String correctedCourseId = sb.toString();
             return correctedCourseId;
+        }
+
+        /*
+         * gets registered Sections from SqlCaller
+         */
+        public static List<RegisteredSection> getRegisteredSections() throws Exception {
+            List<RegisteredSection> registeredSections = new ArrayList<>();
+            registeredSections = sql.getRegisteredSections(sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
+            return registeredSections;
         } 
 }
        

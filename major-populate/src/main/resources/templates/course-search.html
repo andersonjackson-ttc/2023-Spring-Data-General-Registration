@@ -39,7 +39,7 @@
             <td th:text="${section.CourseType}"></td>
             <td th:text="${section.SeatsTaken}"></td>
             <td th:text="${section.SeatsAvailable}"></td>
-            <td><a role="button" class="register" th:href="@{/schedule(courseId = ${section.CourseSection})}">Register</a></td>
+            <td><a role="button" class="register" th:href="@{/handleRegistration(sectionId = ${section.CourseSection}, term = ${section.CourseTerm})}">Register</a></td>
         </tr>
     </table>
 </body>

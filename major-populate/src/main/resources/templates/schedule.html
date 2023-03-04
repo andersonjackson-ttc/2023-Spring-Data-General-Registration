@@ -14,5 +14,20 @@
         <a th:href="@{/form}">Logout</a>
       </div>
     <h1>Here are your classes for this term</h1>
+
+    <table class="table">
+        <tr>
+            <th>Course Id</th>
+            <th>Major Id</th>
+            <th>Section Id</th>
+            <th>Term</th>
+        </tr>
+        <tr th:each="registeredSection : ${registeredSections}">
+            <td th:text="${registeredSection.courseId}"></td>
+            <td th:text="${registeredSection.majorId}"></td>
+            <td th:text="${registeredSection.sectionId}"></td>
+            <td th:text="${registeredSection.term}"></td>
+        </tr>
+    </table>
 </body>
 </html>

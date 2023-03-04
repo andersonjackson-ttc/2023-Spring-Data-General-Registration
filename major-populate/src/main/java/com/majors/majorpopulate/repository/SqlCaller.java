@@ -23,6 +23,7 @@ import com.majors.majorpopulate.MajorPopulateApplication;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.student.Student;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
+import com.majors.majorpopulate.POJO.RegisteredSection;
 
 public class SqlCaller {
     
@@ -360,10 +361,26 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
     /*
      * Creates a entry for the registered class for a student
      */
-    public void createRegisteredSection(String courseId){
+    public void createRegisteredSection(int studentId, String majorId, String courseId, String sectionId, String term) throws Exception{
         sqlSt = dbConnect.createStatement(); //allows SQL to be executed
-        String SQL = "INSERT tbl_student(name,password,major_name) VALUES('"+name+"',+'"+password+
-                "','"+major_name+"')";
+        String query = "INSERT tbl_registration(student_id,major_id,course_id,section_id,term,reg_dts) VALUES("+studentId+",'"+majorId+"','"+courseId+"','"+ sectionId+"', '"+term+"', "+ null + ")";
+        sqlSt.execute(query);
+    }
+
+    public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+        sqlSt = dbConnect.createStatement();
+        List<RegisteredSection> rs = new ArrayList<>();
+        String query = "SELECT * FROM cpt275_db.tbl_registration WHERE student_id = "+ studentId + "";
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next()){
+            RegisteredSection eachSection = new RegisteredSection(
+                result.getString("major_id"),
+                result.getString("course_id"),
+                result.getString("section_id"),
+                result.getString("term"));
+            rs.add(eachSection);
+        }
+        return rs; 
     }
 
     /* public void BuildStudent(String name)throws Exception{
