@@ -1,15 +1,17 @@
 package com.majors.majorpopulate;
 
-import java.sql.Date;
-import java.util.Objects;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+//import java.util.Objects;
 
 public record Section (
         String CourseTitle,
         String CourseSection,
         String CourseDays,
         String CourseTerm,
-        Date[] CourseTermDates,
-        Date[] CourseTime,
+        List<Date> CourseTermDates,
+        List<LocalTime> CourseTime,
         String CourseLocation,
         String CourseBuildingNum,
         String CourseRoomNum,
@@ -17,7 +19,7 @@ public record Section (
         int SeatsTaken,
         int SeatsAvailable) {
 
-                public Section{
+                /* public Section{
                         Objects.requireNonNull(CourseTitle);
                         Objects.requireNonNull(CourseSection);
                         Objects.requireNonNull(CourseTerm);
@@ -25,5 +27,5 @@ public record Section (
                         Objects.requireNonNull(CourseLocation);
                         Objects.requireNonNull(CourseType);
                         
-                }
+                } */
         }

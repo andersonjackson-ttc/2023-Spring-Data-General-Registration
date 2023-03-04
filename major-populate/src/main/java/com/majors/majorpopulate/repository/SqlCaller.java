@@ -11,11 +11,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.springframework.cglib.core.Local;
 
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
@@ -183,6 +189,8 @@ public class SqlCaller {
 
     public List<Section> GetClassesByCourseId(String CourseId) throws Exception{
         sqlSt = dbConnect.createStatement();
+        List<Date> dates;
+        List<LocalTime> times;
         List<Section> classList = new ArrayList<>();
         String query = String.format("Select * "
                                     +"FROM tbl_courses_offered "
@@ -194,8 +202,8 @@ public class SqlCaller {
                       result.getString("course_section"),
                       result.getString("course_days"),
                       result.getString("course_term"),
-                      null,
-                      null,
+                      dates = parseDates(result),
+                      times = parseTimes(result),
                       result.getString("course_location"),
                       result.getString("course_building_nbr"),
                       result.getString("course_room"),
@@ -324,6 +332,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
      */
     public List<Section> getSectionTimesByCourseName(String courseName) throws Exception{
         sqlSt = dbConnect.createStatement();
+        List<Date> dates;
+        List<LocalTime> times;
         List<Section> classList = new ArrayList<>();
         String query = String.format("Select * "
                                     +"FROM tbl_courses_offered "
@@ -335,8 +345,8 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
                       result.getString("course_section"),
                       result.getString("course_days"),
                       result.getString("course_term"),
-                      null,
-                      null,
+                      dates = parseDates(result),
+                      times = parseTimes(result),
                       result.getString("course_location"),
                       result.getString("course_building_nbr"),
                       result.getString("course_room"),
@@ -347,6 +357,29 @@ public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception
               }
               return classList;
     }
+private List<Date> parseDates(ResultSet result)throws Exception{
+    List<Date> dates = new ArrayList<>();
+    String dateString = result.getString("course_term_dates");
+    String [] splitDates = dateString.split("-");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+    for (String d : splitDates) {
+        var date = format.parse(d.trim());
+        dates.add(date);
+    }
+    return dates;
+}
+private List<LocalTime> parseTimes(ResultSet result) throws Exception{
+    List<LocalTime> times = new ArrayList<>();
+    String timeString = result.getString("course_time");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    String[] splitTimes = timeString.split("-");
+    for (String t: splitTimes){
+        LocalTime time = LocalTime.parse((t).trim(), timeFormatter);
+        System.out.println(time.format(timeFormatter));
+        times.add(time);
+    }
+    return times;
+}
 
     public int getStudentId(String name, String password) throws Exception{
         sqlSt = dbConnect.createStatement();
