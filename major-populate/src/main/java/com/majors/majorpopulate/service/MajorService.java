@@ -116,12 +116,8 @@ public class MajorService {
          * takes the last 4 characters off the section name to pass to SqlCaller
          */
         public static String gettingCorrectCourseId(String courseId){
-            StringBuffer sb = new StringBuffer(courseId);
-            sb.deleteCharAt(sb.length()-4);
-            sb.deleteCharAt(sb.length()-3);
-            sb.deleteCharAt(sb.length()-2);
-            sb.deleteCharAt(sb.length()-1);
-            String correctedCourseId = sb.toString();
+            String [] split = courseId.split("-");
+            String correctedCourseId = String.format("%s-%s", split[0],split[1]);
             return correctedCourseId;
         }
 

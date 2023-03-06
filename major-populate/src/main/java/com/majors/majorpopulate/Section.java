@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 //import java.util.Objects;
 
+//import jakarta.persistence.Entity;
+
+
+
 public record Section (
         String CourseTitle,
         String CourseSection,
