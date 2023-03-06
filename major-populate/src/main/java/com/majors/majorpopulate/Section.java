@@ -1,9 +1,10 @@
 package com.majors.majorpopulate;
 
 import java.time.LocalTime;
+
 import java.util.Date;
 import java.util.List;
-//import java.util.Objects;
+
 
 //import jakarta.persistence.Entity;
 
@@ -23,13 +24,5 @@ public record Section (
         int SeatsTaken,
         int SeatsAvailable) {
 
-                /* public Section{
-                        Objects.requireNonNull(CourseTitle);
-                        Objects.requireNonNull(CourseSection);
-                        Objects.requireNonNull(CourseTerm);
-                        //Objects.requireNonNull(CourseTermDates);
-                        Objects.requireNonNull(CourseLocation);
-                        Objects.requireNonNull(CourseType);
-                        
-                } */
+
         }

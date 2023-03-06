@@ -367,6 +367,9 @@ public class SqlCaller {
     private List<Date> parseDates(ResultSet result) throws Exception {
         List<Date> dates = new ArrayList<>();
         String dateString = result.getString("course_term_dates");
+        if (dateString.isEmpty()){
+            return dates;
+        }
         String[] splitDates = dateString.split("-");
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         for (String d : splitDates) {
@@ -383,6 +386,9 @@ public class SqlCaller {
     private List<LocalTime> parseTimes(ResultSet result) throws Exception {
         List<LocalTime> times = new ArrayList<>();
         String timeString = result.getString("course_time");
+        if (timeString.isEmpty()){
+            return times;
+        }
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
         String[] splitTimes = timeString.split("-");
         for (String t : splitTimes) {
