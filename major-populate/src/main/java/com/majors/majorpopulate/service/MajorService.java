@@ -108,7 +108,7 @@ public class MajorService {
 
         //calls the SqlCaller to add the students registered coruse to their schedule
         public static void createRegisteredSection(String sectionId, String courseId, String term) throws Exception{
-            int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
+            int studentId = getStudentId();
             sql.createRegisteredSection(studentId, loggedInUser.get(0).getMajorID(), courseId, sectionId, term);
         }
 
@@ -128,6 +128,16 @@ public class MajorService {
             List<RegisteredSection> registeredSections = new ArrayList<>();
             registeredSections = sql.getRegisteredSections(sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
             return registeredSections;
+        }
+
+        public static int getStudentId() throws Exception{
+           int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
+           return studentId;
+        }
+
+        //removes a registered section time for the student. 
+        public static void deleteSection(String courseId) throws Exception {
+            sql.deleteRegisteredSection(getStudentId(), courseId);
         } 
 }
        

@@ -101,4 +101,10 @@ public class MajorPopulateController {
         model.addAttribute("registeredSections", MajorService.getRegisteredSections());
         return "schedule";
     }
+
+    @GetMapping("/removeSection")
+    public String removeSection(String courseId) throws Exception{
+        MajorService.deleteSection(courseId);
+        return "section-remove-confirm";
+    }
 }

@@ -439,6 +439,13 @@ public class SqlCaller {
         return rs;
     }
 
+    //Removes a selected registered section from the schedule page. 
+    public void deleteRegisteredSection(int studentId, String courseId) throws Exception {
+        sqlSt = dbConnect.createStatement();
+        String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId + "'";
+        sqlSt.execute(query);
+    }
+
     /*
      * public void BuildStudent(String name)throws Exception{
      * sqlSt = dbConnect.createStatement();
@@ -480,6 +487,7 @@ public class SqlCaller {
         else
             return value;
     }
+
     /*
      * public Student GetStudent(int id)throws Exception
      * {
@@ -533,6 +541,8 @@ public class SqlCaller {
      * return resultData;
      * }
      */
+
+    
 }
 /*
  * String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '"
