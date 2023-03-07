@@ -1,53 +1,80 @@
+.main-container {
+  display: grid;
+  grid-template-rows: 25% 25% ;
+  grid-template-rows: 25% 25% ;
+  
+} 
+
+/* core requirements and electives courses */
 .container {
-    margin: auto;
-    left: 50%;
+    margin: 20px;
+    grid-row: 1 / 2;
+    grid-column: 1 / 1;
+    /* left: 50%;
     top: 50%;
-    width: 50%;
+    width: 50%; */
     background-color: #263238;
     text-align: center
-
-
-  }
-  
-  #secondConatainer{
-    display: Hidden;
   }
 
-  
-  .update
-  {
-     display: inline-block;
-     width: 100%;      
-     height: 100%;
-     margin-bottom: 0.5em;
-     padding-top: .6em;
-     padding-bottom: .6em;
-     text-align: center;
-     font-size: 16px;
-     text-decoration: none;
-     color: #fff;
-     background-color: #04AA6D;
-     border-radius: 5px;
-     border: solid white 2px;
+/* the electives courses that get toggled on */
+  .electiveChoices {
+    grid-row: 2 / 2;
+    grid-column: 2 / 3;
+    visibility: hidden;
   }
   
-  .update:hover {
-    background-color: orange; 
-    cursor: pointer;
+/*the div that will have the information on the course when the cell with the name is clicked */
+  .information {
+    margin-top: 20px;
+    height: 60%;
+    width: 70%;
+    grid-row: 1 / 1;
+    grid-column: 2 / 3;
+    background-color: #d7eaf8;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    align-self: center;
+    visibility: hidden;
   }
-  
+
+.update {
+    display: inline-block;
+    width: 100%;      
+    height: 100%;
+    margin-bottom: 0.5em;
+    padding-top: .6em;
+    padding-bottom: .6em;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #04AA6D;
+    border-radius: 5px;
+    border: solid white 2px;
+}
+
+.update:hover {
+  background-color: orange; 
+  cursor: pointer;
+}
+
 
 .table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 70%;
   border-width: 4px;
   border-color: white;
   border-style: solid;
   font-size: 18px;
   overflow-y: scroll;
+}
 
-
+.table td:hover {
+  background-color: #ddd;
+  cursor: pointer;
 }
 
 .table td, .table th {
@@ -71,7 +98,6 @@
 
 h2 {
   color: white;
-  
   font-weight: 600;    
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -103,6 +129,8 @@ body {
   background: #263238;
 }
 
-#toggleElectives {
-  visibility: hidden;
+.show {
+  visibility: visible;
 }
+
+
