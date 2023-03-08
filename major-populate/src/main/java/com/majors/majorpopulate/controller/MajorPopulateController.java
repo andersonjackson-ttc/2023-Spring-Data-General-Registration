@@ -1,13 +1,6 @@
 package com.majors.majorpopulate.controller;
 
-<<<<<<< Updated upstream
-import java.util.ArrayList;
-import java.util.List;
-
-
-=======
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> Stashed changes
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,12 +47,7 @@ public class MajorPopulateController {
     public String register(Model model) throws Exception {
         Student student = new Student();
         model.addAttribute("student", student);
-<<<<<<< Updated upstream
-        //ConstantsAndStuff.populateMajorChoices();
-        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
-=======
         model.addAttribute("majorChoices", MajorService.populateMajorChoices());
->>>>>>> Stashed changes
         return "register";
     }
 
@@ -103,6 +91,27 @@ public class MajorPopulateController {
     public String getCourseSearch(){
         return "course-search";
     }
->>>>>>> Stashed changes
 
+    @GetMapping("/handleRegistration")
+    public String handleRegistration(Model model, String sectionId, String term) throws Exception{
+        String courseId = MajorService.gettingCorrectCourseId(sectionId);    
+        System.out.println(sectionId);
+        System.out.println(courseId);
+        System.out.println(term);
+        MajorService.createRegisteredSection(sectionId, courseId, term);
+        
+        return "registration";
+    }
+
+    @GetMapping("/schedule")
+    public String getSchedule(Model model) throws Exception {
+        model.addAttribute("registeredSections", MajorService.getRegisteredSections());
+        return "schedule";
+    }
+
+    @GetMapping("/removeSection")
+    public String removeSection(String courseId) throws Exception{
+        MajorService.deleteSection(courseId);
+        return "section-remove-confirm";
+    }
 }

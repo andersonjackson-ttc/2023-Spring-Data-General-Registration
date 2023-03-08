@@ -1,9 +1,17 @@
 package com.majors.majorpopulate;
 
-import java.sql.Date;
-import java.util.Objects;
+import java.time.LocalTime;
 
+import java.util.Date;
+import java.util.List;
+
+/* import jakarta.persistence.Id;
+import jakarta.persistence.Entity;
+ */
+
+//@Entity
 public record Section (
+       // @Id
         String CourseTitle,
         String CourseSection,
         String CourseDays,

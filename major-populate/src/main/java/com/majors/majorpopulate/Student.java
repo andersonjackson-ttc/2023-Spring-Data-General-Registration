@@ -4,18 +4,65 @@ import com.majors.majorpopulate.Major;
 
 import com.majors.majorpopulate.repository.SqlCaller;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
-
+@Entity(name = "Student")
+@Table(name ="tbl_student")
 public class Student {
+
+    @Id
+    @SequenceGenerator(
+        name = "student_sequence",
+        sequenceName = "student_sequence",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "student_sequence"
+    )
+    @Column(
+        name = "id",
+        updatable = false
+    )
+    private int studentId;
+
     @NotBlank (message = "Cannot Be Blank")
+    @Column(
+        name = "name",
+        nullable = false,
+        columnDefinition = "TEXT"
+        )
     private String name;
+
     @NotBlank (message = "Cannot Be Blank")
+    @Column(
+        name = "password",
+        nullable = false,
+        columnDefinition = "TEXT"
+        )
     private String password;
+
     @NotBlank (message = "Cannot Be Blank")
+    @Column(
+        name = "passwordValidation",
+        nullable = false,
+        columnDefinition = "TEXT"
+        )
     private String passwordValidation;
+
     @NotBlank (message = "Cannot Be Blank")
-    private Major major;
+    @Column(
+        name = "major",
+        columnDefinition = "TEXT"
+        )
+    private String major;
      
     public Student()
     {}
@@ -57,16 +104,10 @@ public class Student {
     public String getPasswordValidation() {
         return passwordValidation;
     }
-<<<<<<< Updated upstream:major-populate/src/main/java/com/majors/majorpopulate/Student.java
-    
-    public String getMajorId(){
-        return major.getMajorId();
-=======
     public String getMajorId() throws Exception{
         SqlCaller sql = new SqlCaller();
         String majorId = sql.getMajorId(major);
         return majorId;
->>>>>>> Stashed changes:major-populate/src/main/java/com/majors/majorpopulate/student/Student.java
     }
     @Override
     public String toString() {
