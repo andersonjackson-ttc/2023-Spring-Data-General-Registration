@@ -1,6 +1,13 @@
+com\majors\majorpopulate\controller\MajorPopulateController.class
 com\majors\majorpopulate\MajorElectives.class
+com\majors\majorpopulate\Major$RequiredCourses.class
+com\majors\majorpopulate\Section.class
+com\majors\majorpopulate\repository\SqlCaller.class
+com\majors\majorpopulate\Major$MajorElectiveGroup.class
+com\majors\majorpopulate\Course.class
+com\majors\majorpopulate\service\MajorService.class
+com\majors\majorpopulate\POJO\RegisteredSection.class
 com\majors\majorpopulate\MajorPopulateApplication.class
-com\majors\majorpopulate\ConstantsAndStuff.class
-com\majors\majorpopulate\MajorPopulateController.class
-com\majors\majorpopulate\MajorRequirements.class
+com\majors\majorpopulate\student\Login.class
+com\majors\majorpopulate\student\Student.class
 com\majors\majorpopulate\Major.class

@@ -1,45 +1,41 @@
 package com.majors.majorpopulate.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.majors.majorpopulate.ConstantsAndStuff;
 import com.majors.majorpopulate.Major;
-import com.majors.majorpopulate.Student;
+import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.service.MajorService;
+import com.majors.majorpopulate.student.Login;
+import com.majors.majorpopulate.student.Student;
 
 import jakarta.validation.Valid;
 
 
 @Controller
 public class MajorPopulateController {
-    //@Autowired
-    //ConstantsandStuff cs;
-    //SqlRepository sqlRepo = new SqlRepository();
-
-    // String classDescription = "HELLO this is a class description and its going to be what goes on in the class";
-
-    @Autowired
-    MajorService MajorService;
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
-        model.addAttribute("majorInfo", new Major());
-        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
+        boolean invalid = false;
+        Login login = new Login();
+        model.addAttribute("incorrect", invalid);
+        model.addAttribute("loginInfo", login);
         
         return "form";
     }
 
     @PostMapping("/submitRegister")
     public String HandlerRegister(@Valid Student student, BindingResult result, Model model) throws Exception {
-        model.addAttribute("majorChoices", ConstantsAndStuff.populateMajorChoices());
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
         if (!(student.getPassword().equals(student.getPasswordValidation()))) result.rejectValue("passwordValidation", "", "Passwords Must Match");
         if (result.hasErrors()) return "register";
-        ConstantsAndStuff.CreateStudent(student);
-
+        MajorService.CreateStudent(student);
         return "redirect:/form";
     }
 
@@ -47,48 +43,45 @@ public class MajorPopulateController {
     public String register(Model model) throws Exception {
         Student student = new Student();
         model.addAttribute("student", student);
+        MajorService.populateMajorChoices();
         model.addAttribute("majorChoices", MajorService.populateMajorChoices());
         return "register";
     }
 
-    //Commented out for now. Main Page not working just yet
-
-    // @PostMapping("/submitMajor")
-    // public String handleMajor(Major major) {
-    //     majors.add(major);
-    //     //ConstantsAndStuff.showMajorRequirements(major.getName());
-        
-    //     return "redirect:/mainpage";
-    // }
+    @PostMapping("/studentLogin")
+    public String findStudent(@Valid Login login, Model model) throws Exception {
+        String correctCredentials = MajorService.validateLogin(login.getName(), login.getPassword());
+        if(correctCredentials.equals("0")) {
+            boolean invalid = true;
+            model.addAttribute("incorrect", invalid);
+            model.addAttribute("loginInfo", login);
+            return "form";
+        }
+        return "redirect:/mainpage";
+    }
 
     @GetMapping("/mainpage")
-<<<<<<< Updated upstream
-    public String populateInfo(Model model) {
-         model.addAttribute("information", major.majorName);
-         model.addAttribute("classes", ConstantsAndStuff.showRequiredCourses(MajorId:null));
-         model.addAttribute("electives", ConstantsAndStuff.showMajorElectiveCourses(null));
-         model.addAttribute("description", major.getDescription);
-         return "mainpage";
-     }
-=======
     public String populateInfo(Model model) throws Exception {
-        Student student = MajorService.getStudent(MajorService.loggedInUser.get(0).getName());
-        String majorName = student.getMajor();
-        String name = student.getName();
-        Major major = MajorService.getMajorById(student.getMajorId());
+        String majorName = MajorService.loggedInUser.get(0).getMajorName();
+        String name = MajorService.loggedInUser.get(0).getName();
+        Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
-        model.addAttribute("electives", major.getMajorElectiveGroups());
-    
+        model.addAttribute("electives", major.MajorElectiveGroups);
+        model.addAttribute("fakeCourses", MajorService.getFakeCourses());
 
-    // model.addAttribute("information", new Major(ConstantsAndStuff.showMajorRequirements(majorId)))
-    //     model.addAttribute("classes", ConstantsAndStuff.majorRequirement);
-    //     model.addAttribute("description", classDescription);
         return "mainpage";
     }
 
     @GetMapping("/courseSearch")
-    public String getCourseSearch(){
+    public String getCourseSearch(Model model, String name) throws Exception{
+        boolean courseSelected = false;
+        if (name != null) {
+            courseSelected = true;
+        }
+        model.addAttribute("showTable", courseSelected);
+        List<Section> section = MajorService.getSectionTimesByCourseName(name);
+        model.addAttribute("sectionTimes", section);
         return "course-search";
     }
 

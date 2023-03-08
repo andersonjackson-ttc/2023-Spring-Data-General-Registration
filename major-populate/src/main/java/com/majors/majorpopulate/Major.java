@@ -3,27 +3,28 @@ package com.majors.majorpopulate;
 import java.util.List;
 
 public class Major {
-
-    public String name;
-    public String majorName;
-    public String MajorId;
+    private String name;
+    private String majorName;
+    private String MajorId;
+    public List<Course> RequiredCourses;
     public List<MajorElectiveGroup> MajorElectiveGroups;
-    public List<Course> requiredCourses;
-    
-    public Major(String majorName) {
-        this.majorName = majorName;
-    }
-    
+
     public Major() {
     }
-    
+
+    public Major(String name, String majorName) {
+        this.name = name;
+        this.majorName = majorName;
+    }
+
     public String getMajorName() {
         return this.majorName;
     }
-    
+
     public void setMajorName(String name) {
         this.majorName = name;
     }
+
     public String getName() {
         return name;
     }
@@ -46,14 +47,14 @@ public class Major {
         this.MajorElectiveGroups =  majorElectiveGroups;
     }
     public List<Course> getRequiredCourses(){
-        return requiredCourses;
+        return RequiredCourses;
+    }
+    public void setRequiredCourses(List<Course> requiredCourses){
+        this.RequiredCourses = requiredCourses;
     }
 
-    public void setRequiredCourses(List<Course> requiredCourses){
-        this.requiredCourses = requiredCourses;
-    }
-    
     public record MajorElectiveGroup(
+        String ElectiveGroupName,
         String ElectiveGroupId,
         int NumRequired,
         List<Course> CoursesInElectiveGroup
@@ -62,6 +63,10 @@ public class Major {
     public record RequiredCourses(
         List<Course> RequiredCourses
     ){}
+
+
+
+    
 
     
 }

@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MajorPopulateApplication<major-populate>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.majors.majorpopulate.MajorPopulateApplication",
+            "projectName": "major-populate",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
