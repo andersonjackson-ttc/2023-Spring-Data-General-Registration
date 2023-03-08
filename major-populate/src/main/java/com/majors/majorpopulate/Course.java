@@ -2,7 +2,6 @@ package com.majors.majorpopulate;
 
 
 import java.util.List;
-import java.util.Optional;
 
 public record Course (
         List<Section> Classes,
