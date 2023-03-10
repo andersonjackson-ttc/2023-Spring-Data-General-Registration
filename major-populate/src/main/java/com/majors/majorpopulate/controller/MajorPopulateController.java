@@ -2,6 +2,7 @@ package com.majors.majorpopulate.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,9 @@ import jakarta.validation.Valid;
 
 @Controller
 public class MajorPopulateController {
+    
+    @Autowired
+    MajorService majorService;
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception{
@@ -43,7 +47,7 @@ public class MajorPopulateController {
     public String register(Model model) throws Exception {
         Student student = new Student();
         model.addAttribute("student", student);
-        MajorService.populateMajorChoices();
+        //MajorService.populateMajorChoices();
         model.addAttribute("majorChoices", MajorService.populateMajorChoices());
         return "register";
     }

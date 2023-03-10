@@ -1,11 +1,14 @@
 package com.majors.majorpopulate.student;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
-
+@Entity
 public class Student {
 
-
+    @Id
+    
     private int studentId;
     @NotBlank (message = "Cannot Be Blank")
     private String name;

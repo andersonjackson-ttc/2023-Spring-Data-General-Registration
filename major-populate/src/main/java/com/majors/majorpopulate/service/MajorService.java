@@ -14,13 +14,17 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
+//@Service 
+@Component
 public class MajorService {
     
-    //make single connection to SQL. SqlCaller Class.
-    //@Service 
-    public static SqlCaller sql = new SqlCaller();
+    @Autowired
+    static
+    SqlCaller sql;
     
     public static List<Login> loggedInUser = new ArrayList<>();
 
@@ -36,7 +40,7 @@ public class MajorService {
     }
 
     //Gets required classes from SQLcaller Class
-    public static List<String> showRequiredCourses(String majorId) throws Exception {
+    public List<String> showRequiredCourses(String majorId) throws Exception {
         List<String> coursesList = new ArrayList<>();
         coursesList = sql.getRequiredCoreClasses(majorId);
         return coursesList;
@@ -70,7 +74,7 @@ public class MajorService {
     }
 
   
-    public static List<String> showCoursesByTerm(String term, Major major){
+    public List<String> showCoursesByTerm(String term, Major major){
         List<String> courseList = new ArrayList<>();
 
         for (Course course: major.RequiredCourses) {
@@ -83,7 +87,7 @@ public class MajorService {
         return courseList;
     }
 
-    public static Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
+    public Hashtable<MajorElectiveGroup,List<Course>> showElectivesByGroup(Major major){
         Hashtable<MajorElectiveGroup, List<Course>> courseList = new Hashtable<>();
 
         for (MajorElectiveGroup meg: major.MajorElectiveGroups) {

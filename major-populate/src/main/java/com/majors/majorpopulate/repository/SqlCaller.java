@@ -21,6 +21,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Component;
+
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.MajorPopulateApplication;
@@ -29,9 +31,10 @@ import com.majors.majorpopulate.student.Student;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 
+// @Repository
+@Component
 public class SqlCaller {
 
-    // @Autowired
     // SqlRepository sqlRepo
     Statement sqlSt;
     Connection dbConnect;
