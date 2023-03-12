@@ -333,13 +333,22 @@ public class SqlCaller {
      * gets sections information from database from course button on mainpage.html
      */
 
-     /////duplicate method for getSectionByCourseId////////
-    public List<Section> getSectionTimesByCourseName(String courseName) throws Exception {
+    ///// duplicate method for getSectionByCourseId////////
+    public List<Section> getSectionTimesByCourseName(String courseName, String term) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
-        String query = String.format("Select * "
-                + "FROM tbl_courses_offered "
-                + "WHERE course_title = '%s'", courseName);
+        String query = "";
+        if (term == "" || term == null) {
+            query = String.format("Select * "
+                    + "FROM tbl_courses_offered "
+                    + "WHERE course_title = '%s'", courseName);
+
+        } else {
+            query = String.format("Select * "
+                    + "FROM tbl_courses_offered "
+                    + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
+        }
+
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
             Section eachClass = new Section(
@@ -359,15 +368,26 @@ public class SqlCaller {
         }
         return classList;
     }
-/* 
- * takes the course_term_dates from ResultSet
- * parses it into 2 seperate Dates, course start date
- * and course end date. into a List<Date>
- */
+
+    public List<String> getTerm() throws Exception {
+        List<String> termList = new ArrayList<>();
+        String query = "select  DISTINCT course_term from tbl_courses_offered";
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            termList.add(result.getString(1));
+        }
+        return termList;
+    }
+
+    /*
+     * takes the course_term_dates from ResultSet
+     * parses it into 2 seperate Dates, course start date
+     * and course end date. into a List<Date>
+     */
     private List<Date> parseDates(ResultSet result) throws Exception {
         List<Date> dates = new ArrayList<>();
         String dateString = result.getString("course_term_dates");
-        if (dateString.isEmpty()){
+        if (dateString.isEmpty()) {
             return dates;
         }
         String[] splitDates = dateString.split("-");
@@ -378,15 +398,16 @@ public class SqlCaller {
         }
         return dates;
     }
-/* 
- * takes the course_time from ResultSet
- * parses it into 2 seperate LocalTimes, start time
- * and end time. into a List<LocalTime>
- */
+
+    /*
+     * takes the course_time from ResultSet
+     * parses it into 2 seperate LocalTimes, start time
+     * and end time. into a List<LocalTime>
+     */
     private List<LocalTime> parseTimes(ResultSet result) throws Exception {
         List<LocalTime> times = new ArrayList<>();
         String timeString = result.getString("course_time");
-        if (timeString.isEmpty()){
+        if (timeString.isEmpty()) {
             return times;
         }
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
@@ -439,10 +460,11 @@ public class SqlCaller {
         return rs;
     }
 
-    //Removes a selected registered section from the schedule page. 
+    // Removes a selected registered section from the schedule page.
     public void deleteRegisteredSection(int studentId, String courseId) throws Exception {
         sqlSt = dbConnect.createStatement();
-        String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId + "'";
+        String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId
+                + "'";
         sqlSt.execute(query);
     }
 
@@ -542,7 +564,6 @@ public class SqlCaller {
      * }
      */
 
-    
 }
 /*
  * String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '"
