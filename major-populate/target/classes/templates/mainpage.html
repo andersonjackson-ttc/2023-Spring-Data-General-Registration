@@ -30,6 +30,8 @@
           <td th:text="${coreRequirement?.CourseName} "  th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
    
             <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
+          <td th:text="${coreRequirement?.CourseName} "  th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
+          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
         </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>

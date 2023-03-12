@@ -3,28 +3,23 @@ package com.majors.majorpopulate.service;
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
-import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-//@Service 
-@Component
+@Service 
 public class MajorService {
     
     @Autowired
-    static
-    SqlCaller sql;
+    static SqlCaller sql;
     
     public static List<Login> loggedInUser = new ArrayList<>();
 
