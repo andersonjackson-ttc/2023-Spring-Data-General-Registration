@@ -26,15 +26,17 @@
           <th>Core Requirements</th>
         </tr>
         <tr th:each="coreRequirement : ${coreRequirements}">
+    
           <td th:text="${coreRequirement?.CourseName} "  th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
-          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
+   
+            <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
         </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>
         </tr>
         <tr th:each="elective : ${electives}">
-          <!-- <td th:text="${elective.ElectiveGroupId}"></td> -->
           <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
+          <td th:block th:each="tx : ${coreRequirement}"></td>
           <td><button class="update" th:attr="onclick=|electShowClick()|">Click for Electives</button></td>
         </tr>
       </table>
@@ -43,55 +45,17 @@
       
     </div>
     <div class="electiveChoices">
-      <table class="table" >
+      <table class="table" th:each="elective : ${electives}">
+        <th th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}">
+        </th>
+        <th:block th:each="txt : ${elective?.CoursesInElectiveGroup}">
         <tr>
-          <th>Electives Choices</th>
+          <td th:text="${txt?.CourseName}" th:attr="onclick=|coreInfoClick('${txt?.CourseName}')|"></td>
+          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${txt?.CourseName})}">Click for Section Times</a></td>
         </tr>
-        <tr th:each="fakeCourse : ${fakeCourses}">
-          <td th:text="${#strings.substring(fakeCourse.value, 0, #strings.length(fakeCourse.value)-1)}"></td>
-          <td><a role="button" class="update" th:attr="onclick=|tdclick('this will show you times for ${#strings.substring(fakeCourse.value, 0, #strings.length(fakeCourse.value)-1)}')|">Check Section Times</a></td>
-        </tr>
-        </table>
+        </th:block>
+      </table>
       </div>
     </div>
   </body>
   </html>
-
-
-
-
-
-
-
-  <!-- <div class= "container">
-    <table id="table"> 
-      <tr>
-          <th>Major Name</th>
-          <th>Required Type</th>
-          <th>Course Id</th>
-          <th>Course Name</th>
-        </tr>
-        <tr th:each="classInfo: ${classes}">
-          <td th:text="${classInfo.name}"></td>
-          <td th:text="${classInfo.reqType}"></td>
-          <td th:text="${classInfo.courseId}"></td>
-          <td th:text="${classInfo.courseName}"  th:onclick='tdclick("classInfo.courseName")'>
-          </td>
-           <td><a role="button" class="update" th:href="@{/(id = ${name.id})}">UPDATE</a></td> -->
-        <!-- </tr>
-        <tr>
-          <th>Electives</th>
-        </tr>
-        <tr th:each="elective : ${electives}">
-          <td th:text="${elective.majorName}"></td>
-          <td th:text="${elective.electiveGroup}"></td>
-          <td th:text="${elective.numbRequired}"></td>
-          <td>
-            <a role="button" class="update">Click For Classes</a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div id="secondContainer">
-      <p th:text="${description}"></p>
-    </div> -->
