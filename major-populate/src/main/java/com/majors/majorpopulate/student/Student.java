@@ -1,15 +1,19 @@
 package com.majors.majorpopulate.student;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "tbl_student")
 public class Student {
 
     @Id
-    
+    @Column(name = "id")
     private int studentId;
+    @Column(name = "name")
     @NotBlank (message = "Cannot Be Blank")
     private String name;
     @NotBlank (message = "Cannot Be Blank")

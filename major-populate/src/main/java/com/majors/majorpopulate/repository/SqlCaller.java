@@ -21,6 +21,7 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Repository;
 
 import com.majors.majorpopulate.Course;
@@ -32,7 +33,7 @@ import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 
 @Repository
-public class SqlCaller {
+public class SqlCaller{
 
     Statement sqlSt;
     Connection dbConnect;
@@ -84,6 +85,8 @@ public class SqlCaller {
         }
         return majorList;
     }
+
+
 
     public Major GetMajorById(String majorId) throws Exception {
         Major major = new Major();

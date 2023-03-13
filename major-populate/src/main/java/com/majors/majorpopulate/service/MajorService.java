@@ -1,25 +1,39 @@
 package com.majors.majorpopulate.service;
 
-import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
+import com.majors.majorpopulate.repository.StudentRepository;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service 
-public class MajorService {
+public class MajorService implements MajorServiceInterface{
+    @Autowired 
+    StudentRepository studentRepository;
+
+    public Student getStudent(int id){
+        return studentRepository.findById(id).get();
+    }
+
     
     @Autowired
+    SqlCaller NonStaticSql;
     static SqlCaller sql;
+
+    @Autowired
+    public void setStaticSQL(SqlCaller NonStaticSql){
+        MajorService.sql = NonStaticSql;
+    }
     
     public static List<Login> loggedInUser = new ArrayList<>();
 
@@ -106,7 +120,7 @@ public class MajorService {
     public static List<RegisteredSection> getRegisteredSections() throws Exception {
         List<RegisteredSection> registeredSections = new ArrayList<>();
         registeredSections = sql.getRegisteredSections(
-                sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
+            sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
         return registeredSections;
     }
 
@@ -119,4 +133,11 @@ public class MajorService {
     public static void deleteSection(String courseId) throws Exception {
         sql.deleteRegisteredSection(getStudentId(), courseId);
     }
+
+    @Override
+    public Major getMajorByName(String majorName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMajorByName'");
+    }
+
 }
