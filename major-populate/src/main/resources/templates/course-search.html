@@ -15,23 +15,7 @@
         <a th:href="@{/form}">Logout</a>
     </div>    
     <h1 th:if="${showTable == false}">Go to Main page to find a course to select</h1>
-    <!-- <div>
-        <form method="post"
-              th:action="@{/courseSearch(name=${major})}"
-              th:object="${result}">
-                <select class="form-select"
-                        aria-label="Default select example"
-                        th:field="*{description}"
-                        th:value="${result.description}">
-                    <option value="" selected>Choose a term</option>
-                    <option th:each="term1 : ${terms}"
-                            th:value="${term1}"
-                            th:text="${term1}" >
-                    </option>
-                </select>
-                <input type="submit" value="search"/>
-        </form>
-    </div> -->
+    
     <table class="table" th:if="${showTable == true}">
         <tr>
             <th>Course Title</th>
