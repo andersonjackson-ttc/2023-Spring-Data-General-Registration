@@ -334,20 +334,43 @@ public class SqlCaller {
      */
 
     ///// duplicate method for getSectionByCourseId////////
-    public List<Section> getSectionTimesByCourseName(String courseName, String term) throws Exception {
+    public List<Section> getSectionTimesByCourseName(String courseName) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
         String query = "";
-        if (term == "" || term == null) {
-            query = String.format("Select * "
-                    + "FROM tbl_courses_offered "
-                    + "WHERE course_title = '%s'", courseName);
 
-        } else {
-            query = String.format("Select * "
-                    + "FROM tbl_courses_offered "
-                    + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
+        query = String.format("Select * "
+                + "FROM tbl_courses_offered "
+                + "WHERE course_title = '%s'", courseName);
+
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            Section eachClass = new Section(
+                    result.getString("course_title"),
+                    result.getString("course_section"),
+                    result.getString("course_days"),
+                    result.getString("course_term"),
+                    parseDates(result),
+                    parseTimes(result),
+                    result.getString("course_location"),
+                    result.getString("course_building_nbr"),
+                    result.getString("course_room"),
+                    result.getString("course_type"),
+                    result.getInt("total_seats"),
+                    result.getInt("seats_taken"));
+            classList.add(eachClass);
         }
+        return classList;
+    }
+
+    public List<Section> getCourseNameByTerm(String courseName, String term) throws Exception {
+        sqlSt = dbConnect.createStatement();
+        List<Section> classList = new ArrayList<>();
+        String query = "";
+
+        query = String.format("Select * "
+                + "FROM tbl_courses_offered "
+                + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
 
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
