@@ -5,9 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+<<<<<<< Updated upstream
 @Entity
 @Table(name = "tbl_student")
+=======
+@Getter
+@Setter
+>>>>>>> Stashed changes
 public class Student {
 
     @Id
@@ -31,6 +38,7 @@ public class Student {
         this.passwordValidation = passwordValidation;
         this.major = major;
     }
+<<<<<<< Updated upstream
     public int getStudentId() {
         return studentId;
     }
@@ -78,4 +86,6 @@ public class Student {
                 ", major='" + major + '\'' +
                 '}';
     }
+=======
+>>>>>>> Stashed changes
 }

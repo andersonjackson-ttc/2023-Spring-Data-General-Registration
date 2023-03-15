@@ -1,10 +1,17 @@
 package com.majors.majorpopulate.POJO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public class SearchTerm {
 
     public SearchTerm() {
 
     }
+<<<<<<< Updated upstream
 
     public SearchTerm(String description) {
         this.description = description;
@@ -20,4 +27,6 @@ public class SearchTerm {
 
     public String description;
 
+=======
+>>>>>>> Stashed changes
 }

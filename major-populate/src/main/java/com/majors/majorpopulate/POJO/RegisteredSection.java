@@ -1,5 +1,10 @@
 package com.majors.majorpopulate.POJO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class RegisteredSection {
     private String majorId;
     private String courseId;
@@ -16,6 +21,7 @@ public class RegisteredSection {
         this.sectionId = sectionId;
         this.term = term;
     }
+<<<<<<< Updated upstream
 
 
     public String getMajorId() {
@@ -50,4 +56,6 @@ public class RegisteredSection {
         this.term = term;
     }
 
+=======
+>>>>>>> Stashed changes
 }
