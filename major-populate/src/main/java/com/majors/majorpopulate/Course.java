@@ -1,6 +1,8 @@
 package com.majors.majorpopulate;
 
+
 import java.util.List;
+import java.util.Optional;
 
 public record Course (
         List<Section> Classes,
@@ -9,5 +11,6 @@ public record Course (
         List<Course> PreRequisites,
         List<Course> CoRequisites
 ) {
+
 }
  

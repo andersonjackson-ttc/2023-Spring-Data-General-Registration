@@ -1,8 +1,14 @@
 package com.majors.majorpopulate;
 
 import java.time.LocalTime;
+
 import java.util.Date;
 import java.util.List;
+
+
+//import jakarta.persistence.Entity;
+
+
 
 public record Section (
         String CourseTitle,
@@ -17,4 +23,6 @@ public record Section (
         String CourseType,
         int SeatsTaken,
         int SeatsAvailable) {
+
+
         }

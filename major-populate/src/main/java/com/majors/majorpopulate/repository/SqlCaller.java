@@ -31,6 +31,8 @@ import com.majors.majorpopulate.POJO.RegisteredSection;
 
 public class SqlCaller {
 
+    // @Autowired
+    // SqlRepository sqlRepo
     Statement sqlSt;
     Connection dbConnect;
     private List<Section> classList;
@@ -61,6 +63,7 @@ public class SqlCaller {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("IOException" + ex.getMessage());
         }
+
     }
 
     public List<String> ShowMajorNames() throws Exception {
@@ -85,6 +88,7 @@ public class SqlCaller {
         Major major = new Major();
         sqlSt = dbConnect.createStatement();
         try {
+
             String query = String.format("SELECT * "
                     + "FROM tbl_majors "
                     + "WHERE major_id = %s", majorId);
@@ -96,6 +100,7 @@ public class SqlCaller {
                 major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
                 major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
             }
+            // sqlSt.close();
         } catch (Exception e) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("SQL IS BAD!!" + e.getMessage());
@@ -327,12 +332,45 @@ public class SqlCaller {
      * ADDED by STEPHEN
      * gets sections information from database from course button on mainpage.html
      */
-    public List<Section> getSectionByCourseName(String courseName) throws Exception {
+
+    ///// duplicate method for getSectionByCourseId////////
+    public List<Section> getSectionTimesByCourseName(String courseName) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
-        String query = String.format("Select * "
+        String query = "";
+
+        query = String.format("Select * "
                 + "FROM tbl_courses_offered "
                 + "WHERE course_title = '%s'", courseName);
+
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            Section eachClass = new Section(
+                    result.getString("course_title"),
+                    result.getString("course_section"),
+                    result.getString("course_days"),
+                    result.getString("course_term"),
+                    parseDates(result),
+                    parseTimes(result),
+                    result.getString("course_location"),
+                    result.getString("course_building_nbr"),
+                    result.getString("course_room"),
+                    result.getString("course_type"),
+                    result.getInt("total_seats"),
+                    result.getInt("seats_taken"));
+            classList.add(eachClass);
+        }
+        return classList;
+    }
+
+    public List<Section> getCourseNameByTerm(String courseName, String term) throws Exception {
+        sqlSt = dbConnect.createStatement();
+        List<Section> classList = new ArrayList<>();
+        String query = "";
+
+        query = String.format("Select * "
+                + "FROM tbl_courses_offered "
+                + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
 
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
@@ -420,6 +458,9 @@ public class SqlCaller {
     public void createRegisteredSection(int studentId, String majorId, String courseId, String sectionId, String term)
             throws Exception {
         sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+
+        /// why do we need to store the in this table? It is already stored in the
+        /// courses_offered table, associated with the section_id.
         String query = "INSERT tbl_registration(student_id,major_id,course_id,section_id,term,reg_dts) VALUES("
                 + studentId + ",'" + majorId + "','" + courseId + "','" + sectionId + "', '" + term + "', " + null
                 + ")";
@@ -450,6 +491,34 @@ public class SqlCaller {
         sqlSt.execute(query);
     }
 
+    /*
+     * public void BuildStudent(String name)throws Exception{
+     * sqlSt = dbConnect.createStatement();
+     * String SQL = string.format("Select * FROM tbl_student WHERE name = %s", name)
+     * }
+     */
+    /*
+     * }
+     * public void CreateStudent(Student student) throws Exception{
+     * 
+     * try {
+     * String SQL =
+     * "INSERT tbl_student(name,password,major_name,passwordValidation) VALUES('" +
+     * student.getName() + "',+'" + student.getPassword() +
+     * "','" + student.getMajor() + "','" + student.getPasswordValidation() + "')";
+     * 
+     * sqlSt.execute(SQL);
+     * sqlSt.close();
+     * 
+     * }
+     * catch (SQLException ex) {
+     * Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE,
+     * null, ex);
+     * System.out.println("SQL IS BAD!!" + ex.getMessage());
+     * 
+     * }
+     * }
+     */
     public int Login(Student student) throws Exception {
         String sql = "select * from tbl_student where name= '" + student.getName() + "' and password ='"
                 + student.getPassword() + "'";
@@ -463,6 +532,65 @@ public class SqlCaller {
         else
             return value;
     }
+
+    /*
+     * public Student GetStudent(int id)throws Exception
+     * {
+     * String sql = "select * from tbl_student where student_id= '"+id+"'";
+     * ResultSet result = sqlSt.executeQuery(sql);
+     * Student student = new Student();
+     * while(result.next())
+     * {
+     * student.setStudentId( result.getInt(1));
+     * student.setName( result.getString(2));
+     * student.setMajor( result.getString(4));
+     * 
+     * }
+     * return student;
+     * }
+     */
+    /*
+     * public RequirementsForMajor GetRequirements(String nameOfMajor)
+     * {
+     * RequirementsForMajor resultData = new RequirementsForMajor();
+     * ResultSet result;
+     * String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '"
+     * + nameOfMajor + "'";
+     * String SQLMajorElectives =
+     * "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'";
+     * try {
+     * result = sqlSt.executeQuery(SQLMajors);
+     * while (result.next() != false) {
+     * resultData.getMajorRequirement().add(new MajorRequirements(
+     * result.getString("major_name"),
+     * result.getString("req_type"),
+     * result.getString("course_id"),
+     * ""));
+     * }
+     * result = sqlSt.executeQuery(SQLMajorElectives);
+     * while (result.next() != false) {
+     * resultData.getMajorElectives().add(new MajorElectives(
+     * result.getString("major_name"),
+     * result.getString("elective_group"),
+     * result.getString("nbr_required")));
+     * }
+     * 
+     * sqlSt.close();
+     * }
+     * catch (SQLException ex) {
+     * Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE,
+     * null, ex);
+     * System.out.println("SQL IS BAD!!" + ex.getMessage());
+     * 
+     * }
+     * return resultData;
+     * }
+     */
+
 }
-    
-    
+/*
+ * String SQLMajors = "SELECT * FROM tbl_grad_requirement WHERE major_name = '"
+ * + nameOfMajor + "'";
+ * String SQLMajorElectives =
+ * "SELECT * FROM tbl_major_electives WHERE major_name = '" + nameOfMajor + "'";
+ */

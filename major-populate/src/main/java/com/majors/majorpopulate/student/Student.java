@@ -2,7 +2,9 @@ package com.majors.majorpopulate.student;
 
 import jakarta.validation.constraints.NotBlank;
 
+
 public class Student {
+
 
     private int studentId;
     @NotBlank (message = "Cannot Be Blank")
@@ -59,5 +61,14 @@ public class Student {
 
     public String getPasswordValidation() {
         return passwordValidation;
+    }
+    
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", major='" + major + '\'' +
+                '}';
     }
 }

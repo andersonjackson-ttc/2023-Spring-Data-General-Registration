@@ -1,9 +1,9 @@
 package com.majors.majorpopulate.POJO;
 
 public class SearchTerm {
-    public String description;
 
     public SearchTerm() {
+
     }
 
     public SearchTerm(String description) {
@@ -18,5 +18,6 @@ public class SearchTerm {
         this.description = description;
     }
 
+    public String description;
 
 }

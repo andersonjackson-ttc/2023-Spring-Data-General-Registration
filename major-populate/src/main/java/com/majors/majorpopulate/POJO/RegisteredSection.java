@@ -6,6 +6,7 @@ public class RegisteredSection {
     private String sectionId;
     private String term;
 
+
     public RegisteredSection() {
     }
 
@@ -15,6 +16,7 @@ public class RegisteredSection {
         this.sectionId = sectionId;
         this.term = term;
     }
+
 
     public String getMajorId() {
         return this.majorId;

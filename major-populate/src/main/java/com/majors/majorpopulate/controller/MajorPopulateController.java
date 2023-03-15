@@ -1,6 +1,7 @@
 package com.majors.majorpopulate.controller;
 
 import java.util.List;
+
 import com.majors.majorpopulate.POJO.SearchTerm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,11 +9,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
+
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -100,7 +103,10 @@ public class MajorPopulateController {
 
     @GetMapping("/handleRegistration")
     public String handleRegistration(Model model, String sectionId, String term) throws Exception {
-        String courseId = MajorService.parseCourseId(sectionId);
+        String courseId = MajorService.gettingCorrectCourseId(sectionId);
+        System.out.println(sectionId);
+        System.out.println(courseId);
+        System.out.println(term);
         MajorService.createRegisteredSection(sectionId, courseId, term);
 
         return "registration";
