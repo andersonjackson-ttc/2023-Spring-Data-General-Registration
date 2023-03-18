@@ -2,7 +2,6 @@ package com.majors.majorpopulate.controller;
 
 import java.util.List;
 
-import com.majors.majorpopulate.POJO.Admin;
 import com.majors.majorpopulate.POJO.SearchTerm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
+import com.majors.majorpopulate.service.Admin;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
@@ -64,7 +64,7 @@ public class MajorPopulateController {
         }
         if (login.getName().equals("admin") && login.getPassword().equals("admin")) {
             return "redirect:/adminMainpage";
-        }  
+        }
         return "redirect:/mainpage";
     }
 
@@ -109,10 +109,7 @@ public class MajorPopulateController {
 
     @GetMapping("/handleRegistration")
     public String handleRegistration(Model model, String sectionId, String term) throws Exception {
-        String courseId = MajorService.gettingCorrectCourseId(sectionId);
-        System.out.println(sectionId);
-        System.out.println(courseId);
-        System.out.println(term);
+        String courseId = MajorService.parseCourseId(sectionId);
         MajorService.createRegisteredSection(sectionId, courseId, term);
 
         return "registration";
@@ -131,28 +128,28 @@ public class MajorPopulateController {
     }
 
     @GetMapping("/adminMainpage")
-    public String getAdminMainpage(){
+    public String getAdminMainpage() {
         return "admin-mainpage";
     }
 
     @GetMapping("/studentSearch")
-    public String getStudentSearch(Model model){
-        
+    public String getStudentSearch(Model model) {
+
         model.addAttribute("studentSearch", new Admin());
         return "admin-studentSearch";
     }
 
-    @PostMapping("/studentSearchResult") 
+    @PostMapping("/studentSearchResult")
     public String getStudentSearchResult(@ModelAttribute Admin studentName, Model model) throws Exception {
         List<Student> studentList = MajorService.getStudentClasses(studentName.getStudent());
         model.addAttribute("studentName", studentName);
         model.addAttribute("studentList", studentList);
-        
+
         return "student-search-result";
     }
-    
+
     @GetMapping("/modifyCourses")
-    public String getModifyCourses(){
+    public String getModifyCourses() {
         return "admin-modifyCourses";
     }
 

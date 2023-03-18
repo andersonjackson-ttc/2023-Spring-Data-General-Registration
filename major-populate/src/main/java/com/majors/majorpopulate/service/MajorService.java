@@ -3,20 +3,13 @@ package com.majors.majorpopulate.service;
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
-import com.majors.majorpopulate.Major.MajorElectiveGroup;
-import com.majors.majorpopulate.POJO.Admin;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-
-import org.hibernate.type.TrueFalseConverter;
 
 public class MajorService {
 
@@ -74,7 +67,6 @@ public class MajorService {
     public static Major getMajorById(String majorId) throws Exception {
         Major major = sql.GetMajorById(majorId);
         return major;
-
     }
 
     public static List<String> showCoursesByTerm(String term, Major major) {
@@ -88,23 +80,6 @@ public class MajorService {
             }
         }
         return courseList;
-    }
-
-    public static Hashtable<MajorElectiveGroup, List<Course>> showElectivesByGroup(Major major) {
-        Hashtable<MajorElectiveGroup, List<Course>> courseList = new Hashtable<>();
-
-        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
-            courseList.put(meg, meg.CoursesInElectiveGroup());
-        }
-        return courseList;
-    }
-
-    public static HashMap<Integer, String> getFakeCourses() {
-        HashMap<Integer, String> hm = new HashMap<>();
-        for (int i = 0; i < 7; i++) {
-            hm.put(i, "fake course" + String.valueOf(i));
-        }
-        return hm;
     }
 
     // gets sections times and info for the selected course from mainpage.html
@@ -132,10 +107,10 @@ public class MajorService {
     /*
      * takes the last 4 characters off the section name to pass to SqlCaller
      */
-    public static String gettingCorrectCourseId(String courseId) {
+    public static String parseCourseId(String courseId) {
         String[] split = courseId.split("-");
-        String correctedCourseId = String.format("%s-%s", split[0], split[1]);
-        return correctedCourseId;
+        String parsedCourseId = String.format("%s-%s", split[0], split[1]);
+        return parsedCourseId;
     }
 
     /*
@@ -158,29 +133,14 @@ public class MajorService {
         sql.deleteRegisteredSection(getStudentId(), courseId);
     }
 
-    //Gets list of students from database for admin
+    // Gets list of students from database for admin
     public static List<Student> getStudentClasses(String studentName) throws Exception {
         List<Student> studentList;
         studentList = sql.getStudentListByName(studentName);
         return studentList;
     }
 
-    /* public static String getCourseStatusForStudent(int studentId, Major major){
-        Boolean courseStatus ;
-        
-        for(Course course : major.RequiredCourses){
-            courseStatus = sql.checkForCourseRegistered();
-        if (courseStatus == true){
-            course.withStatus("Registered");
-        } else{
-            courseStatus = sql.checkForCourseTranscipt();
-            if (courseStatus == true){
-                course.withStatus("Completed");
-            }
-        }
+    /* public static String getCourseStatusForStudent(int studentId, String course_id){
+        var courseStatus = sql.checkForCourseRegistered
     } */
-        
-
-
-    
 }
