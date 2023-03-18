@@ -227,11 +227,41 @@ public class SqlCaller {
                     classList.get(0).CourseTitle(),
                     CourseId,
                     GetPreReqCoursesByCourseId(CourseId),
-                    GetCoReqCoursesByCourseId(CourseId));
+                    GetCoReqCoursesByCourseId(CourseId),
+                    null);
         } catch (Exception ex) {
             return null;
         }
         return course;
+    }
+
+    /* public String getCourseStatusForStudent(int studentId, Major major){
+        Boolean courseStatus ;
+        
+        for(Course course : major.RequiredCourses){
+            courseStatus = checkForCourseRegistered(course.CourseId());
+        if (courseStatus == true){
+            return "Registered";
+        } else{
+            courseStatus = checkForCourseTranscipt(course.CourseId());
+            if (courseStatus == true){
+                return "Completed";
+            }
+        }
+    }
+    } */
+    private Boolean checkForCourseRegistered(String courseId) {
+        return null;
+    }
+
+    private Boolean checkForCourseTranscipt(String courseId) throws SQLException {
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_student_transcript WHERE course_id = '%s'", courseId);
+        ResultSet result = sqlSt.executeQuery(query);
+        if (!result.next()) {
+            return false;}
+        else{
+            return true;}
     }
 
     public List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception {

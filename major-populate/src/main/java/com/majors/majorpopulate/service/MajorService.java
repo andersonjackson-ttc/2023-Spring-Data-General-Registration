@@ -10,10 +10,13 @@ import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+
+import org.hibernate.type.TrueFalseConverter;
 
 public class MajorService {
 
@@ -161,4 +164,23 @@ public class MajorService {
         studentList = sql.getStudentListByName(studentName);
         return studentList;
     }
+
+    /* public static String getCourseStatusForStudent(int studentId, Major major){
+        Boolean courseStatus ;
+        
+        for(Course course : major.RequiredCourses){
+            courseStatus = sql.checkForCourseRegistered();
+        if (courseStatus == true){
+            course.withStatus("Registered");
+        } else{
+            courseStatus = sql.checkForCourseTranscipt();
+            if (courseStatus == true){
+                course.withStatus("Completed");
+            }
+        }
+    } */
+        
+
+
+    
 }
