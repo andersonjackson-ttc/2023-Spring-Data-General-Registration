@@ -1,8 +1,10 @@
 package com.majors.majorpopulate.student;
 
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
-
+@Getter
+@Setter 
 public class Student {
 
 
@@ -32,51 +34,5 @@ public class Student {
         this.passwordValidation = passwordValidation;
         this.major = major;
     }
-    public int getStudentId() {
-        return studentId;
-    }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
-    public void setPasswordValidation(String passwordValidation) {
-        this.passwordValidation = passwordValidation;
-    }
-
-    public String getPasswordValidation() {
-        return passwordValidation;
-    }
-    
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", major='" + major + '\'' +
-                '}';
-    }
 }
