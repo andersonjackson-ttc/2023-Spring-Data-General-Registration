@@ -4,6 +4,7 @@ import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
+import com.majors.majorpopulate.POJO.Admin;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
@@ -152,5 +153,12 @@ public class MajorService {
     // removes a registered section time for the student.
     public static void deleteSection(String courseId) throws Exception {
         sql.deleteRegisteredSection(getStudentId(), courseId);
+    }
+
+    //Gets list of students from database for admin
+    public static List<Student> getStudentClasses(String studentName) throws Exception {
+        List<Student> studentList;
+        studentList = sql.getStudentListByName(studentName);
+        return studentList;
     }
 }

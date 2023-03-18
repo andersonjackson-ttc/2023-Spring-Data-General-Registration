@@ -2,6 +2,7 @@ package com.majors.majorpopulate.controller;
 
 import java.util.List;
 
+import com.majors.majorpopulate.POJO.Admin;
 import com.majors.majorpopulate.POJO.SearchTerm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +62,9 @@ public class MajorPopulateController {
             model.addAttribute("loginInfo", login);
             return "form";
         }
+        if (login.getName().equals("admin") && login.getPassword().equals("admin")) {
+            return "redirect:/adminMainpage";
+        }  
         return "redirect:/mainpage";
     }
 
@@ -122,5 +126,31 @@ public class MajorPopulateController {
     public String removeSection(String courseId) throws Exception {
         MajorService.deleteSection(courseId);
         return "section-remove-confirm";
+    }
+
+    @GetMapping("/adminMainpage")
+    public String getAdminMainpage(){
+        return "admin-mainpage";
+    }
+
+    @GetMapping("/studentSearch")
+    public String getStudentSearch(Model model){
+        
+        model.addAttribute("studentSearch", new Admin());
+        return "admin-studentSearch";
+    }
+
+    @PostMapping("/studentSearchResult") 
+    public String getStudentSearchResult(@ModelAttribute Admin studentName, Model model) throws Exception {
+        List<Student> studentList = MajorService.getStudentClasses(studentName.getStudent());
+        model.addAttribute("studentName", studentName);
+        model.addAttribute("studentList", studentList);
+        
+        return "student-search-result";
+    }
+    
+    @GetMapping("/modifyCourses")
+    public String getModifyCourses(){
+        return "admin-modifyCourses";
     }
 }

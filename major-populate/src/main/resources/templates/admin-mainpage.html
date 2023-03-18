@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
+    <title>Admin Portal</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/modifyCourses}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2>Hello Admin User Welcome to the Admin Portal</h2>
+    <div class="container">
+        <a role="button" class="buttons" th:href="@{/studentSearch}">Search For Students</a> <br>
+        <a role="button" class="buttons" th:href="@{/modifyCourses}">Modify Courses</a>
+    </div>
+</body>
+</html>

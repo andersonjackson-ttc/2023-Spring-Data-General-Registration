@@ -27,6 +27,7 @@ import com.majors.majorpopulate.MajorPopulateApplication;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.student.Student;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
+import com.majors.majorpopulate.POJO.Admin;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 
 public class SqlCaller {
@@ -531,6 +532,25 @@ public class SqlCaller {
             return value;
         else
             return value;
+    }
+
+    /*
+     * Grabs List of Students from database for admin with general search useing LIKE %search entry%
+     */
+    public List<Student> getStudentListByName(String studentName) throws Exception {
+        sqlSt = dbConnect.createStatement();
+        String query = "SELECT * FROM tbl_student WHERE name LIKE '%" + studentName + "%'";
+        List<Student> sl = new ArrayList<>();
+        ResultSet result = sqlSt.executeQuery(query);
+        while(result.next()){
+           Student studentList = new Student(
+            result.getInt("id"), 
+            result.getString("major_name"),
+            result.getString("name"),
+            result.getString("password"));
+        sl.add(studentList);
+        }
+        return sl;
     }
 
     /*

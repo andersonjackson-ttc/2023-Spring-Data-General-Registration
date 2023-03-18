@@ -18,6 +18,14 @@ public class Student {
      
     public Student()
     {}
+    
+    public Student (int studentId, String major, String name, String password){
+        this.studentId = studentId;
+        this.major = major;
+        this.name = name;
+        this.password = password;
+    }
+
     public Student(String name, String password, String passwordValidation, String major) {
         this.name = name;
         this.password = password;
