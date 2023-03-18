@@ -3,13 +3,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/student-result-styles.css">
     <title>Student Search Result</title>
 </head>
 <body>
-    <h1>Results</h1>
-    <p th:text="'The students name is: ' + ${studentName.student}"></p>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/modifyCourses}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2>Results</h2>
+    <h2 th:text="'The student searched for is: ' + ${studentName.student}"></h2>
 
-    <table>
+    <table class="table">
         <tr>
             <th>Student Id</th>
             <th>Name</th>
@@ -21,8 +28,12 @@
             <td th:text="${student.name}"></td>
             <td th:text="${student.password}"></td>
             <td th:text="${student.major}"></td>
+            <td><a role="button" class="update">Edit Student</a></td>
         </tr>
-
+        
     </table>
+    <div class="container">
+        <a role="button" class="buttons" th:href="@{/studentSearch}">Return to Search for Student</a> <br>
+    </div>
 </body>
 </html>
