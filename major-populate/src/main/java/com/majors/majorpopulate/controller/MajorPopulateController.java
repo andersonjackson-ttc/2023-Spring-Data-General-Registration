@@ -62,7 +62,7 @@ public class MajorPopulateController {
             model.addAttribute("loginInfo", login);
             return "form";
         }
-        if (login.getName().equals("admin") && login.getPassword().equals("admin")) {
+        if (login.getName().equalsIgnoreCase("admin") && login.getPassword().equalsIgnoreCase("admin")) {
             return "redirect:/adminMainpage";
         }
         return "redirect:/mainpage";
@@ -73,12 +73,12 @@ public class MajorPopulateController {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
         Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
+        ////we need to pass in the student_id here. I don't know how to get it from the "loggedInUser"
         MajorService.getCourseStatusForStudent(5, major);
         ////modifies the courses in place. still accessed through the major.
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
-
 
         return "mainpage";
     }
