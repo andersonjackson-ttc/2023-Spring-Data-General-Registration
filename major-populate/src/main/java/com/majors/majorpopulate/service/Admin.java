@@ -21,17 +21,6 @@ public class Admin {
     public Admin() {
     }
 
-    public void CreateSection(String CourseTitle, String CourseSection,
-            String CourseDays, String CourseTerm, List<Date> CourseTermDates,
-            List<LocalTime> CourseTime, String CourseLocation, String CourseBuildingNum,
-            String CourseRoomNum, String CourseType, int SeatsTaken, int SeatsAvailable) throws Exception {
-
-        adminRepo.CreateSection(CourseTitle, CourseSection,
-                CourseDays, CourseTerm, CourseTermDates,
-                CourseTime, CourseLocation, CourseBuildingNum,
-                CourseRoomNum, CourseType, SeatsTaken, SeatsAvailable);
-
-    }
 
     public void UpdateSection(String CourseTitle, String CourseSection,
             String CourseDays, String CourseTerm, List<Date> CourseTermDates,

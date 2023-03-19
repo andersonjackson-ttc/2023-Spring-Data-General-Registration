@@ -73,7 +73,8 @@ public class MajorPopulateController {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
         Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
-        //Major major = MajorService.getCourseStatusForStudent(0, major);
+        MajorService.getCourseStatusForStudent(5, major);
+        ////modifies the courses in place. still accessed through the major.
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
