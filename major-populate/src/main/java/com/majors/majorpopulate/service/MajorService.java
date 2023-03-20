@@ -148,17 +148,20 @@ public class MajorService {
      */
     public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException{
         for (Course course : major.RequiredCourses) {
-            var courseStatus = sql.getCourseStatus(student_id,course.getCourseId());
+            if(course != null)
+            {var courseStatus = sql.getCourseStatus(student_id,course.getCourseId());
             course.setStatus(courseStatus);
             var courseGrade = sql.getGrade(student_id,course.getCourseId());
-            course.setGrade(courseGrade);
+            course.setGrade(courseGrade);}else{continue;}
         }
         for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
             for (Course course : meg.CoursesInElectiveGroup()) {
+                if(course != null){
                 var courseStatus = sql.getCourseStatus(student_id,course.getCourseId());
                 course.setStatus(courseStatus);
                 var courseGrade = sql.getGrade(student_id, course.getCourseId());
                 course.setGrade(courseGrade);
+                }else{continue;}
             }
         }
     }
