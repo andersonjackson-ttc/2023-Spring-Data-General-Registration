@@ -24,22 +24,32 @@
       <table class="table">
         <tr>
           <th>Core Requirements</th>
+          <th>Status</th>
+          <th>Link</th>
         </tr>
         <tr th:each="coreRequirement : ${coreRequirements}">
     
-          <td th:text="${coreRequirement?.CourseName} "  th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
-            
-            <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
-        </tr>
+          <td th:text="${coreRequirement?.CourseName}" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
+              <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Registered</span></td>
+              <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'}"><span>Not Registered</span></td>
+              <td th:if="${coreRequirement?.Status == 'Not Registered'}"><a role="button" class="update"   th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
+            <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Look In Schedule</span></td>
+          </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>
+          
         </tr>
         <tr th:each="elective : ${electives}">
           <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
+          <td></td>
           <td th:block th:each="tx : ${coreRequirement}"></td>
           <td><button class="update" th:attr="onclick=|electShowClick()|">Click for Electives</button></td>
         </tr>
       </table>
+    </div>
+    <!-- this is the div for Class information -->
+    <div class="information">
+
     </div>
     
     <div class="electiveChoices">

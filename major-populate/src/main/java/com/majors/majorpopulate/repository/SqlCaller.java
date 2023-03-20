@@ -116,7 +116,7 @@ public class SqlCaller {
         String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s", MajorId);
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
-            Course course = GetCourseById(result.getString("course_id"));
+            Course course = GetCourseById(result.getString("course_id").substring(1));
             RequiredCourseList.add(course);
         }
         return RequiredCourseList;
@@ -271,6 +271,7 @@ public class SqlCaller {
     private Boolean checkForCourseRegistered(int student_id, String courseId) throws SQLException {
         Boolean transcript;
         sqlSt = dbConnect.createStatement();
+
         String query = String.format("SELECT * FROM tbl_registration WHERE course_id = '%s' AND student_id = '%d'", courseId, student_id);
         ResultSet result = sqlSt.executeQuery(query);
         if (!result.next()) {
