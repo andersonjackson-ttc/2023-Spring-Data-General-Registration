@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -221,46 +222,76 @@ public class SqlCaller {
         sqlSt = dbConnect.createStatement();
         try {
             classList = GetSectionByCourseId(CourseId);
-            course = new Course(
-                    classList,
-                    classList.get(0).CourseTitle(),
-                    CourseId,
-                    GetPreReqCoursesByCourseId(CourseId),
-                    GetCoReqCoursesByCourseId(CourseId),
-                    null);
+            course = new Course(){};
+            course.setClasses(classList);
+            course.setCourseName(CourseId);
+            course.setCourseId(CourseId);
+            course.setCoRequisites(GetCoReqCoursesByCourseId(CourseId));
+            course.setPreRequisites(GetPreReqCoursesByCourseId(CourseId));
         } catch (Exception ex) {
             return null;
         }
         return course;
     }
-
-    /* public String getCourseStatusForStudent(int studentId, Major major){
-        Boolean courseStatus ;
-        
-        for(Course course : major.RequiredCourses){
-            courseStatus = checkForCourseRegistered(course.CourseId());
-        if (courseStatus == true){
-            return "Registered";
-        } else{
-            courseStatus = checkForCourseTranscipt(course.CourseId());
-            if (courseStatus == true){
-                return "Completed";
-            }
-        }
-    }
-    } */
-    private Boolean checkForCourseRegistered(String courseId) {
-        return null;
-    }
-
-    private Boolean checkForCourseTranscipt(String courseId) throws SQLException {
+/* 
+ * By: Curtis
+ * returns the courseName from the joining table 'tbl_courses' by it's course_id
+ */
+    public String getCourseNameById(String CourseId) throws SQLException{
+        String courseName = "";
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT * FROM tbl_student_transcript WHERE course_id = '%s'", courseId);
+        String query = String.format("SELECT course_name FROM tbl_courses WHERE course_id = '%s'", CourseId);
+        ResultSet result = sqlSt.executeQuery(query);
+        if(result.next()){
+            courseName = result.getString("course_name");
+        }
+        return courseName;
+    }
+/* 
+ * By:Curtis
+ * returns the course status, When course is built, calls to 'tbl_registered' and 'tbl_student_transcript'
+ * returns status based on which table the course is/isn't listed in.
+ */
+    public String getCourseStatus(int studentId ,String CourseId) throws SQLException{
+        Boolean courseStatus ;
+        String status;
+            courseStatus = checkForCourseRegistered(studentId,CourseId);
+        if (courseStatus){
+            status = "Registered";
+        }else{
+            courseStatus = checkForCourseTranscipt(CourseId,studentId);
+            if (courseStatus){
+                status = "Completed";
+            }else{status = "Not Registered";}
+        }
+        return status;
+    }
+    
+
+    private Boolean checkForCourseRegistered(int student_id, String courseId) throws SQLException {
+        Boolean transcript;
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_registration WHERE course_id = '%s' AND student_id = '%d'", courseId, student_id);
         ResultSet result = sqlSt.executeQuery(query);
         if (!result.next()) {
-            return false;}
+            transcript = false;}
         else{
-            return true;}
+            transcript = true;
+        }
+        return transcript;
+    }
+
+    private Boolean checkForCourseTranscipt(String courseId, int student_id) throws SQLException {
+        Boolean transcript;
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_student_transcript WHERE course_id = '%s' AND student_id = '%d'", courseId, student_id);
+        ResultSet result = sqlSt.executeQuery(query);
+        if (!result.next()) {
+            transcript = false;}
+        else{
+            transcript = true;
+        }
+        return transcript;
     }
 
     public List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception {
@@ -433,6 +464,7 @@ public class SqlCaller {
     }
 
     /*
+     * Curtis
      * takes the course_term_dates from ResultSet
      * parses it into 2 seperate Dates, course start date
      * and course end date. into a List<Date>
@@ -453,6 +485,7 @@ public class SqlCaller {
     }
 
     /*
+        Curtis
      * takes the course_time from ResultSet
      * parses it into 2 seperate LocalTimes, start time
      * and end time. into a List<LocalTime>
@@ -552,6 +585,21 @@ public class SqlCaller {
         sl.add(studentList);
         }
         return sl;
+    }
+
+    /* 
+     * curtis
+     * returns the grade for the student's course from 'tbl_student_transcript'
+     */
+    public String getGrade(int student_id, String courseId) throws SQLException {
+        String grade = "";
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT course_grade FROM tbl_student_transcript WHERE course_id = '%s' AND student_id = '%d'", courseId, student_id);
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            grade = result.getString("course_grade");
+        }
+        return grade;
     }
 
 }

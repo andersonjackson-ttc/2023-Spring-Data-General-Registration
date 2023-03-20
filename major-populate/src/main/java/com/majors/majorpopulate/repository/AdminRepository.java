@@ -5,16 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AdminRepository {
-/* 
-Creates a new Section with all fields,
-course_title, course_section, course_term, course_term_dates, course_location, course_type = NotNull
-*/
-    public void CreateSection(String courseTitle, String courseSection, String courseDays, String courseTerm,
-            List<Date> courseTermDates, List<LocalTime> courseTime, String courseLocation, String courseBuildingNum,
-            String courseRoomNum, String courseType, int seatsTaken, int seatsAvailable) {
 
-                //TODO
-    }
 /* 
 potentially updates all fields for a section. Only updates passed in fields.
 */
