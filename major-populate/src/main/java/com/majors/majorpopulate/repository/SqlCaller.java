@@ -224,7 +224,7 @@ public class SqlCaller {
             classList = GetSectionByCourseId(CourseId);
             course = new Course(){};
             course.setClasses(classList);
-            course.setCourseName(CourseId);
+            course.setCourseName(classList.get(0).CourseTitle());
             course.setCourseId(CourseId);
             course.setCoRequisites(GetCoReqCoursesByCourseId(CourseId));
             course.setPreRequisites(GetPreReqCoursesByCourseId(CourseId));
