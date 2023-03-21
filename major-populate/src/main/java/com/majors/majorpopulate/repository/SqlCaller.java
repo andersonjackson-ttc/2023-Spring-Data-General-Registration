@@ -221,10 +221,9 @@ public class SqlCaller {
         Course course;
         sqlSt = dbConnect.createStatement();
         try {
-            classList = GetSectionByCourseId(CourseId);
             course = new Course(){};
-            course.setClasses(classList);
-            course.setCourseName(classList.get(0).CourseTitle());
+            course.setClasses(GetSectionByCourseId(CourseId));
+            course.setCourseName(getCourseNameById(CourseId));
             course.setCourseId(CourseId);
             course.setCoRequisites(GetCoReqCoursesByCourseId(CourseId));
             course.setPreRequisites(GetPreReqCoursesByCourseId(CourseId));
@@ -233,18 +232,20 @@ public class SqlCaller {
         }
         return course;
     }
+
 /* 
  * By: Curtis
- * returns the courseName from the joining table 'tbl_courses' by it's course_id
+ * returns the courseName by it's course_id and sets default value if null
  */
     public String getCourseNameById(String CourseId) throws SQLException{
         String courseName = "";
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT course_name FROM tbl_courses WHERE course_id = '%s'", CourseId);
+        String query = String.format("SELECT course_title FROM cpt275_db.tbl_courses_offered c where substr(c.course_section,1, 7)  = '%s'", CourseId.trim());
         ResultSet result = sqlSt.executeQuery(query);
         if(result.next()){
-            courseName = result.getString("course_name");
-        }
+            courseName = result.getString("course_title"); 
+        }else{courseName = "Course Unavailable";}
+        
         return courseName;
     }
 /* 
