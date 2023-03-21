@@ -24,30 +24,46 @@
       <table class="table">
         <tr>
           <th>Core Requirements</th>
+          <th>Status</th>
+          <th>Link</th>
         </tr>
-        <tr th:each="coreRequirement : ${coreRequirements}">
+        <tr th:each="coreRequirement : ${coreRequirements}" th:unless="${coreRequirement.CourseName.equals('Course Unavailable')}">
     
-          <td th:text="${coreRequirement?.CourseName} "  th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
-            
-            <td><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
-        </tr>
+          <td th:unless="${coreRequirement.PreRequisites.size() == 0}" th:text="${coreRequirement?.CourseName} + ' ' + ' ' + '{PreReq Required}'" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
+          <td th:if="${coreRequirement.PreRequisites.size() == 0}" th:text="${coreRequirement?.CourseName}" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
+              <td  class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Registered</span></td>
+              <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'}"><span>Not Registered</span></td>
+                <td id="pre-req-color" th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() > 0}"> PreReq Required</td>
+                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Look In Schedule</span></td>
+          </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>
+          <th># of Courses Available</th>
+          <th>Link</th>
+          
         </tr>
         <tr th:each="elective : ${electives}">
-          <td th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
+          
+          <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td>
+          <td th:if ="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
+          <td th:text="${elective.CoursesInElectiveGroup.size()}"></td>
           <td th:block th:each="tx : ${coreRequirement}"></td>
-          <td><button class="update" th:attr="onclick=|electShowClick()|">Click for Electives</button></td>
+          <td><button th:if="${elective.CoursesInElectiveGroup.size() > 0}" class="update" th:attr="onclick=|electShowClick()|">Click for Electives</button></td>
         </tr>
       </table>
+    </div>
+    <!-- this is the div for Class information -->
+    <div class="information">
+
     </div>
     
     <div class="electiveChoices">
       <table class="table" th:each="elective : ${electives}">
-        <th th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}">
+        <th th:if="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}">
         </th>
-        <th:block th:each="txt : ${elective?.CoursesInElectiveGroup}">
-        <tr>
+        <th:block th:each="txt : ${elective?.CoursesInElectiveGroup}" th:unless="${txt.CourseName.equals('Course Unavailable')}">
+        <tr >
           <td th:text="${txt?.CourseName}" th:attr="onclick=|coreInfoClick('${txt?.CourseName}')|"></td>
           <td><a role="button" class="update" th:href="@{/courseSearch(name = ${txt?.CourseName})}">Click for Section Times</a></td>
         </tr>

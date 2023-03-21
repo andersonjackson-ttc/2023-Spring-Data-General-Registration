@@ -145,4 +145,31 @@ input[type=text],input[type=password], select, textarea  {
   font-size: 18px;
   }
 
+  .registered-status {
+    color: rgb(28, 129, 53);
+    font-weight: bolder;
+  }
+  .registered-status span {
+    padding: 5px;
+    /* border-width: 3px; 
+    border-style: solid; 
+    border-radius: 4px; */
+  }
+  
+  #not-registered-status {
+    color: rgba(250, 147, 12, 0.95);
+    font-weight: bolder;
+    
+  }
+
+  #not-registered-status span {
+    padding: 5px;
+    /* border-width: 3px; 
+    border-style: solid; 
+    border-radius: 4px; */
+  }
+
+  #pre-req-color {
+    color:rgba(250, 124, 66, 0.95)
+  }
 

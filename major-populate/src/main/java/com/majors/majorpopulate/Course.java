@@ -15,5 +15,6 @@ public class Course {
         List<Course> CoRequisites;
         String Status;
         String Grade;
+
 }
  
