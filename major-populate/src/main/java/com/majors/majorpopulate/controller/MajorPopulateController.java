@@ -78,7 +78,7 @@ public class MajorPopulateController {
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
-
+        
         return "mainpage";
     }
 

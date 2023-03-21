@@ -151,9 +151,9 @@ input[type=text],input[type=password], select, textarea  {
   }
   .registered-status span {
     padding: 5px;
-    border-width: 3px; 
+    /* border-width: 3px; 
     border-style: solid; 
-    border-radius: 4px;
+    border-radius: 4px; */
   }
   
   #not-registered-status {
@@ -164,8 +164,12 @@ input[type=text],input[type=password], select, textarea  {
 
   #not-registered-status span {
     padding: 5px;
-    border-width: 3px; 
+    /* border-width: 3px; 
     border-style: solid; 
-    border-radius: 4px;
+    border-radius: 4px; */
+  }
+
+  #pre-req-color {
+    color:rgba(250, 124, 66, 0.95)
   }
 
