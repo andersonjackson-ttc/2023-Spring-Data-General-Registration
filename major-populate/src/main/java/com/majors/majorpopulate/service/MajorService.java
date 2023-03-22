@@ -2,6 +2,7 @@ package com.majors.majorpopulate.service;
 
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.RegisteredSection;
@@ -142,26 +143,31 @@ public class MajorService {
         return studentList;
     }
 
-    /* 
+    /*
      * Curtis
-     * sets course grade and status 
+     * sets course grade and status
      */
-    public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException{
+    public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException {
         for (Course course : major.RequiredCourses) {
-            if(course != null)
-            {var courseStatus = sql.getCourseStatus(student_id,course.getCourseId());
-            course.setStatus(courseStatus);
-            var courseGrade = sql.getGrade(student_id,course.getCourseId());
-            course.setGrade(courseGrade);}else{continue;}
-        }
-        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
-            for (Course course : meg.CoursesInElectiveGroup()) {
-                if(course != null){
-                var courseStatus = sql.getCourseStatus(student_id,course.getCourseId());
+            if (course != null) {
+                var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
                 course.setStatus(courseStatus);
                 var courseGrade = sql.getGrade(student_id, course.getCourseId());
                 course.setGrade(courseGrade);
-                }else{continue;}
+            } else {
+                continue;
+            }
+        }
+        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
+            for (Course course : meg.CoursesInElectiveGroup()) {
+                if (course != null) {
+                    var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
+                    course.setStatus(courseStatus);
+                    var courseGrade = sql.getGrade(student_id, course.getCourseId());
+                    course.setGrade(courseGrade);
+                } else {
+                    continue;
+                }
             }
         }
     }
