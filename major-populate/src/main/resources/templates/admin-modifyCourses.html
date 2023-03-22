@@ -15,6 +15,37 @@
       </div>
 
       <h2>Hello Lets Modify Some Courses</h2>
+
+      <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Section</th>
+            <th>Days</th>
+            <th>Term</th>
+            <th>TermDate</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Building</th>
+            <th>Room</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="courseOffer : ${courseOffers}">
+            <td th:text="${courseOffer.Id}"></td>
+            <td th:text="${courseOffer.Title}"></td>
+            <td th:text="${courseOffer.Section}"></td>
+            <td th:text="${courseOffer.Days}"></td>
+            <td th:text="${courseOffer.Term}"></td>
+            <td th:text="${courseOffer.TermDate}"></td>
+            <td th:text="${courseOffer.Time}"></td>
+            <td th:text="${courseOffer.Location}"></td>
+            <td th:text="${courseOffer.Building}"></td>
+            <td th:text="${courseOffer.Room}"></td>
+            <td th:text="${courseOffer.Type}"></td>
+            <td><a role="button" class="update" >Update</a></td>
+        </tr>
+    </table>
     
 </body>
 </html>
