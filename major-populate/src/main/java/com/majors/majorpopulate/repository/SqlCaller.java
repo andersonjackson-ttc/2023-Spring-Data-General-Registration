@@ -66,7 +66,10 @@ public class SqlCaller {
         }
 
     }
-
+/* 
+ * curtis
+ * returns a list of all major names
+ */
     public List<String> ShowMajorNames() throws Exception {
         sqlSt = dbConnect.createStatement();
         List<String> majorList = new ArrayList<>();
@@ -84,12 +87,14 @@ public class SqlCaller {
         }
         return majorList;
     }
-
+/* 
+ * curtis
+ * builds Major, with all courses and sections offered
+ */
     public Major GetMajorById(String majorId) throws Exception {
         Major major = new Major();
         sqlSt = dbConnect.createStatement();
         try {
-
             String query = String.format("SELECT * "
                     + "FROM tbl_majors "
                     + "WHERE major_id = %s", majorId);
@@ -101,7 +106,6 @@ public class SqlCaller {
                 major.setMajorElectiveGroups(GetElectiveGroupsByMajor(result.getString("major_id")));
                 major.setRequiredCourses(GetRequiredCoursesByMajorId(result.getString("major_id")));
             }
-            // sqlSt.close();
         } catch (Exception e) {
             Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, e);
             System.out.println("SQL IS BAD!!" + e.getMessage());
@@ -109,7 +113,10 @@ public class SqlCaller {
         }
         return major;
     }
-
+/* 
+ * curtis
+ * returns a list of courses required for the major, based on the major_id
+ */
     public List<Course> GetRequiredCoursesByMajorId(String MajorId) throws Exception {
         List<Course> RequiredCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
@@ -189,7 +196,10 @@ public class SqlCaller {
     /*
      * END OF STEPHENS ADDITIONS
      */
-
+/* 
+ * curtis
+ * returns a list of All Sections available for a given course.
+ */
     public List<Section> GetSectionByCourseId(String CourseId) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
@@ -216,7 +226,10 @@ public class SqlCaller {
         return classList;
 
     }
-
+/* 
+ * curtis
+ * builds a course, with all of it's Sections and requisite courses, based on the course_id
+ */
     public Course GetCourseById(String CourseId) throws Exception {
         Course course;
         sqlSt = dbConnect.createStatement();
@@ -267,8 +280,10 @@ public class SqlCaller {
         }
         return status;
     }
-    
-
+    /* 
+     * curtis
+     * checks tbl_registration for entries and returns whether there are or not. 
+     */
     private Boolean checkForCourseRegistered(int student_id, String courseId) throws SQLException {
         Boolean transcript;
         sqlSt = dbConnect.createStatement();
@@ -282,7 +297,10 @@ public class SqlCaller {
         }
         return transcript;
     }
-
+/* 
+ * curtis
+ * checks tbl_student_transcript for classes and returns true or false.
+ */
     private Boolean checkForCourseTranscipt(String courseId, int student_id) throws SQLException {
         Boolean transcript;
         sqlSt = dbConnect.createStatement();
@@ -295,7 +313,10 @@ public class SqlCaller {
         }
         return transcript;
     }
-
+/* 
+ * curtis
+ * returns a list of courses that are Co-requisites for it's sibling course.
+ */
     public List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception {
         List<Course> coReqCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
@@ -310,7 +331,10 @@ public class SqlCaller {
         }
         return coReqCourseList;
     }
-
+/* 
+ * curtis
+ * returns a list of course that are Pre-Requisites for it's parent course
+ */
     public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception {
         List<Course> preReqCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
@@ -325,7 +349,12 @@ public class SqlCaller {
         }
         return preReqCourseList;
     }
-
+/* 
+ * curtis
+ * returns a list of MajorElectiveGroups that are available for it's Parent Major. 
+ * tells use the elective group name, elective_group_id, Number of courses required for the major,
+ * and a list of courses in each elective group
+ */
     public List<MajorElectiveGroup> GetElectiveGroupsByMajor(String MajorId) throws Exception {
         MajorElectiveGroup meg;
         List<MajorElectiveGroup> electiveGroupList = new ArrayList<>();
@@ -356,7 +385,10 @@ public class SqlCaller {
 
         return electiveGroupList;
     }
-
+/* 
+ * curtis
+ * returns the list of courses in parent ElectiveGroup
+ */
     public List<Course> GetElectivesByElectiveGroup(String electiveGroupId) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Course> electiveCourses = new ArrayList<>();
@@ -378,7 +410,9 @@ public class SqlCaller {
         }
         return electiveCourses;
     }
-
+/* 
+ * 
+ */
     public void CreateStudent(String name, String password, String major_name) throws Exception {
         sqlSt = dbConnect.createStatement(); // allows SQL to be executed
         String SQL = "INSERT tbl_student(name,password,major_name) VALUES('" + name + "',+'" + password +
@@ -522,10 +556,7 @@ public class SqlCaller {
      */
     public void createRegisteredSection(int studentId, String majorId, String courseId, String sectionId, String term)
             throws Exception {
-        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
-
-        /// why do we need to store the in this table? It is already stored in the
-        /// courses_offered table, associated with the section_id.
+        sqlSt = dbConnect.createStatement();
         String query = "INSERT tbl_registration(student_id,major_id,course_id,section_id,term,reg_dts) VALUES("
                 + studentId + ",'" + majorId + "','" + courseId + "','" + sectionId + "', '" + term + "', " + null
                 + ")";
@@ -570,7 +601,7 @@ public class SqlCaller {
             return value;
     }
 
-    /*
+    /*stephen
      * Grabs List of Students from database for admin with general search useing LIKE %search entry%
      */
     public List<Student> getStudentListByName(String studentName) throws Exception {
