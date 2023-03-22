@@ -604,36 +604,5 @@ public class SqlCaller {
         return grade;
     }
 
-    /*
-     * Josh 
-     * Update a grade in student transcript table, finding student based on student ID and course ID
-     */
-    public void updateGrades(int studentId, String courseId, String newGrade) throws Exception {
-        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
-        String SQL = String.format("UPDATE tbl_student_transcripts SET course_grade = '%s' WHERE student_id = '%d', course_id = '%s'", newGrade,studentId,courseId);
-        try {
-            sqlSt.execute(SQL);
-        } catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("UpdateGrade Failed!!" + ex.getMessage());
-        }
-    }
-
-     /*
-     * Josh 
-     * changes a student major in the student table based on student ID and the new Major ID
-     */
-    public void changeMajor(int studentId, String majorId) throws Exception {
-        String majorName = GetMajorById(majorId);
-        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
-        String SQL = String.format("UPDATE tbl_student SET major_name = '%s' WHERE student_id = '%d'", majorName,studentId);
-        try {
-            sqlSt.execute(SQL);
-        } catch (SQLException ex) {
-            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("UpdateGrade Failed!!" + ex.getMessage());
-        }
-    }
-
 }
 
