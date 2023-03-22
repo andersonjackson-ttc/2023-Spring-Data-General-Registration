@@ -2,6 +2,7 @@ package com.majors.majorpopulate.controller;
 
 import java.util.List;
 
+import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.POJO.SearchTerm;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,12 +74,12 @@ public class MajorPopulateController {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
         Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
-        int studentId =  MajorService.getStudentId();
+        int studentId = MajorService.getStudentId();
         MajorService.getCourseStatusForStudent(studentId, major);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
-        
+
         return "mainpage";
     }
 
