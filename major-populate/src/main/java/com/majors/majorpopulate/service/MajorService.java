@@ -171,4 +171,15 @@ public class MajorService {
             }
         }
     }
+
+    /*
+     * By: John Percival
+     * returns all courses
+     */
+    // Gets list of students from database for admin
+    public static List<CourseOffers> getCourses() throws Exception {
+        List<CourseOffers> courseOffers;
+        courseOffers = sql.getCourses();
+        return courseOffers;
+    }
 }
