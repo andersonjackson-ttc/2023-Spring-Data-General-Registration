@@ -162,6 +162,14 @@ public class MajorPopulateController {
         return "student-search-result";
     }
 
+    @PostMapping("/CoursesResult")
+    public String getCoursesResult(@ModelAttribute Admin courseName, Model model) throws Exception {
+
+        model.addAttribute("courseName", courseName);
+        return "redirect:/modifyCoursesResult?courseName=" + courseName.getCourse();
+
+    }
+
     @GetMapping("/modifyCourses")
     public String getModifyCourses(Model model) throws Exception {
         List<CourseOffers> courseOffers = MajorService.getCourses();
