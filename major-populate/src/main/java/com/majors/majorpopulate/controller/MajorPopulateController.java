@@ -177,3 +177,20 @@ public class MajorPopulateController {
         model.addAttribute("courseOffers", courseOffers);
         return "admin-modifyCourses";
     }
+
+    @GetMapping("/modifyCourse")
+    public String modifyCourse(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+
+        var o = MajorService.getCoursesById(id);
+        model.addAttribute("courseOffer", o);
+        return "admin-modifyCourses-form";
+    }
+
+    @PostMapping("/modifyCourse")
+    public String modifyCourseUpdate(@Valid CourseOffers CourseOffer, Model model) throws Exception {
+
+        MajorService.updateCourse(CourseOffer);
+        // model.addAttribute("courseOffer", o);
+        return "redirect:adminMainpage";
+    }
+}
