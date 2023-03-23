@@ -14,10 +14,12 @@
         <a th:href="@{/form}">Logout</a>
       </div>
     <h2>Lets Search for a Student</h2>
-    <form  th:action="@{/studentSearchResult}" th:object="${studentSearch}" method="post">
-        <label for="studentName" id="label-studentName">Student Name</label>
-        <input type="text" id="studentName" th:field="*{student}"> <br>
-        <input type="submit" value="Search">
-    </form>
+    <div class="student-search-form"></div>
+        <form  th:action="@{/studentSearchResult}" th:object="${studentSearch}" method="post">
+            <label for="studentName" id="label-studentName">Student Name</label>
+            <input type="text" id="studentName" th:field="*{student}"> <br>
+            <input type="submit" value="Search">
+        </form>
+    </div>
 </body>
 </html>
