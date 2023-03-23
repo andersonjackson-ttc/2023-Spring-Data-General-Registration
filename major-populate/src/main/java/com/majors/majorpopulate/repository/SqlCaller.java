@@ -274,6 +274,39 @@ public class SqlCaller {
      * By: John Percival
      * returns search courses
      */
+    public List<CourseOffers> getCourses(String nameCourse) throws SQLException {
+        List<CourseOffers> courses = new ArrayList<>();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_courses_offered where course_title = '" + nameCourse + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+        while (result.next()) {
+            CourseOffers courseOffer = new CourseOffers();
+            courseOffer.setId(result.getInt("Id"));
+            courseOffer.setTitle(
+                    result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
+            courseOffer.setSection(result.getString("course_section").equals("") ? "no Available"
+                    : result.getString("course_section"));
+            courseOffer.setDays(
+                    result.getString("course_days").equals("") ? "no Available" : result.getString("course_days"));
+            courseOffer.setTerm(
+                    result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
+            courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
+                    : result.getString("course_term_dates"));
+            courseOffer.setTime(
+                    result.getString("course_time").equals("") ? "no Available" : result.getString("course_time"));
+            courseOffer.setLocation(result.getString("course_location").equals("") ? "no Available"
+                    : result.getString("course_location"));
+            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "no Available"
+                    : result.getString("course_building_nbr"));
+            courseOffer.setRoom(
+                    result.getString("course_room").equals("") ? "no Available" : result.getString("course_room"));
+            courseOffer.setType(
+                    result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
+            courses.add(courseOffer);
+        }
+
+        return courses;
+    }
 
     /*
      * By:Curtis
