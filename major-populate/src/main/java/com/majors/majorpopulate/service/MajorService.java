@@ -177,9 +177,15 @@ public class MajorService {
      * returns search courses
      */
     // Gets list of Course from database for admin
-public static List<CourseOffers> getCourses(String nameCourse) throws Exception
-{
-    List<CourseOffers> courseOffers;
-    courseOffers = sql.getCourses(nameCourse);
-    return courseOffers;
-}
+    public static List<CourseOffers> getCourses(String nameCourse) throws Exception {
+        List<CourseOffers> courseOffers;
+        courseOffers = sql.getCourses(nameCourse);
+        return courseOffers;
+    }
+
+public static CourseOffers getCoursesById(int id) throws Exception
+    {
+        CourseOffers courseOffer;
+        courseOffer = sql.getCoursesById(id);
+        return courseOffer;
+    }
