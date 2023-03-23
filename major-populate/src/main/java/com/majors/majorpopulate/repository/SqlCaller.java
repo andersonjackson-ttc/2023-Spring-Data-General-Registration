@@ -342,6 +342,29 @@ public class SqlCaller {
         return course;
     }
 
+    public void updateCourse(CourseOffers course) throws SQLException {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = "update test.tbl_courses_offered set course_title= '" + course.getTitle() + "',course_section = '"
+                + course.getSection() + "',course_days= '" + course.getDays() + "',course_term= '" + course.getTerm()
+                + "',course_term_dates= '" + course.getTermDate() + "',course_time= '" + course.getTime()
+                + "',course_location= '" + course.getLocation() + "',course_building_nbr= '" + course.getBuilding()
+                + "',course_room= '" + course.getRoom() + "',course_type= '" + course.getType() + "' where  Id = '"
+                + course.getId() + "'";
+        /*
+         * String SQL1 =
+         * "update tbl_courses_offered(title,password,major_name) VALUES('" + name +
+         * "',+'" + password +
+         * "','" + major_name + "')";
+         */
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+
+    }
+
     /*
      * By:Curtis
      * returns the course status, When course is built, calls to 'tbl_registered'
