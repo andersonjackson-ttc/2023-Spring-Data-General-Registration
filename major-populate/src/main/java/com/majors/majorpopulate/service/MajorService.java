@@ -183,9 +183,14 @@ public class MajorService {
         return courseOffers;
     }
 
-public static CourseOffers getCoursesById(int id) throws Exception
-    {
+    public static CourseOffers getCoursesById(int id) throws Exception {
         CourseOffers courseOffer;
         courseOffer = sql.getCoursesById(id);
         return courseOffer;
     }
+
+    public static void updateCourse(CourseOffers course) throws Exception {
+        sql.updateCourse(course);
+
+    }
+}
