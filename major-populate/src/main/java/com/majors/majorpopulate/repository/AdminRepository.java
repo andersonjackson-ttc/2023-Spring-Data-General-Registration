@@ -8,6 +8,7 @@ public class AdminRepository {
 
 /* 
 potentially updates all fields for a section. Only updates passed in fields.
+This should recieve a HashTable<string,string> where the key: field_name, value:field_value
 */
     public void UpdateSection(String courseTitle, String courseSection, String courseDays, String courseTerm,
             List<Date> courseTermDates, List<LocalTime> courseTime, String courseLocation, String courseBuildingNum,

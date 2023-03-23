@@ -198,9 +198,6 @@ public class SqlCaller {
     }
 
     /*
-     * END OF STEPHENS ADDITIONS
-     */
-    /*
      * curtis
      * returns a list of All Sections available for a given course.
      */
@@ -525,7 +522,9 @@ public class SqlCaller {
         }
         return classList;
     }
-
+/* 
+ * 
+ */
     public List<Section> getCourseNameByTerm(String courseName, String term) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
@@ -554,7 +553,9 @@ public class SqlCaller {
         }
         return classList;
     }
-
+/* 
+ * 
+ */
     public List<String> getTerm() throws Exception {
         List<String> termList = new ArrayList<>();
         String query = "select  DISTINCT course_term from tbl_courses_offered";
@@ -628,7 +629,9 @@ public class SqlCaller {
                 + ")";
         sqlSt.execute(query);
     }
-
+/* 
+ * 
+ */
     public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<RegisteredSection> rs = new ArrayList<>();
@@ -644,15 +647,18 @@ public class SqlCaller {
         }
         return rs;
     }
-
-    // Removes a selected registered section from the schedule page.
+/* 
+ * // Removes a selected registered section from the schedule page.
+ */
     public void deleteRegisteredSection(int studentId, String courseId) throws Exception {
         sqlSt = dbConnect.createStatement();
         String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId
                 + "'";
         sqlSt.execute(query);
     }
-
+/* 
+ * 
+ */
     public int Login(Student student) throws Exception {
         String sql = "select * from tbl_student where name= '" + student.getName() + "' and password ='"
                 + student.getPassword() + "'";

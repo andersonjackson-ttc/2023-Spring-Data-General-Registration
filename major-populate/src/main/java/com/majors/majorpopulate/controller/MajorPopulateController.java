@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
-import com.majors.majorpopulate.service.Admin;
+import com.majors.majorpopulate.service.AdminService;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
@@ -127,21 +127,27 @@ public class MajorPopulateController {
         MajorService.deleteSection(courseId);
         return "section-remove-confirm";
     }
-
+/* 
+ * 
+ */
     @GetMapping("/adminMainpage")
     public String getAdminMainpage() {
         return "admin-mainpage";
     }
-
+/* 
+ * 
+ */
     @GetMapping("/studentSearch")
     public String getStudentSearch(Model model) {
 
-        model.addAttribute("studentSearch", new Admin());
+        model.addAttribute("studentSearch", new AdminService());
         return "admin-studentSearch";
     }
-
+/* 
+ * 
+ */
     @PostMapping("/studentSearchResult")
-    public String getStudentSearchResult(@ModelAttribute Admin studentName, Model model) throws Exception {
+    public String getStudentSearchResult(@ModelAttribute AdminService studentName, Model model) throws Exception {
         List<Student> studentList = MajorService.getStudentClasses(studentName.getStudent());
         model.addAttribute("studentName", studentName);
         model.addAttribute("studentList", studentList);
