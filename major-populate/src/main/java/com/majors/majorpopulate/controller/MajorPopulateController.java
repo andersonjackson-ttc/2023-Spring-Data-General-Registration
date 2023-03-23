@@ -163,7 +163,7 @@ public class MajorPopulateController {
     }
 
     @PostMapping("/CoursesResult")
-    public String getCoursesResult(@ModelAttribute Admin courseName, Model model) throws Exception {
+    public String getCoursesResult(@ModelAttribute AdminService courseName, Model model) throws Exception {
 
         model.addAttribute("courseName", courseName);
         return "redirect:/modifyCoursesResult?courseName=" + courseName.getCourse();
