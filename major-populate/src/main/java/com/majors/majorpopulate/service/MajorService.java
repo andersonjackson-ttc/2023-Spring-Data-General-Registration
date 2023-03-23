@@ -172,8 +172,14 @@ public class MajorService {
         }
     }
 
-/*
- * By: John Percival
- * returns search courses
- */
-// Gets list of students from database for admin
+    /*
+     * By: John Percival
+     * returns search courses
+     */
+    // Gets list of Course from database for admin
+public static List<CourseOffers> getCourses(String nameCourse) throws Exception
+{
+    List<CourseOffers> courseOffers;
+    courseOffers = sql.getCourses(nameCourse);
+    return courseOffers;
+}
