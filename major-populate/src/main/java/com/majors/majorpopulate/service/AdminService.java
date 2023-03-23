@@ -1,8 +1,4 @@
 package com.majors.majorpopulate.service;
-
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
 import com.majors.majorpopulate.repository.AdminRepository;
 import lombok.*;
 
@@ -21,44 +17,34 @@ public class AdminService {
     public AdminService() {
     }
 
-/* 
- * should recieve the data either as a hashtable from the form or recieve the data and repackage it here as a hashtable, to send it 
- * to the adminRepo.  Not sure which will work better.
- */
-    public void UpdateSection(String CourseTitle, String CourseSection,
-            String CourseDays, String CourseTerm, List<Date> CourseTermDates,
-            List<LocalTime> CourseTime, String CourseLocation, String CourseBuildingNum,
-            String CourseRoomNum, String CourseType, int SeatsTaken, int SeatsAvailable) throws Exception {
+    /* should recieve the data either as a hashtable from the form or recieve the data and repackage it here as a hashtable, to send it  to the adminRepo.  Not sure which will work better.  */
 
-        adminRepo.UpdateSection(CourseTitle, CourseSection,
-                CourseDays, CourseTerm, CourseTermDates,
-                CourseTime, CourseLocation, CourseBuildingNum,
-                CourseRoomNum, CourseType, SeatsTaken, SeatsAvailable);
-    }
-/* 
- * 
- */
-    public void CreateStudent(String studentName, String studentPassword, String majorName) {
-        adminRepo.CreateStudent(studentName, studentPassword, majorName);
-    }
-/* 
- * 
- */
-    public void UpdateGrades(int studentId, String courseId, String grade) {
-        adminRepo.UpdateGrades(studentId, courseId, grade);
-    }
-/* 
- * 
- */
-    public void ChangeMajor(int studentId, String majorName) {
-        adminRepo.ChangeMajor(studentId, majorName);
+    public void updateSection(String courseTitle, String courseSection, String courseDays, String courseTerm, 
+                            String courseTermDates, String courseTime, String courseLocation, String courseBuildingNum, 
+                            String courseRoomNum, String courseType, String seatsTaken, String seatsAvailable) throws Exception {
+
+        adminRepo.updateSection(courseTitle, courseSection,
+            courseDays, courseTerm, courseTermDates,
+            courseTime, courseLocation, courseBuildingNum,
+            courseRoomNum, courseType, seatsTaken, seatsAvailable);
     }
 
-    /*
-    Admin Service method to set a students course from in progress to completed, with grade 
-    */
-    public void SetCourseToCompleted(int studentId, String courseId, String grade){
-        adminRepo.SetCourseToCompleted(studentId,courseId,grade);
+    public void createStudent(String studentName, String studentPassword, String majorName) throws Exception {
+        adminRepo.adminAddStudent(studentName, studentPassword, majorName);
+    }
+
+    public void updateGrades(int studentId, String courseId, String grade) throws Exception {
+        adminRepo.updateGrades(studentId, courseId, grade);
+    }
+
+    public void changeMajor(int studentId, String majorName) throws Exception {
+        adminRepo.changeMajor(studentId, majorName);
+    }
+
+    /* Admin Service method to set a students course from in progress to completed, with grade  */
+
+    public void setCourseToCompleted(int studentId, String updatedCourseStatus) throws Exception{
+        adminRepo.setCourseToCompleted(studentId,updatedCourseStatus);
     }
 
 }
