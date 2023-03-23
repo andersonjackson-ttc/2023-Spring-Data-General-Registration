@@ -177,22 +177,3 @@ public class MajorPopulateController {
         model.addAttribute("courseOffers", courseOffers);
         return "admin-modifyCourses";
     }
-
-    @GetMapping("/modifyCourses")
-    public String getModifyCourses(Model model) throws Exception {
-        List<CourseOffers> courseOffers = MajorService.getCourses();
-        model.addAttribute("courseOffers", courseOffers);
-        return "admin-modifyCourses";
-    }
-
-    /*
-     * By: John Percival
-     * returns all courses
-     */
-    @GetMapping("/modifyCourse")
-    public String modifyCourse(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
-
-        return "admin-modifyCourses-form";
-    }
-
-}
