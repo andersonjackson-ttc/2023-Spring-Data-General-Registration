@@ -49,7 +49,7 @@ body {
   margin-left: 50px;
 }
 
-#label-studentName {
+#label-studentName ,#label-courseName{
   color:#ddd;
   font-size: 32px;
 }
