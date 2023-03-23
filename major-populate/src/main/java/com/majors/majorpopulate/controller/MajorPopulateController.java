@@ -127,25 +127,32 @@ public class MajorPopulateController {
         MajorService.deleteSection(courseId);
         return "section-remove-confirm";
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     @GetMapping("/adminMainpage")
     public String getAdminMainpage() {
         return "admin-mainpage";
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     @GetMapping("/studentSearch")
     public String getStudentSearch(Model model) {
 
         model.addAttribute("studentSearch", new AdminService());
         return "admin-studentSearch";
     }
-/* 
- * 
- */
+
+    @GetMapping("/AdminCourseSearch")
+    public String getCourseSearch(Model model) {
+
+        model.addAttribute("courseSearch", new AdminService());
+        return "admin-courseSearch";
+    }
+
     @PostMapping("/studentSearchResult")
     public String getStudentSearchResult(@ModelAttribute AdminService studentName, Model model) throws Exception {
         List<Student> studentList = MajorService.getStudentClasses(studentName.getStudent());
