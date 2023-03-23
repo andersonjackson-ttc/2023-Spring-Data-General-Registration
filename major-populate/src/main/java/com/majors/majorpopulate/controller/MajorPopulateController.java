@@ -170,6 +170,14 @@ public class MajorPopulateController {
 
     }
 
+    @GetMapping("/modifyCoursesResult")
+    public String getModifyCourses(@RequestParam(value = "courseName", required = false) String courseName, Model model)
+            throws Exception {
+        List<CourseOffers> courseOffers = MajorService.getCourses(courseName);
+        model.addAttribute("courseOffers", courseOffers);
+        return "admin-modifyCourses";
+    }
+
     @GetMapping("/modifyCourses")
     public String getModifyCourses(Model model) throws Exception {
         List<CourseOffers> courseOffers = MajorService.getCourses();
