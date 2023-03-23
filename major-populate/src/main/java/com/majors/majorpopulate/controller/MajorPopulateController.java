@@ -162,10 +162,6 @@ public class MajorPopulateController {
         return "student-search-result";
     }
 
-    /*
-     * By: John Percival
-     * returns all courses
-     */
     @GetMapping("/modifyCourses")
     public String getModifyCourses(Model model) throws Exception {
         List<CourseOffers> courseOffers = MajorService.getCourses();
