@@ -10,7 +10,7 @@
     <div class="topnav">
         <a th:href="@{/adminMainpage}">Admin Portal</a>
         <a th:href="@{/studentSearch}">Student Search</a>
-        <a th:href="@{/modifyCourses}">Modify Courses</a>
+        <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
         <a th:href="@{/form}">Logout</a>
       </div>
 
@@ -43,7 +43,7 @@
             <td th:text="${courseOffer.Building}"></td>
             <td th:text="${courseOffer.Room}"></td>
             <td th:text="${courseOffer.Type}"></td>
-            <td><a role="button" class="update" >Update</a></td>
+            <td><a role="button" th:href="@{/modifyCourse(Id = ${courseOffer.Id})}" class="update" >Update</a></td>
         </tr>
     </table>
 </body>
