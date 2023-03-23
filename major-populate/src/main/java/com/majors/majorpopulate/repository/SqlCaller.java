@@ -272,42 +272,8 @@ public class SqlCaller {
 
     /*
      * By: John Percival
-     * returns all courses
+     * returns search courses
      */
-    public List<CourseOffers> getCourses() throws SQLException {
-        List<CourseOffers> courses = new ArrayList<>();
-        sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT * FROM tbl_courses_offered");
-        ResultSet result = sqlSt.executeQuery(query);
-        while (result.next()) {
-            CourseOffers courseOffer = new CourseOffers();
-            courseOffer.setId(result.getInt("Id"));
-            courseOffer.setTitle(
-                    result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
-            courseOffer.setSection(result.getString("course_section").equals("") ? "no Available"
-                    : result.getString("course_section"));
-            courseOffer
-                    .setDays(
-                            result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
-            courseOffer.setTerm(
-                    result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
-            courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
-                    : result.getString("course_term_dates"));
-            courseOffer.setTime(
-                    result.getString("course_time").equals("") ? "To Choose" : result.getString("course_time"));
-            courseOffer.setLocation(result.getString("course_location").equals("") ? "no Available"
-                    : result.getString("course_location"));
-            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "Do not apply"
-                    : result.getString("course_building_nbr"));
-            courseOffer.setRoom(
-                    result.getString("course_room").equals("") ? "Do not apply" : result.getString("course_room"));
-            courseOffer.setType(
-                    result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
-            courses.add(courseOffer);
-        }
-
-        return courses;
-    }
 
     /*
      * By:Curtis
@@ -522,9 +488,10 @@ public class SqlCaller {
         }
         return classList;
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<Section> getCourseNameByTerm(String courseName, String term) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
@@ -553,9 +520,10 @@ public class SqlCaller {
         }
         return classList;
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<String> getTerm() throws Exception {
         List<String> termList = new ArrayList<>();
         String query = "select  DISTINCT course_term from tbl_courses_offered";
@@ -629,9 +597,10 @@ public class SqlCaller {
                 + ")";
         sqlSt.execute(query);
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<RegisteredSection> rs = new ArrayList<>();
@@ -647,18 +616,20 @@ public class SqlCaller {
         }
         return rs;
     }
-/* 
- * // Removes a selected registered section from the schedule page.
- */
+
+    /*
+     * // Removes a selected registered section from the schedule page.
+     */
     public void deleteRegisteredSection(int studentId, String courseId) throws Exception {
         sqlSt = dbConnect.createStatement();
         String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId
                 + "'";
         sqlSt.execute(query);
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public int Login(Student student) throws Exception {
         String sql = "select * from tbl_student where name= '" + student.getName() + "' and password ='"
                 + student.getPassword() + "'";
