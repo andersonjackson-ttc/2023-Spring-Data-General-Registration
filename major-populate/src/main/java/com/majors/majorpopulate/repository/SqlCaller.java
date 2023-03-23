@@ -308,6 +308,40 @@ public class SqlCaller {
         return courses;
     }
 
+    public CourseOffers getCoursesById(int id) throws SQLException {
+        CourseOffers course = new CourseOffers();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_courses_offered where Id = '" + id + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+
+        while (result.next()) {
+            course.setId(result.getInt("Id"));
+            course.setTitle(
+                    result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
+            course.setSection(result.getString("course_section").equals("") ? "no Available"
+                    : result.getString("course_section"));
+            course.setDays(
+                    result.getString("course_days").equals("") ? "no Available" : result.getString("course_days"));
+            course.setTerm(
+                    result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
+            course.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
+                    : result.getString("course_term_dates"));
+            course.setTime(
+                    result.getString("course_time").equals("") ? "no Available" : result.getString("course_time"));
+            course.setLocation(result.getString("course_location").equals("") ? "no Available"
+                    : result.getString("course_location"));
+            course.setBuilding(result.getString("course_building_nbr").equals("") ? "no Available"
+                    : result.getString("course_building_nbr"));
+            course.setRoom(
+                    result.getString("course_room").equals("") ? "no Available" : result.getString("course_room"));
+            course.setType(
+                    result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
+
+        }
+
+        return course;
+    }
+
     /*
      * By:Curtis
      * returns the course status, When course is built, calls to 'tbl_registered'
