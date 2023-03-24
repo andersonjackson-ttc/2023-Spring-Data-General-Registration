@@ -199,6 +199,8 @@ public class MajorPopulateController {
 
         var o = MajorService.getStudentById(id);
         model.addAttribute("student", o);
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
+
         return "student-form";
     }
 

@@ -90,9 +90,18 @@ body {
     background-color: orange; 
     cursor: pointer;
   }
+
+  .buttons:hover {
+    background-color: orange; 
+    cursor: pointer;
+  }
   
   .container {
-  
+
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    /*   
     text-align: center;
     border-style: solid;
     width: 50%;
@@ -104,7 +113,7 @@ body {
     background-color: #263238;
     margin-top: 5%;
     margin-left: 15%;
-    margin-right: 15%;
+    margin-right: 15%; */
   }
   
   input[type=text],input[type=password], select, textarea  {
@@ -128,5 +137,18 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-size:16px;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #04AA6D;
+    border-radius: 5px;
+    border: solid white 2px;
+    height: 5%;
+    width: 15%;
   }
   

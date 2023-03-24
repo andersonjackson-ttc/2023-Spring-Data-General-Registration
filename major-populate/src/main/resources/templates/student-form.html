@@ -24,9 +24,10 @@
           <label for="password" >Password</label>
           <input type="text" id="password" th:field="*{password}"  th:value ="*{password}" placeholder="password"/>
           <label for="major" >Major</label>
-          <input type="text" id="major"  th:field="*{major}"  th:value ="*{major}" placeholder="major"/>
-
-
+          <select class="select" th:field="*{major}">
+            <option value="">Choose a Major</option>
+            <option th:each="major : ${majorChoices}" th:text="${major}" th:value="${major}"></option>
+          </select>
           <input type="submit" value="Save">
       </form>
     </div>

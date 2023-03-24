@@ -277,7 +277,7 @@ public class SqlCaller {
     public List<CourseOffers> getCourses(String nameCourse) throws SQLException {
         List<CourseOffers> courses = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT * FROM tbl_courses_offered where course_title = '" + nameCourse + "'");
+        String query = "SELECT * FROM tbl_courses_offered where course_title LIKE '%" + nameCourse + "%'";
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
             CourseOffers courseOffer = new CourseOffers();
