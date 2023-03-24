@@ -350,12 +350,7 @@ public class SqlCaller {
                 + "',course_location= '" + course.getLocation() + "',course_building_nbr= '" + course.getBuilding()
                 + "',course_room= '" + course.getRoom() + "',course_type= '" + course.getType() + "' where  Id = '"
                 + course.getId() + "'";
-        /*
-         * String SQL1 =
-         * "update tbl_courses_offered(title,password,major_name) VALUES('" + name +
-         * "',+'" + password +
-         * "','" + major_name + "')";
-         */
+
         try {
             sqlSt.execute(SQL);
         } catch (SQLException ex) {
