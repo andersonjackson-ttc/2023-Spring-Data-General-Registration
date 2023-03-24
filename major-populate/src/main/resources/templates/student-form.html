@@ -14,7 +14,7 @@
         <a th:href="@{/form}">Logout</a>
       </div>
     <div class="container">
-      <h2 th:text="|Hello Lets Modify the Student ${student.name}|"> </h2>
+      <h2 th:text="|Hello Lets Modify the Student: ${student.name}|"> </h2>
       <form method="post" th:object="${student}" th:action="@{/modifyStudent}">
 
           <input  type="hidden" th:field="*{studentId}"  th:value ="*{studentId}">
