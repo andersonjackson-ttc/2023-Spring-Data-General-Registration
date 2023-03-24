@@ -342,6 +342,24 @@ public class SqlCaller {
         return course;
     }
 
+    public Student getStudentById(int id) throws SQLException {
+        Student student = new Student();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_student where Id = '" + id + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+
+        while (result.next()) {
+            student.setStudentId(result.getInt("id"));
+            student.setName(result.getString("name").equals("") ? "no Available" : result.getString("name"));
+            student.setPassword(
+                    result.getString("password").equals("") ? "no Available" : result.getString("password"));
+            student.setMajor(
+                    result.getString("major_name").equals("") ? "no Available" : result.getString("major_name"));
+
+        }
+        return student;
+    }
+
     public void updateCourse(CourseOffers course) throws SQLException {
         sqlSt = dbConnect.createStatement(); // allows SQL to be executed
         String SQL = "update tbl_courses_offered set course_title= '" + course.getTitle() + "',course_section = '"
