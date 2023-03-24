@@ -193,4 +193,12 @@ public class MajorPopulateController {
         // model.addAttribute("courseOffer", o);
         return "redirect:adminMainpage";
     }
+
+    @GetMapping("/modifyStudent")
+    public String getModifyStudent(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+
+        var o = MajorService.getStudentById(id);
+        model.addAttribute("student", o);
+        return "student-form";
+    }
 }
