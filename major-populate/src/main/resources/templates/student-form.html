@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-course-update-styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Courses Search </a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <div class="container">
+      <h2 th:text="|Hello Lets Modify the Student ${student.name}|"> </h2>
+      <form method="post" th:object="${student}" th:action="@{/modifyStudent}">
+
+          <input  type="hidden" th:field="*{studentId}"  th:value ="*{studentId}">
+          <label for="name" >Name</label>
+          <input type="text" id="name" th:field="*{name}"  th:value ="*{name}" placeholder="name"/>
+
+          <label for="password" >Password</label>
+          <input type="text" id="password" th:field="*{password}"  th:value ="*{password}" placeholder="password"/>
+          <label for="major" >Major</label>
+          <input type="text" id="major"  th:field="*{major}"  th:value ="*{major}" placeholder="major"/>
+
+
+          <input type="submit" value="Save">
+      </form>
+    </div>
+</body>
+</html>
