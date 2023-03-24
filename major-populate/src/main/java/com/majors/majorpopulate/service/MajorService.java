@@ -197,6 +197,10 @@ public class MajorService {
 
     public static void updateCourse(CourseOffers course) throws Exception {
         sql.updateCourse(course);
+    }
+
+    public static void updateStudent(Student student) throws Exception {
+        sql.updateStudent(student);
 
     }
 }
