@@ -201,4 +201,12 @@ public class MajorPopulateController {
         model.addAttribute("student", o);
         return "student-form";
     }
+
+    @PostMapping("/modifyStudent")
+    public String modifyStudent(Student student, Model model) throws Exception {
+
+        MajorService.updateStudent(student);
+        return "redirect:adminMainpage";
+    }
+
 }
