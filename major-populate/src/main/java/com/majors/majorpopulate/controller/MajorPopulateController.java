@@ -146,7 +146,7 @@ public class MajorPopulateController {
         return "admin-studentSearch";
     }
 
-    @GetMapping("/adminCourseSearch")
+    @GetMapping("/AdminCourseSearch")
     public String getCourseSearch(Model model) {
 
         model.addAttribute("courseSearch", new AdminService());
