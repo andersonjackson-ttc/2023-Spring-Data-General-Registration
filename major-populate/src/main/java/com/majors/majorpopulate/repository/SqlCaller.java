@@ -378,6 +378,20 @@ public class SqlCaller {
 
     }
 
+    public void updateStudent(Student student) throws SQLException {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = "update tbl_student set name= '" + student.getName() + "',major_name = '" + student.getMajor()
+                + "',password= '" + student.getPassword() + "' where  Id = '" + student.getStudentId() + "'";
+
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+
+    }
+
     /*
      * By:Curtis
      * returns the course status, When course is built, calls to 'tbl_registered'
