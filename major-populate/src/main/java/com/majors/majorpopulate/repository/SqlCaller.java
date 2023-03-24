@@ -344,7 +344,7 @@ public class SqlCaller {
 
     public void updateCourse(CourseOffers course) throws SQLException {
         sqlSt = dbConnect.createStatement(); // allows SQL to be executed
-        String SQL = "update test.tbl_courses_offered set course_title= '" + course.getTitle() + "',course_section = '"
+        String SQL = "update tbl_courses_offered set course_title= '" + course.getTitle() + "',course_section = '"
                 + course.getSection() + "',course_days= '" + course.getDays() + "',course_term= '" + course.getTerm()
                 + "',course_term_dates= '" + course.getTermDate() + "',course_time= '" + course.getTime()
                 + "',course_location= '" + course.getLocation() + "',course_building_nbr= '" + course.getBuilding()
