@@ -189,6 +189,12 @@ public class MajorService {
         return courseOffer;
     }
 
+    public static Student getStudentById(int id) throws Exception {
+        Student student;
+        student = sql.getStudentById(id);
+        return student;
+    }
+
     public static void updateCourse(CourseOffers course) throws Exception {
         sql.updateCourse(course);
 
