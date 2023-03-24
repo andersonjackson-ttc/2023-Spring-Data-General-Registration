@@ -287,19 +287,19 @@ public class SqlCaller {
             courseOffer.setSection(result.getString("course_section").equals("") ? "no Available"
                     : result.getString("course_section"));
             courseOffer.setDays(
-                    result.getString("course_days").equals("") ? "no Available" : result.getString("course_days"));
+                    result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
             courseOffer.setTerm(
                     result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
             courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
                     : result.getString("course_term_dates"));
             courseOffer.setTime(
-                    result.getString("course_time").equals("") ? "no Available" : result.getString("course_time"));
+                    result.getString("course_time").equals("") ? "To Choose" : result.getString("course_time"));
             courseOffer.setLocation(result.getString("course_location").equals("") ? "no Available"
                     : result.getString("course_location"));
-            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "no Available"
+            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "No Apply"
                     : result.getString("course_building_nbr"));
             courseOffer.setRoom(
-                    result.getString("course_room").equals("") ? "no Available" : result.getString("course_room"));
+                    result.getString("course_room").equals("") ? "No Apply" : result.getString("course_room"));
             courseOffer.setType(
                     result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
             courses.add(courseOffer);
@@ -321,19 +321,19 @@ public class SqlCaller {
             course.setSection(result.getString("course_section").equals("") ? "no Available"
                     : result.getString("course_section"));
             course.setDays(
-                    result.getString("course_days").equals("") ? "no Available" : result.getString("course_days"));
+                    result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
             course.setTerm(
                     result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
             course.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
                     : result.getString("course_term_dates"));
             course.setTime(
-                    result.getString("course_time").equals("") ? "no Available" : result.getString("course_time"));
+                    result.getString("course_time").equals("") ? "To Choose" : result.getString("course_time"));
             course.setLocation(result.getString("course_location").equals("") ? "no Available"
                     : result.getString("course_location"));
-            course.setBuilding(result.getString("course_building_nbr").equals("") ? "no Available"
+            course.setBuilding(result.getString("course_building_nbr").equals("") ? "No Apply"
                     : result.getString("course_building_nbr"));
             course.setRoom(
-                    result.getString("course_room").equals("") ? "no Available" : result.getString("course_room"));
+                    result.getString("course_room").equals("") ? "No Apply" : result.getString("course_room"));
             course.setType(
                     result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
 
