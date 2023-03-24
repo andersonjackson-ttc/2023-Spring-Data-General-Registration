@@ -96,12 +96,14 @@ body {
     cursor: pointer;
   }
   
-  .container {
+  .buttonContainer {
 
     margin-left: 25px;
     margin-top: 25px;
     margin-bottom: 25px;
-    /*   
+  }
+
+  .container {
     text-align: center;
     border-style: solid;
     width: 50%;
@@ -113,8 +115,9 @@ body {
     background-color: #263238;
     margin-top: 5%;
     margin-left: 15%;
-    margin-right: 15%; */
+    margin-right: 15%;
   }
+  
   
   input[type=text],input[type=password], select, textarea  {
   width: 100%;
