@@ -30,7 +30,7 @@
             <td th:text="${student.name}"></td>
             <td th:text="${student.password}"></td>
             <td th:text="${student.major}"></td>
-            <td><a role="button" class="update">Edit Student</a></td>
+            <td><a role="button" th:href="@{/modifyStudent(Id = ${student.studentId})}"  class="update">Edit Student</a></td>
         </tr>
         
     </table>
