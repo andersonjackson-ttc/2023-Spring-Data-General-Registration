@@ -194,6 +194,11 @@ public class MajorPopulateController {
         return "redirect:adminMainpage";
     }
 
+    @GetMapping("studentSearchMainpage")
+    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model) {
+        return "admin-student-mainpage";
+    }
+
     @GetMapping("/modifyStudent")
     public String getModifyStudent(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
 

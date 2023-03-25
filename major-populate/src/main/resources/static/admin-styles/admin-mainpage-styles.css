@@ -45,6 +45,10 @@ body {
   width: 15%;
 }
 
+.buttons:hover {
+  background-color: #FFC300;
+}
+
 .container {
   margin-left: 50px;
 }
