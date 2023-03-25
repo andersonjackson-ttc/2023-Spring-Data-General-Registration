@@ -204,6 +204,14 @@ public class MajorService {
         return registeredSections;
     }
 
+    /*
+     * Removes a section from a students schedule FROM the admin side
+     */
+    public static void adminDeleteSection(int studentId, String courseId) throws Exception {
+        sql.deleteRegisteredSection(studentId, courseId);
+    }
+
+
     public static void updateCourse(CourseOffers course) throws Exception {
         sql.updateCourse(course);
     }

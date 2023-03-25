@@ -28,7 +28,7 @@
             <td th:text="${studentSchedule.majorId}"></td>
             <td th:text="${studentSchedule.sectionId}"></td>
             <td th:text="${studentSchedule.term}"></td>
-            <td><a role="button" class="update" th:href="@{/removeSection(courseId = ${studentSchedule.courseId})}">Remove This Section</a></td>
+            <td><a role="button" class="update" th:href="@{/adminRemoveSection(courseId = ${studentSchedule.courseId}, studentId = ${student.studentId})}">Remove This Section</a></td>
         </tr>
     </table>
 </body>

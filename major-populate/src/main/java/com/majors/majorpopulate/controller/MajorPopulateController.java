@@ -208,6 +208,12 @@ public class MajorPopulateController {
         return "admin-student-schedule";
     }
 
+    @GetMapping("/adminRemoveSection")
+    public String adminRemoveSection(int studentId, String courseId) throws Exception {
+        MajorService.adminDeleteSection(studentId, courseId);
+        return "redirect:/adminStudentSchedule?Id=" + studentId;
+    }
+
     @GetMapping("/modifyStudent")
     public String getModifyStudent(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
 
