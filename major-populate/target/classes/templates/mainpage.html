@@ -32,10 +32,12 @@
           <td th:unless="${coreRequirement.PreRequisites.size() == 0}" th:text="${coreRequirement?.CourseName} + ' ' + ' ' + '{PreReq Required}'" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
           <td th:if="${coreRequirement.PreRequisites.size() == 0}" th:text="${coreRequirement?.CourseName}" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
               <td  class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Registered</span></td>
+              <td  class="registered-status" th:if="${coreRequirement?.Status == 'Completed'}"><span>Completed</span></td>
               <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'}"><span>Not Registered</span></td>
                 <td id="pre-req-color" th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() > 0}"> PreReq Required</td>
                 <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
                   <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'}"><span>Look In Schedule</span></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'}"><span>Completed</span></td>
           </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>

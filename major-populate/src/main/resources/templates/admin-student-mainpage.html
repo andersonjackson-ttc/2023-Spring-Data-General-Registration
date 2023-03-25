@@ -3,9 +3,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
     <title>Admin Student Main Page</title>
 </head>
 <body>
-    <h2>Hello</h2>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2 th:text="'Choose what to do for: ' + ${student.name}"></h2>
+    <div class="container">
+        <a role="button" class="buttons" th:href="@{/adminStudentSchedule(Id = ${student.studentId})}">View Student Schedule</a> <br>
+        <a role="button" class="buttons" th:href="@{/modifyStudent(Id = ${student.studentId})}">Modify Student Profile</a>
+    </div>
 </body>
 </html>

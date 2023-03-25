@@ -195,8 +195,17 @@ public class MajorPopulateController {
     }
 
     @GetMapping("studentSearchMainpage")
-    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model) {
+    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+        var o = MajorService.getStudentById(id);
+        model.addAttribute("student", o);
         return "admin-student-mainpage";
+    }
+
+    @GetMapping("/adminStudentSchedule")
+    public String getAdminStudentSchedule(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception{
+        model.addAttribute("studentsSchedule", MajorService.getRegisteredSections(id));
+        model.addAttribute("student", MajorService.getStudentById(id));
+        return "admin-student-schedule";
     }
 
     @GetMapping("/modifyStudent")

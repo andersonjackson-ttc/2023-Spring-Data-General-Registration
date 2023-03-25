@@ -195,6 +195,15 @@ public class MajorService {
         return student;
     }
 
+    /*
+     * Gets registered sections from a student id for the admin to edit/add grades/remove 
+     */
+    public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+        List<RegisteredSection> registeredSections = new ArrayList<>();
+        registeredSections = sql.getRegisteredSections(studentId);
+        return registeredSections;
+    }
+
     public static void updateCourse(CourseOffers course) throws Exception {
         sql.updateCourse(course);
     }
