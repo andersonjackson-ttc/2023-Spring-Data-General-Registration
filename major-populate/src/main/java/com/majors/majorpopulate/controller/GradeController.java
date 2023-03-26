@@ -23,8 +23,7 @@ public class GradeController {
     public void saveGrade(@ModelAttribute Grade tblStudentTranscript, HttpServletResponse response) throws Exception {
         gradesService.saveGrade(tblStudentTranscript);
         MajorService.adminDeleteSection(tblStudentTranscript.getStudentId(), tblStudentTranscript.getCourseId());
-        response.sendRedirect("/adminStudentSchedule?Id=" + tblStudentTranscript.getStudentId());
-        
+        response.sendRedirect("/adminStudentSchedule?Id=" + tblStudentTranscript.getStudentId());     
     }
     
 }
