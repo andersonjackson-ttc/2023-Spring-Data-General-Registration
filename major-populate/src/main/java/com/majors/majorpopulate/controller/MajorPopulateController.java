@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.POJO.SearchTerm;
+import com.majors.majorpopulate.POJO.Grade;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -229,6 +231,16 @@ public class MajorPopulateController {
 
         MajorService.updateStudent(student);
         return "redirect:adminMainpage";
+    }
+
+    @GetMapping("/adminGradeSubmitForm")
+    public String getAdminGradeSubmitForm(int studentId, String courseId, String term, Model model){
+        Grade grade = new Grade();
+        grade.setStudentId(studentId);
+        grade.setCourseId(courseId);
+        grade.setTermId(term);
+        model.addAttribute("addGrade", grade);
+        return "admin-grade-submit-form";
     }
 
 }

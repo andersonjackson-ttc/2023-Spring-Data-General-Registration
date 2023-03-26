@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is test form</title>
+    <link rel="stylesheet" href="form-stylesheet.css">
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Courses Search </a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    
+    <h2 th:text="${studentId}"></h2>
+    <div class="container">
+    <form action="#" th:object="${addGrade}" th:action="@{/gradeSubmit}" method="POST">
+        <p>put label for student id here</p>
+        <input type="text" th:field="*{studentId}" th:value="*{studentId}">
+        <p>put label for term Id here</p>
+        <input type="text" th:field="*{termId}" th:value="*{termId}">
+        <p>put label for course Id here</p>
+        <input type="text" th:field="*{courseId}" th:value="*{courseId}">
+        <p>put label for course grade/grade option box here</p>
+        <input type="text" th:field="*{courseGrade}" placeholder="course grade">
+        <p>put label for course status here</p>
+        <input type="text" th:field="*{courseStatus}" placeholder="course status">
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</body>
+</html>

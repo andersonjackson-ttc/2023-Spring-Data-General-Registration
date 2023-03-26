@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
-    <title>Admin Student Schedule`</title>
+    <title>Admin Student Schedule</title>
 </head>
 <body>
     <div class="topnav">
@@ -22,6 +22,8 @@
             <th>Major Id</th>
             <th>Section Id</th>
             <th>Term</th>
+            <th>Remove Section</th>
+            <th>Add Grade</th>
         </tr>
         <tr th:each="studentSchedule : ${studentsSchedule}">
             <td th:text="${studentSchedule.courseId}"></td>
@@ -29,6 +31,9 @@
             <td th:text="${studentSchedule.sectionId}"></td>
             <td th:text="${studentSchedule.term}"></td>
             <td><a role="button" class="update" th:href="@{/adminRemoveSection(courseId = ${studentSchedule.courseId}, studentId = ${student.studentId})}">Remove This Section</a></td>
+            <td><a role="button" class="update" th:href="@{/adminGradeSubmitForm(studentId = ${student.studentId}, courseId = ${studentSchedule.courseId}, 
+                term = ${studentSchedule.term})}">Add To Transcript</a></td>
+
         </tr>
     </table>
 </body>

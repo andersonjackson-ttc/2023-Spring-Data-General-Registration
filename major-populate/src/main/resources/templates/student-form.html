@@ -13,7 +13,7 @@
         <a th:href="@{/AdminCourseSearch}">Courses Search </a>
         <a th:href="@{/form}">Logout</a>
       </div>
-      <h2 th:text="${student.name} + 's Schedule'"></h2>
+      <h2 th:text="${student.name} + 's Profile'"></h2>
       <h2 th:text="'Student id: ' + ${student.studentId}"></h2>
     <div class="container">
       <h2 th:text="|Hello Lets Modify ${student.name}'s Profile|"> </h2>
@@ -24,7 +24,7 @@
           <input type="text" id="name" th:field="*{name}"  th:value ="*{name}" placeholder="name"/>
 
           <label for="password" >Password</label>
-          <input type="text" id="password" th:field="*{password}"  th:value ="*{password}" placeholder="password"/>
+          <input type="text" id="password" th:field="*{password}"  th:value ="*{password}" />
           <label for="major" >Major</label>
           <select class="select" th:field="*{major}">
             <option value="">Choose a Major</option>
