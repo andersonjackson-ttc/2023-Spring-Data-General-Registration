@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
-    <title>Student Search</title>
+    <title>Admin Student Main Page</title>
 </head>
 <body>
     <div class="topnav">
@@ -13,13 +13,11 @@
         <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
         <a th:href="@{/form}">Logout</a>
       </div>
-    <h2>Lets Search for a Student</h2>
-    <div class="student-search-form"></div>
-        <form  th:action="@{/studentSearchResult}" th:object="${studentSearch}" method="post">
-            <label for="studentName" id="label-studentName">Student Name</label>
-            <input type="text" id="studentName" th:field="*{student}"> <br>
-            <input type="submit" value="Search">
-        </form>
+    <h2 th:text="'Choose what to do for: ' + ${student.name}"></h2>
+    <div class="container">
+        <a role="button" class="buttons" th:href="@{/adminStudentSchedule(Id = ${student.studentId})}">View Student Schedule</a> <br>
+        <a role="button" class="buttons" th:href="@{/modifyStudent(Id = ${student.studentId})}">Modify Student Profile</a><br>
+        <a role="button" class="buttons" th:href="@{/insertGrades(Id = ${student.studentId})}">Insert Grades</a>
     </div>
 </body>
 </html>

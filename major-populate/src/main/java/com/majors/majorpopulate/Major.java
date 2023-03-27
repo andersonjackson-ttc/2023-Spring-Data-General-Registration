@@ -1,7 +1,10 @@
 package com.majors.majorpopulate;
 
+import lombok.*;
 import java.util.List;
 
+@Getter
+@Setter
 public class Major {
     private String name;
     private String majorName;
@@ -15,42 +18,6 @@ public class Major {
     public Major(String name, String majorName) {
         this.name = name;
         this.majorName = majorName;
-    }
-
-    public String getMajorName() {
-        return this.majorName;
-    }
-
-    public void setMajorName(String name) {
-        this.majorName = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMajorId() {
-        return this.MajorId;
-    }
-
-    public void setMajorId(String id) {
-        this.MajorId = id;
-    }
-    public List<MajorElectiveGroup> getMajorElectiveGroups(){
-        return MajorElectiveGroups;
-    }
-    public void setMajorElectiveGroups(List<MajorElectiveGroup> majorElectiveGroups){
-        this.MajorElectiveGroups =  majorElectiveGroups;
-    }
-    public List<Course> getRequiredCourses(){
-        return RequiredCourses;
-    }
-    public void setRequiredCourses(List<Course> requiredCourses){
-        this.RequiredCourses = requiredCourses;
     }
 
     public record MajorElectiveGroup(

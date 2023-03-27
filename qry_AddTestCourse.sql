@@ -1,0 +1,2 @@
+INSERT INTO tbl_courses_offered (course_title, course_section, course_days, course_term, course_term_dates, course_time, course_location, course_building_nbr, course_room, course_type, total_seats, seats_taken)
+VALUES ("TestName","TestId","T E S T","TestTerm","TestDates","TestTime","TestLoc","TestBlding","TestRoom","TestType",100,100);

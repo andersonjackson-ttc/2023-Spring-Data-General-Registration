@@ -1,16 +1,20 @@
 package com.majors.majorpopulate;
 
-
 import java.util.List;
-import java.util.Optional;
+import lombok.*;
 
-public record Course (
-        List<Section> Classes,
-        String CourseName,
-        String CourseId,
-        List<Course> PreRequisites,
-        List<Course> CoRequisites
-) {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Course {
+        List<Section> Classes;
+        String CourseName;
+        String CourseId;
+        List<Course> PreRequisites;
+        List<Course> CoRequisites;
+        String Status;
+        String Grade;
 
 }
  
