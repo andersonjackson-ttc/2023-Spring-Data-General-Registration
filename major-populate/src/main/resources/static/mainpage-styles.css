@@ -173,3 +173,6 @@ input[type=text],input[type=password], select, textarea  {
     color:rgba(250, 124, 66, 0.95)
   }
 
+  .no-sections-offered{
+    color: red;
+  }
