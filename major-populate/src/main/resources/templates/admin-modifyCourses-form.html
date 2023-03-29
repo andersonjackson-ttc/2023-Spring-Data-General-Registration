@@ -27,7 +27,7 @@
           <label for="Term" >Term</label>
           <input type="text" id="Term" th:field="*{Term}"  th:value ="*{Term}" placeholder="Term" pattern="[0-9\s]{4,4}[a-zA-Z\s]{4,}[1-2\?]{0,1}"/>
           <label for="TermDate" >TermDate</label>
-          <input type="text" id="TermDate" th:field="*{TermDate}"  th:value ="*{TermDate}" placeholder="TermDate"/>
+          <input type="text" id="TermDate" th:field="*{TermDate}"  th:value ="*{TermDate}" placeholder="TermDate" pattern="(0?[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d - (0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" title= "Enter only number with format e.g.: mm/dd/yyyy - mm/dd/yyyy to make change"/>
           <label for="Time" >Time</label>
           <input type="text" id="Time" th:field="*{Time}"  th:value ="*{Time}" placeholder="Time"/>
           <label for="Location" >Location</label>
