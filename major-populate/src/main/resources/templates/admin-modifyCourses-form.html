@@ -37,7 +37,7 @@
           <label for="Room" >Room</label>
           <input type="text" id="Room" th:field="*{Room}"  th:value ="*{Room}" placeholder="Room" pattern="[0-9]{1,4}|(No Apply)" title= "Please Enter Room Number (Min:1-Max:4) With Format, e.g.1 or 223   PM Or No Apply To Choose For Off Site Courses"/>
           <label for="Type" >Type</label>
-          <input type="text" id="Type" th:field="*{Type}"  th:value ="*{Type}" placeholder="Type"/>
+          <input type="text" id="Type" th:field="*{Type}"  th:value ="*{Type}" placeholder="Type" pattern="[A-Z]{1,3}" title= "Only UPPERCASE Alphabetic Characters (Min:1-Max:3) e.g.: HYB"/>
 
           <input type="submit" value="Save">
       </form>
