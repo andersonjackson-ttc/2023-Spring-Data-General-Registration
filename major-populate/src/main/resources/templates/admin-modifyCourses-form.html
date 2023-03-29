@@ -25,7 +25,7 @@
           <label for="Days" >Days</label>
           <input type="text" id="Days"  th:field="*{Days}"  th:value ="*{Days}" placeholder="Days" pattern="[M,T,W,TH,F,S To Choose\s\?]{1,}" title="Only UPPERCASE Alphabetic Characters and Spaces, e.g.: M T W TH F S"/>
           <label for="Term" >Term</label>
-          <input type="text" id="Term" th:field="*{Term}"  th:value ="*{Term}" placeholder="Term"/>
+          <input type="text" id="Term" th:field="*{Term}"  th:value ="*{Term}" placeholder="Term" pattern="[0-9\s]{4,4}[a-zA-Z\s]{4,}[1-2\?]{0,1}"/>
           <label for="TermDate" >TermDate</label>
           <input type="text" id="TermDate" th:field="*{TermDate}"  th:value ="*{TermDate}" placeholder="TermDate"/>
           <label for="Time" >Time</label>
