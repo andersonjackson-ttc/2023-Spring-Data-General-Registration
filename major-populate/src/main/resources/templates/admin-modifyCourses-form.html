@@ -29,7 +29,7 @@
           <label for="TermDate" >TermDate</label>
           <input type="text" id="TermDate" th:field="*{TermDate}"  th:value ="*{TermDate}" placeholder="TermDate" pattern="(0?[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d - (0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" title= "Enter only number with format e.g.: mm/dd/yyyy - mm/dd/yyyy to make change"/>
           <label for="Time" >Time</label>
-          <input type="text" id="Time" th:field="*{Time}"  th:value ="*{Time}" placeholder="Time"/>
+          <input type="text" id="Time" th:field="*{Time}"  th:value ="*{Time}" placeholder="Time" pattern="[0-9]{2}:[0-9]{2}\s(am|pm|AM|PM) - [0-9]{2}:[0-9]{2}\s(am|pm|AM|PM)|(To Choose)" title= "Please Enter Time With Format, e.g. 04:00 PM - 09:30 PM Or To Choose For Off Site Courses"/>
           <label for="Location" >Location</label>
           <input type="text" id="Location" th:field="*{Location}"  th:value ="*{Location}" placeholder="Location"/>
           <label for="Building"  >Building</label>
