@@ -3,6 +3,7 @@ package com.majors.majorpopulate.controller;
 import java.util.List;
 
 import com.majors.majorpopulate.POJO.SearchTerm;
+import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.POJO.Grade;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,8 @@
 package com.majors.majorpopulate.service;
 
+import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.RegisteredSection;
@@ -236,5 +238,11 @@ public class MajorService implements MajorServiceInterface{
     public static void updateStudent(Student student) throws Exception {
         sql.updateStudent(student);
 
+    }
+
+    @Override
+    public Major getMajorByName(String majorName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMajorByName'");
     }
 }

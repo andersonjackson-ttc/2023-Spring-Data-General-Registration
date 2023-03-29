@@ -36,4 +36,7 @@ public class Admin {
     public void CreateStudent(String studentName, String studentPassword, String majorName){}
     public void UpdateGrades(String studentId, String courseId, String grade){}
     public void ChangeMajor(String studentId, String majorName){}
+    public Admin get(int id) {
+        return null;
+    }
 }
