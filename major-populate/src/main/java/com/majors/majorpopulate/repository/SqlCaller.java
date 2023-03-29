@@ -240,13 +240,13 @@ public class SqlCaller{
     public List<Course> GetCoReqCoursesByCourseId(String CourseId) throws Exception {
         List<Course> coReqCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT course_id_c2 FROM tbl_co_req WHERE course_id_c1 = '%s'", CourseId);
+        String query = String.format("SELECT co_req FROM tbl_co_req WHERE course_id = '%s'", CourseId.trim());
         ResultSet result = sqlSt.executeQuery(query);
         if (!result.next()) {
             return coReqCourseList;
         }
         while (result.next()) {
-            Course course = GetCourseById(result.getString("course_id_c2"));
+            Course course = GetCourseById(result.getString("co_req"));
             coReqCourseList.add(course);
         }
         return coReqCourseList;
@@ -255,13 +255,13 @@ public class SqlCaller{
     public List<Course> GetPreReqCoursesByCourseId(String CourseId) throws Exception {
         List<Course> preReqCourseList = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT prereq FROM tbl_pre_reqs WHERE course_id = '%s'", CourseId.trim());
+        String query = String.format("SELECT pre_req FROM tbl_pre_reqs WHERE course_id = '%s'", CourseId.trim());
         ResultSet result = sqlSt.executeQuery(query);
         if (!result.next()) {
             return preReqCourseList;
         }
         while (result.next()) {
-            Course course = GetCourseById(result.getString("prereq"));
+            Course course = GetCourseById(result.getString("pre_req"));
             preReqCourseList.add(course);
         }
         return preReqCourseList;
