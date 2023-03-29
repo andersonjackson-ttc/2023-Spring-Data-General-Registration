@@ -33,7 +33,7 @@
           <label for="Location" >Location</label>
           <input type="text" id="Location" th:field="*{Location}"  th:value ="*{Location}" placeholder="Location" pattern="[a-zA-Z\s]{5,}"title= "Only Alphabetics Characters"/>
           <label for="Building"  >Building</label>
-          <input type="text" id="Building" th:field="*{Building}"  th:value ="*{Building}" placeholder="Building"/>
+          <input type="text" id="Building" th:field="*{Building}"  th:value ="*{Building}" placeholder="Building" pattern="[0-9]{1,4}|(No Apply)" title= "Please Enter Building Number (Min:1-Max:4) With Format, e.g.10 or 923   PM Or No Apply To Choose For Off Site Courses"/>
           <label for="Room" >Room</label>
           <input type="text" id="Room" th:field="*{Room}"  th:value ="*{Room}" placeholder="Room"/>
           <label for="Type" >Type</label>
