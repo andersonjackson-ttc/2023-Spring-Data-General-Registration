@@ -1,4 +1,5 @@
 package com.majors.majorpopulate.POJO;
+
 import lombok.*;
 
 @Getter
@@ -9,6 +10,4 @@ import lombok.*;
 public class SearchTerm {
     public String description;
 
-=======
->>>>>>> Stashed changes
 }
