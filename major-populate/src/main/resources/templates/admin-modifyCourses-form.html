@@ -23,7 +23,7 @@
           <label for="Section" >Section</label>
           <input type="text" id="Section" th:field="*{Section}"  th:value ="*{Section}" placeholder="Section" pattern="[A-Z]{3}-[0-9]{3}-[A-Z0-9]{3}" title= "Enter Capital Letter, Number Or Combination, e.g.: ACC-234-W01 to make change"/>
           <label for="Days" >Days</label>
-          <input type="text" id="Days"  th:field="*{Days}"  th:value ="*{Days}" placeholder="Days"/>
+          <input type="text" id="Days"  th:field="*{Days}"  th:value ="*{Days}" placeholder="Days" pattern="[M,T,W,TH,F,S To Choose\s\?]{1,}" title="Only UPPERCASE Alphabetic Characters and Spaces, e.g.: M T W TH F S"/>
           <label for="Term" >Term</label>
           <input type="text" id="Term" th:field="*{Term}"  th:value ="*{Term}" placeholder="Term"/>
           <label for="TermDate" >TermDate</label>
