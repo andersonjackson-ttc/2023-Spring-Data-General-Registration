@@ -21,7 +21,7 @@
           <label for="Title" >Title</label>
           <input type="text" id="Title" th:field="*{Title}"  th:value ="*{Title}" placeholder="Title" pattern="[a-zA-z\s]{5,}" title= "Only Alphabetics Characters"/>
           <label for="Section" >Section</label>
-          <input type="text" id="Section" th:field="*{Section}"  th:value ="*{Section}" placeholder="Section"/>
+          <input type="text" id="Section" th:field="*{Section}"  th:value ="*{Section}" placeholder="Section" pattern="[A-Z]{3}-[0-9]{3}-[A-Z0-9]{3}" title= "Enter Capital Letter, Number Or Combination, e.g.: ACC-234-W01 to make change"/>
           <label for="Days" >Days</label>
           <input type="text" id="Days"  th:field="*{Days}"  th:value ="*{Days}" placeholder="Days"/>
           <label for="Term" >Term</label>
