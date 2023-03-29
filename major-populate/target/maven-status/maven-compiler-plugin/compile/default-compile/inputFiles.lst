@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\controller\MajorPopulateController.java
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\Section.java
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\Course.java
@@ -10,3 +11,19 @@ C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\ma
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\student\Login.java
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\MajorPopulateApplication.java
 C:\Users\cww50\OneDrive\CPT275 Capstone\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\MajorPopulateController.java
+=======
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\Course.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\service\MajorService.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\repository\SqlCaller.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\repository\AdminRepository.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\MajorPopulateApplication.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\Major.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\POJO\RegisteredSection.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\Section.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\student\Login.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\POJO\CourseOffers.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\POJO\SearchTerm.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\service\AdminService.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\controller\MajorPopulateController.java
+C:\Users\harry\OneDrive\Documents\GitHub\2023-Spring-Data-General-Registration\major-populate\src\main\java\com\majors\majorpopulate\student\Student.java
+>>>>>>> sprint-4

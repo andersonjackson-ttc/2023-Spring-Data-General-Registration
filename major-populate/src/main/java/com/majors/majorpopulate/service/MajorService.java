@@ -1,6 +1,7 @@
 package com.majors.majorpopulate.service;
 
 import com.majors.majorpopulate.Major;
+import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
@@ -8,6 +9,7 @@ import com.majors.majorpopulate.repository.StudentRepository;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,12 +87,29 @@ public class MajorService implements MajorServiceInterface{
     public static Major getMajorById(String majorId) throws Exception {
         Major major = sql.GetMajorById(majorId);
         return major;
+    }
 
+    public static List<String> showCoursesByTerm(String term, Major major) {
+        List<String> courseList = new ArrayList<>();
+
+        for (Course course : major.RequiredCourses) {
+            for (Section eachClass : course.getClasses()) {
+                if (eachClass.CourseTerm() == term) {
+                    courseList.add(course.getCourseName());
+                }
+            }
+        }
+        return courseList;
     }
 
     // gets sections times and info for the selected course from mainpage.html
     public static List<Section> getSectionTimesByCourseName(String name, String term) throws Exception {
-        List<Section> section = sql.getSectionTimesByCourseName(name, term);
+        List<Section> section;
+        if (term == null || term == "") {
+            section = sql.getSectionTimesByCourseName(name);
+        } else {
+            section = sql.getCourseNameByTerm(name, term);
+        }
         return section;
     }
 
@@ -108,10 +127,10 @@ public class MajorService implements MajorServiceInterface{
     /*
      * takes the last 4 characters off the section name to pass to SqlCaller
      */
-    public static String gettingCorrectCourseId(String courseId) {
+    public static String parseCourseId(String courseId) {
         String[] split = courseId.split("-");
-        String correctedCourseId = String.format("%s-%s", split[0], split[1]);
-        return correctedCourseId;
+        String parsedCourseId = String.format("%s-%s", split[0], split[1]);
+        return parsedCourseId;
     }
 
     /*
@@ -134,10 +153,88 @@ public class MajorService implements MajorServiceInterface{
         sql.deleteRegisteredSection(getStudentId(), courseId);
     }
 
-    @Override
-    public Major getMajorByName(String majorName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMajorByName'");
+    // Gets list of students from database for admin
+    public static List<Student> getStudentClasses(String studentName) throws Exception {
+        List<Student> studentList;
+        studentList = sql.getStudentListByName(studentName);
+        return studentList;
     }
 
+    /*
+     * Curtis
+     * sets course grade and status
+     */
+    public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException {
+        for (Course course : major.RequiredCourses) {
+            if (course != null) {
+                var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
+                course.setStatus(courseStatus);
+                var courseGrade = sql.getGrade(student_id, course.getCourseId());
+                course.setGrade(courseGrade);
+            } else {
+                continue;
+            }
+        }
+        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
+            for (Course course : meg.CoursesInElectiveGroup()) {
+                if (course != null) {
+                    var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
+                    course.setStatus(courseStatus);
+                    var courseGrade = sql.getGrade(student_id, course.getCourseId());
+                    course.setGrade(courseGrade);
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
+
+    /*
+     * By: John Percival
+     * returns search courses
+     */
+    // Gets list of Course from database for admin
+    public static List<CourseOffers> getCourses(String nameCourse) throws Exception {
+        List<CourseOffers> courseOffers;
+        courseOffers = sql.getCourses(nameCourse);
+        return courseOffers;
+    }
+
+    public static CourseOffers getCoursesById(int id) throws Exception {
+        CourseOffers courseOffer;
+        courseOffer = sql.getCoursesById(id);
+        return courseOffer;
+    }
+
+    public static Student getStudentById(int id) throws Exception {
+        Student student;
+        student = sql.getStudentById(id);
+        return student;
+    }
+
+    /*
+     * Gets registered sections from a student id for the admin to edit/add grades/remove 
+     */
+    public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+        List<RegisteredSection> registeredSections = new ArrayList<>();
+        registeredSections = sql.getRegisteredSections(studentId);
+        return registeredSections;
+    }
+
+    /*
+     * Removes a section from a students schedule FROM the admin side
+     */
+    public static void adminDeleteSection(int studentId, String courseId) throws Exception {
+        sql.deleteRegisteredSection(studentId, courseId);
+    }
+
+
+    public static void updateCourse(CourseOffers course) throws Exception {
+        sql.updateCourse(course);
+    }
+
+    public static void updateStudent(Student student) throws Exception {
+        sql.updateStudent(student);
+
+    }
 }

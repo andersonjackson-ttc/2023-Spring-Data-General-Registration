@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-course-update-styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Courses Search </a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <div class="container">
+      <h2 th:text="|Hello Lets Modify the Course: ${courseOffer.Title}|"> </h2>
+      <form method="post" th:object="${courseOffer}" th:action="@{/modifyCourse}">
+
+          <input  type="hidden" th:field="*{Id}"  th:value ="*{Id}">
+          <label for="Title" >Title</label>
+          <input type="text" id="Title" th:field="*{Title}"  th:value ="*{Title}" placeholder="Title"/>
+
+          <label for="Section" >Section</label>
+          <input type="text" id="Section" th:field="*{Section}"  th:value ="*{Section}" placeholder="Section"/>
+          <label for="Days" >Days</label>
+          <input type="text" id="Days"  th:field="*{Days}"  th:value ="*{Days}" placeholder="Days"/>
+          <label for="Term" >Term</label>
+          <input type="text" id="Term" th:field="*{Term}"  th:value ="*{Term}" placeholder="Term"/>
+          <label for="TermDate" >TermDate</label>
+          <input type="text" id="TermDate" th:field="*{TermDate}"  th:value ="*{TermDate}" placeholder="TermDate"/>
+          <label for="Time" >Time</label>
+          <input type="text" id="Time" th:field="*{Time}"  th:value ="*{Time}" placeholder="Time"/>
+          <label for="Location" >Location</label>
+          <input type="text" id="Location" th:field="*{Location}"  th:value ="*{Location}" placeholder="Location"/>
+          <label for="Building"  >Building</label>
+          <input type="text" id="Building" th:field="*{Building}"  th:value ="*{Building}" placeholder="Building"/>
+          <label for="Room" >Room</label>
+          <input type="text" id="Room" th:field="*{Room}"  th:value ="*{Room}" placeholder="Room"/>
+          <label for="Type" >Type</label>
+          <input type="text" id="Type" th:field="*{Type}"  th:value ="*{Type}" placeholder="Type"/>
+
+          <input type="submit" value="Save">
+      </form>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.majors.majorpopulate;
 
+import lombok.*;
 import java.util.List;
 import lombok.*;
 

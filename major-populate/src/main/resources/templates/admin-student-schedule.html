@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
+    <title>Admin Student Schedule</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2 th:text="${student.name} + 's Schedule'"></h2>
+      <h2 th:text="'Student id: ' + ${student.studentId}"></h2>
+      <h2 th:if="${studentsSchedule.size() == 0}" th:text="|${student.name} Has No Registered Sections|"></h2>
+    <table class="table" th:unless="${studentsSchedule.size() == 0}">
+        <tr>
+            <th>Course Id</th>
+            <th>Major Id</th>
+            <th>Section Id</th>
+            <th>Term</th>
+            <th>Remove Section</th>
+        </tr>
+        <tr th:each="studentSchedule : ${studentsSchedule}">
+            <td th:text="${studentSchedule.courseId}"></td>
+            <td th:text="${studentSchedule.majorId}"></td>
+            <td th:text="${studentSchedule.sectionId}"></td>
+            <td th:text="${studentSchedule.term}"></td>
+            <td><a role="button" class="update" th:href="@{/adminRemoveSection(courseId = ${studentSchedule.courseId}, studentId = ${student.studentId})}">Remove This Section</a></td>
+        </tr>
+    </table>
+</body>
+</html>

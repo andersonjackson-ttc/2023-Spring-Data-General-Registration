@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/student-result-styles.css">
+    <title>Student Search Result</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/modifyCourses}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2>Results</h2>
+    <h2 th:text="'The student searched for is: ' + ${studentName.student}"></h2>
+
+    <table class="table" th:unless="${studentList.size() == 0}">
+        <tr>
+            <th>Student Id</th>
+            <th>Name</th>
+            <th>Password</th>
+            <th>Major Name</th>
+            <th>Option</th>
+
+        </tr>
+        <tr th:each="student : ${studentList}">
+            <td th:text="${student.studentId}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.password}"></td>
+            <td th:text="${student.major}"></td>
+            <td><a role="button" th:href="@{/studentSearchMainpage(Id = ${student.studentId})}"  class="update">Edit Student</a></td>
+        </tr>
+        
+    </table>
+    <h2 th:if="${studentList.size() == 0}">No Students Found</h2>
+    <div class="container">
+        <a role="button" class="buttons" th:href="@{/studentSearch}">Return to Search for Student</a> <br>
+    </div>
+</body>
+</html>

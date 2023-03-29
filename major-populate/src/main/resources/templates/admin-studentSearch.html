@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
+    <title>Student Search</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    <h2>Lets Search for a Student</h2>
+    <div class="student-search-form"></div>
+        <form  th:action="@{/studentSearchResult}" th:object="${studentSearch}" method="post">
+            <label for="studentName" id="label-studentName">Student Name</label>
+            <input type="text" id="studentName" th:field="*{student}"> <br>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+</body>
+</html>
