@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AdminRepository {
 
+<<<<<<< Updated upstream
 /* 
 potentially updates all fields for a section. Only updates passed in fields.
 This should recieve a HashTable<string,string> where the key: field_name, value:field_value
@@ -13,6 +14,25 @@ This should recieve a HashTable<string,string> where the key: field_name, value:
     public void UpdateSection(String courseTitle, String courseSection, String courseDays, String courseTerm,
             List<Date> courseTermDates, List<LocalTime> courseTime, String courseLocation, String courseBuildingNum,
             String courseRoomNum, String courseType, int seatsTaken, int seatsAvailable) {
+=======
+    public void updateSection(String courseTitle, String courseSection, String courseDays, String courseTerm,
+            String courseTermDates, String courseTime, String courseLocation, String courseBuildingNum,
+            String courseRoomNum, String courseType, String seatsTaken, String seatsAvailable) {
+                
+                Hashtable<String, String> hashUpdate = new Hashtable<>();
+                hashUpdate.put("courseTitle", courseTitle);
+                hashUpdate.put("courseSection", courseSection);
+                hashUpdate.put("courseDays", courseDays);
+                hashUpdate.put("courseTerm", courseTerm);
+                hashUpdate.put("courseTermDates", courseTermDates);
+                hashUpdate.put("courseTime", courseTime);
+                hashUpdate.put("courseLocation", courseLocation);
+                hashUpdate.put("courseBuildingNum", courseBuildingNum);
+                hashUpdate.put("courseRoomNum", courseRoomNum);
+                hashUpdate.put("courseType", courseType);
+                hashUpdate.put("seatsTaken", seatsTaken);
+                hashUpdate.put("seatsAvailable", seatsAvailable);
+>>>>>>> Stashed changes
 
                 //TODO
     }
