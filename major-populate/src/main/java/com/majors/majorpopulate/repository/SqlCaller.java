@@ -16,7 +16,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -281,27 +280,27 @@ public class SqlCaller {
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
             CourseOffers courseOffer = new CourseOffers();
-            courseOffer.setId(result.getInt("Id"));
+            //courseOffer.setId(result.getInt("Id"));
             courseOffer.setTitle(
-                    result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
-            courseOffer.setSection(result.getString("course_section").equals("") ? "no Available"
+                    result.getString("course_title").equals("") ? "Not Available" : result.getString("course_title"));
+            courseOffer.setSection(result.getString("course_section").equals("") ? "Not Available"
                     : result.getString("course_section"));
             courseOffer.setDays(
                     result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
             courseOffer.setTerm(
-                    result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
-            courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
+                    result.getString("course_term").equals("") ? "Not Available" : result.getString("course_term"));
+            courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "Not Available"
                     : result.getString("course_term_dates"));
             courseOffer.setTime(
-                    result.getString("course_time").equals("") ? "To Choose" : result.getString("course_time"));
-            courseOffer.setLocation(result.getString("course_location").equals("") ? "no Available"
+                    result.getString("course_time").equals("") ? "TBD" : result.getString("course_time"));
+            courseOffer.setLocation(result.getString("course_location").equals("") ? "Not Available"
                     : result.getString("course_location"));
             courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "No Apply"
                     : result.getString("course_building_nbr"));
             courseOffer.setRoom(
                     result.getString("course_room").equals("") ? "No Apply" : result.getString("course_room"));
             courseOffer.setType(
-                    result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
+                    result.getString("course_type").equals("") ? "Not Available" : result.getString("course_type"));
             courses.add(courseOffer);
         }
 
@@ -797,6 +796,60 @@ public class SqlCaller {
             grade = result.getString("course_grade");
         }
         return grade;
+    }
+
+       /*Josh allows admin to add a new student */
+
+       public void adminNewStudent(String studentName, String StudentPword, String majorName) throws Exception {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = "INSERT tbl_student(name,password,major_name) VALUES('" + studentName + "',+'" + StudentPword +
+                "','" + majorName + "')";
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+    }
+
+    /* Josh Update a grade in student transcript table, finding student based on student ID and course ID */
+
+    public void updateGrades(int studentId, String courseId, String newGrade) throws Exception {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = String.format("UPDATE tbl_student_transcripts SET course_grade = '%s' WHERE student_id = '%d', course_id = '%s'", newGrade,studentId,courseId);
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("UpdateGrade Failed!!" + ex.getMessage());
+        }
+    }
+
+     /*Josh, changes a student major in the student table based on student ID and the new Major ID */
+     
+    public void changeMajor(int studentId, String majorId) throws Exception {
+        String majorName = getMajorId(majorId);
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = String.format("UPDATE tbl_student SET major_name = '%s' WHERE id = '%d'", majorName, studentId);
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Major Change Failed!!" + ex.getMessage());
+        }
+    }
+
+    /*Josh change student transcript to complete  */
+
+    public void setCourseToComplete(int studentId, String updatedCourseStatus) throws Exception {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = String.format("UPDATE tbl_student_transcript SET course_status = '%s' WHERE student_id = '%d'", updatedCourseStatus, studentId);
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Completion Change Failed!!" + ex.getMessage());
+        }
     }
 
 }

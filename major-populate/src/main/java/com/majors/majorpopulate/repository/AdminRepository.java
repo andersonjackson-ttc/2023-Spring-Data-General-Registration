@@ -46,11 +46,11 @@ public class AdminRepository {
         SqlCaller sql = new SqlCaller();
         sql.changeMajor(studentId, majorId);
     }
-/* 
-Takes a studentId, the courseId and removes the course from tbl_registered and adds it to tbl_student_transcript, along with the Grade recieved.
-*/
-public void SetCourseToCompleted(int studentId, String courseId, String grade) {
-        //TODO
-}
+
+/* Takes a studentId, the courseId and removes the course from tbl_registered and adds it to tbl_student_transcript, along with the Grade recieved. */
+    public void setCourseToCompleted(int studentId, String updatedCourseStatus) throws Exception {
+        SqlCaller sql = new SqlCaller();
+        sql.setCourseToComplete(studentId, updatedCourseStatus);
+    }
 
 }
