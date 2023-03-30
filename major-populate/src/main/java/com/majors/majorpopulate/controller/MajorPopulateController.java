@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.POJO.SearchTerm;
+import com.majors.majorpopulate.POJO.Grade;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -127,25 +129,32 @@ public class MajorPopulateController {
         MajorService.deleteSection(courseId);
         return "section-remove-confirm";
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     @GetMapping("/adminMainpage")
     public String getAdminMainpage() {
         return "admin-mainpage";
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     @GetMapping("/studentSearch")
     public String getStudentSearch(Model model) {
 
         model.addAttribute("studentSearch", new AdminService());
         return "admin-studentSearch";
     }
-/* 
- * 
- */
+
+    @GetMapping("/AdminCourseSearch")
+    public String getCourseSearch(Model model) {
+
+        model.addAttribute("courseSearch", new AdminService());
+        return "admin-courseSearch";
+    }
+
     @PostMapping("/studentSearchResult")
     public String getStudentSearchResult(@ModelAttribute AdminService studentName, Model model) throws Exception {
         List<Student> studentList = MajorService.getStudentClasses(studentName.getStudent());
@@ -155,25 +164,83 @@ public class MajorPopulateController {
         return "student-search-result";
     }
 
-    /*
-     * By: John Percival
-     * returns all courses
-     */
-    @GetMapping("/modifyCourses")
-    public String getModifyCourses(Model model) throws Exception {
-        List<CourseOffers> courseOffers = MajorService.getCourses();
+    @PostMapping("/CoursesResult")
+    public String getCoursesResult(@ModelAttribute AdminService courseName, Model model) throws Exception {
+
+        model.addAttribute("courseName", courseName);
+        return "redirect:/modifyCoursesResult?courseName=" + courseName.getCourse();
+
+    }
+
+    @GetMapping("/modifyCoursesResult")
+    public String getModifyCourses(@RequestParam(value = "courseName", required = false) String courseName, Model model)
+            throws Exception {
+        List<CourseOffers> courseOffers = MajorService.getCourses(courseName);
         model.addAttribute("courseOffers", courseOffers);
         return "admin-modifyCourses";
     }
 
-    /*
-     * By: John Percival
-     * returns all courses
-     */
     @GetMapping("/modifyCourse")
     public String modifyCourse(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
 
+        var o = MajorService.getCoursesById(id);
+        model.addAttribute("courseOffer", o);
         return "admin-modifyCourses-form";
+    }
+
+    @PostMapping("/modifyCourse")
+    public String modifyCourseUpdate(@Valid CourseOffers CourseOffer, Model model) throws Exception {
+
+        MajorService.updateCourse(CourseOffer);
+        // model.addAttribute("courseOffer", o);
+        return "redirect:adminMainpage";
+    }
+
+    @GetMapping("studentSearchMainpage")
+    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+        var o = MajorService.getStudentById(id);
+        model.addAttribute("student", o);
+        return "admin-student-mainpage";
+    }
+
+    @GetMapping("/adminStudentSchedule")
+    public String getAdminStudentSchedule(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception{
+        model.addAttribute("studentsSchedule", MajorService.getRegisteredSections(id));
+        model.addAttribute("student", MajorService.getStudentById(id));
+        return "admin-student-schedule";
+    }
+
+    @GetMapping("/adminRemoveSection")
+    public String adminRemoveSection(int studentId, String courseId) throws Exception {
+        MajorService.adminDeleteSection(studentId, courseId);
+        return "redirect:/adminStudentSchedule?Id=" + studentId;
+    }
+
+    @GetMapping("/modifyStudent")
+    public String getModifyStudent(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+
+        var o = MajorService.getStudentById(id);
+        model.addAttribute("student", o);
+        model.addAttribute("majorChoices", MajorService.populateMajorChoices());
+
+        return "student-form";
+    }
+
+    @PostMapping("/modifyStudent")
+    public String modifyStudent(Student student, Model model) throws Exception {
+
+        MajorService.updateStudent(student);
+        return "redirect:adminMainpage";
+    }
+
+    @GetMapping("/adminGradeSubmitForm")
+    public String getAdminGradeSubmitForm(int studentId, String courseId, String term, Model model){
+        Grade grade = new Grade();
+        grade.setStudentId(studentId);
+        grade.setCourseId(courseId);
+        grade.setTermId(term);
+        model.addAttribute("addGrade", grade);
+        return "admin-grade-submit-form";
     }
 
 }

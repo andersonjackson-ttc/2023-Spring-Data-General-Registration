@@ -1,19 +1,22 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/admin-styles/admin-course-update-styles.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="topnav">
-        <a th:href="@{/adminMainpage}">Admin Portal</a>
-        <a th:href="@{/studentSearch}">Student Search</a>
-        <a th:href="@{/modifyCourses}">Modify Courses</a>
-        <a th:href="@{/form}">Logout</a>
-      </div>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/admin-styles/admin-course-update-styles.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a th:href="@{/adminMainpage}">Admin Portal</a>
+            <a th:href="@{/studentSearch}">Student Search</a>
+            <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
+            <a th:href="@{/form}">Logout</a>
+        </div>
+        <div class="buttonContainer">
+            <a role="button" class="buttons" th:href="@{/AdminCourseSearch}">Search For a Different Section</a> <br>
+        </div>
+        
       <h2>Hello Lets Modify Some Courses</h2>
 
     <table class="table">
@@ -43,8 +46,9 @@
             <td th:text="${courseOffer.Building}"></td>
             <td th:text="${courseOffer.Room}"></td>
             <td th:text="${courseOffer.Type}"></td>
-            <td><a role="button" class="update" >Update</a></td>
+            <td><a role="button" th:href="@{/modifyCourse(Id = ${courseOffer.Id})}" class="update" >Update</a></td>
         </tr>
     </table>
+
 </body>
 </html>

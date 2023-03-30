@@ -10,16 +10,14 @@
     <div class="topnav">
         <a th:href="@{/adminMainpage}">Admin Portal</a>
         <a th:href="@{/studentSearch}">Student Search</a>
-        <a th:href="@{/AdminCourseSearch}">Modify Courses</a>
+        <a th:href="@{/AdminCourseSearch}">Courses Search </a>
         <a th:href="@{/form}">Logout</a>
       </div>
-    <h2>Lets Search for a Student</h2>
-    <div class="student-search-form"></div>
-        <form  th:action="@{/studentSearchResult}" th:object="${studentSearch}" method="post">
-            <label for="studentName" id="label-studentName">Student Name</label>
-            <input type="text" id="studentName" th:field="*{student}"> <br>
-            <input type="submit" value="Search">
-        </form>
-    </div>
+    <h2>Lets Search for a course</h2>
+    <form  th:action="@{/CoursesResult}" th:object="${courseSearch}" method="post">
+        <label for="courseName" id="label-courseName">Course Name</label>
+        <input type="text" id="courseName" th:field="*{course}"> <br>
+        <input type="submit" value="Search">
+    </form>
 </body>
 </html>

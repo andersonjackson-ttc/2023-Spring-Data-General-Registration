@@ -174,12 +174,50 @@ public class MajorService {
 
     /*
      * By: John Percival
-     * returns all courses
+     * returns search courses
      */
-    // Gets list of students from database for admin
-    public static List<CourseOffers> getCourses() throws Exception {
+    // Gets list of Course from database for admin
+    public static List<CourseOffers> getCourses(String nameCourse) throws Exception {
         List<CourseOffers> courseOffers;
-        courseOffers = sql.getCourses();
+        courseOffers = sql.getCourses(nameCourse);
         return courseOffers;
+    }
+
+    public static CourseOffers getCoursesById(int id) throws Exception {
+        CourseOffers courseOffer;
+        courseOffer = sql.getCoursesById(id);
+        return courseOffer;
+    }
+
+    public static Student getStudentById(int id) throws Exception {
+        Student student;
+        student = sql.getStudentById(id);
+        return student;
+    }
+
+    /*
+     * Gets registered sections from a student id for the admin to edit/add grades/remove 
+     */
+    public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+        List<RegisteredSection> registeredSections = new ArrayList<>();
+        registeredSections = sql.getRegisteredSections(studentId);
+        return registeredSections;
+    }
+
+    /*
+     * Removes a section from a students schedule FROM the admin side
+     */
+    public static void adminDeleteSection(int studentId, String courseId) throws Exception {
+        sql.deleteRegisteredSection(studentId, courseId);
+    }
+
+
+    public static void updateCourse(CourseOffers course) throws Exception {
+        sql.updateCourse(course);
+    }
+
+    public static void updateStudent(Student student) throws Exception {
+        sql.updateStudent(student);
+
     }
 }

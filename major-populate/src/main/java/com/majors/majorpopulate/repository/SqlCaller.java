@@ -271,12 +271,12 @@ public class SqlCaller {
 
     /*
      * By: John Percival
-     * returns all courses
+     * returns search courses
      */
-    public List<CourseOffers> getCourses() throws SQLException {
+    public List<CourseOffers> getCourses(String nameCourse) throws SQLException {
         List<CourseOffers> courses = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT * FROM tbl_courses_offered");
+        String query = "SELECT * FROM tbl_courses_offered where course_title LIKE '%" + nameCourse + "%'";
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
             CourseOffers courseOffer = new CourseOffers();
@@ -285,9 +285,8 @@ public class SqlCaller {
                     result.getString("course_title").equals("") ? "Not Available" : result.getString("course_title"));
             courseOffer.setSection(result.getString("course_section").equals("") ? "Not Available"
                     : result.getString("course_section"));
-            courseOffer
-                    .setDays(
-                            result.getString("course_days").equals("") ? "TBD" : result.getString("course_days"));
+            courseOffer.setDays(
+                    result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
             courseOffer.setTerm(
                     result.getString("course_term").equals("") ? "Not Available" : result.getString("course_term"));
             courseOffer.setTermDate(result.getString("course_term_dates").equals("") ? "Not Available"
@@ -296,16 +295,100 @@ public class SqlCaller {
                     result.getString("course_time").equals("") ? "TBD" : result.getString("course_time"));
             courseOffer.setLocation(result.getString("course_location").equals("") ? "Not Available"
                     : result.getString("course_location"));
-            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "TBD"
+            courseOffer.setBuilding(result.getString("course_building_nbr").equals("") ? "No Apply"
                     : result.getString("course_building_nbr"));
             courseOffer.setRoom(
-                    result.getString("course_room").equals("") ? "TBD" : result.getString("course_room"));
+                    result.getString("course_room").equals("") ? "No Apply" : result.getString("course_room"));
             courseOffer.setType(
                     result.getString("course_type").equals("") ? "Not Available" : result.getString("course_type"));
             courses.add(courseOffer);
         }
 
         return courses;
+    }
+
+    public CourseOffers getCoursesById(int id) throws SQLException {
+        CourseOffers course = new CourseOffers();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_courses_offered where Id = '" + id + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+
+        while (result.next()) {
+            course.setId(result.getInt("Id"));
+            course.setTitle(
+                    result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
+            course.setSection(result.getString("course_section").equals("") ? "no Available"
+                    : result.getString("course_section"));
+            course.setDays(
+                    result.getString("course_days").equals("") ? "To Choose" : result.getString("course_days"));
+            course.setTerm(
+                    result.getString("course_term").equals("") ? "no Available" : result.getString("course_term"));
+            course.setTermDate(result.getString("course_term_dates").equals("") ? "no Available"
+                    : result.getString("course_term_dates"));
+            course.setTime(
+                    result.getString("course_time").equals("") ? "To Choose" : result.getString("course_time"));
+            course.setLocation(result.getString("course_location").equals("") ? "no Available"
+                    : result.getString("course_location"));
+            course.setBuilding(result.getString("course_building_nbr").equals("") ? "No Apply"
+                    : result.getString("course_building_nbr"));
+            course.setRoom(
+                    result.getString("course_room").equals("") ? "No Apply" : result.getString("course_room"));
+            course.setType(
+                    result.getString("course_type").equals("") ? "no Available" : result.getString("course_type"));
+
+        }
+
+        return course;
+    }
+
+    public Student getStudentById(int id) throws SQLException {
+        Student student = new Student();
+        sqlSt = dbConnect.createStatement();
+        String query = String.format("SELECT * FROM tbl_student where Id = '" + id + "'");
+        ResultSet result = sqlSt.executeQuery(query);
+
+        while (result.next()) {
+            student.setStudentId(result.getInt("id"));
+            student.setName(result.getString("name").equals("") ? "no Available" : result.getString("name"));
+            student.setPassword(
+                    result.getString("password").equals("") ? "no Available" : result.getString("password"));
+            student.setMajor(
+                    result.getString("major_name").equals("") ? "no Available" : result.getString("major_name"));
+
+        }
+        return student;
+    }
+
+    public void updateCourse(CourseOffers course) throws SQLException {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = "update tbl_courses_offered set course_title= '" + course.getTitle() + "',course_section = '"
+                + course.getSection() + "',course_days= '" + course.getDays() + "',course_term= '" + course.getTerm()
+                + "',course_term_dates= '" + course.getTermDate() + "',course_time= '" + course.getTime()
+                + "',course_location= '" + course.getLocation() + "',course_building_nbr= '" + course.getBuilding()
+                + "',course_room= '" + course.getRoom() + "',course_type= '" + course.getType() + "' where  Id = '"
+                + course.getId() + "'";
+
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+
+    }
+
+    public void updateStudent(Student student) throws SQLException {
+        sqlSt = dbConnect.createStatement(); // allows SQL to be executed
+        String SQL = "update tbl_student set name= '" + student.getName() + "',major_name = '" + student.getMajor()
+                + "',password= '" + student.getPassword() + "' where  Id = '" + student.getStudentId() + "'";
+
+        try {
+            sqlSt.execute(SQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(MajorPopulateApplication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL IS BAD!!" + ex.getMessage());
+        }
+
     }
 
     /*
@@ -521,9 +604,10 @@ public class SqlCaller {
         }
         return classList;
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<Section> getCourseNameByTerm(String courseName, String term) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<Section> classList = new ArrayList<>();
@@ -552,9 +636,10 @@ public class SqlCaller {
         }
         return classList;
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<String> getTerm() throws Exception {
         List<String> termList = new ArrayList<>();
         String query = "select  DISTINCT course_term from tbl_courses_offered";
@@ -628,9 +713,10 @@ public class SqlCaller {
                 + ")";
         sqlSt.execute(query);
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception {
         sqlSt = dbConnect.createStatement();
         List<RegisteredSection> rs = new ArrayList<>();
@@ -646,18 +732,20 @@ public class SqlCaller {
         }
         return rs;
     }
-/* 
- * // Removes a selected registered section from the schedule page.
- */
+
+    /*
+     * // Removes a selected registered section from the schedule page.
+     */
     public void deleteRegisteredSection(int studentId, String courseId) throws Exception {
         sqlSt = dbConnect.createStatement();
         String query = "DELETE FROM tbl_registration WHERE student_id = " + studentId + " AND course_id = '" + courseId
                 + "'";
         sqlSt.execute(query);
     }
-/* 
- * 
- */
+
+    /* 
+     * 
+     */
     public int Login(Student student) throws Exception {
         String sql = "select * from tbl_student where name= '" + student.getName() + "' and password ='"
                 + student.getPassword() + "'";
