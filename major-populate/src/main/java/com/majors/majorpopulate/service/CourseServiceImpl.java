@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.CoReq;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.repository.CoReqRepository;
 import com.majors.majorpopulate.repository.CourseDTORepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
+import com.majors.majorpopulate.repository.SectionRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService{
@@ -19,6 +21,7 @@ public class CourseServiceImpl implements CourseService{
     private PreReqRepository preReqRepo;
     private CoReqRepository coReqRepo;
     private CourseDTORepository courseRepo;
+    private SectionRepository sectionRepo;
 
     @Override
     public void saveCourse(Course tblCourseCatalog) {
@@ -43,6 +46,12 @@ public class CourseServiceImpl implements CourseService{
     public String getNameByCourseId(String course_id) {
         String courseName;
         return courseName = courseRepo.findByCourseId(course_id);
+    }
+
+    @Override
+    public List<Section> getSectionByCourseId(String course_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSectionByCourseId'");
     }
 
 }

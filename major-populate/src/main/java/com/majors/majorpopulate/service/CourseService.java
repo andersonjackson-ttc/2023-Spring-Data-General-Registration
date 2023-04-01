@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.majors.majorpopulate.Course;
+import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.CoReq;
 import com.majors.majorpopulate.POJO.PreReq;
 
@@ -15,4 +16,5 @@ public interface CourseService {
     List<PreReq> getPreReqsByCourseId(String course_id);
     List<CoReq> getCoReqsByCourseId(String course_id);
     String getNameByCourseId(String course_id);
+    List<Section> getSectionByCourseId(String course_id);
 }

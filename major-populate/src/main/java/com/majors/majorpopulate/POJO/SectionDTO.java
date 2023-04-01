@@ -25,28 +25,28 @@ public class SectionDTO {
     private int entry;
 
     @Column(name = "course_id") @NonNull
-    private String CourseId;
+    private String courseId;
     @Column(name = "course_section")
-    private String CourseSection;
+    private String courseSection;
     @Column(name = "course_days")
-    private String CourseDays;
+    private String courseDays;
     @Column(name = "course_term") @NonNull
-    private String CourseTerm;
+    private String courseTerm;
     @Column(name = "course_term_dates") @NonNull
-    private List<Date> CourseTermDates;
+    private List<Date> courseTermDates;
     @Column(name = "course_time")
-    private List<LocalTime> CourseTime;
+    private List<LocalTime> courseTime;
     @Column(name = "course_location")
-    private String CourseLocation;
+    private String courseLocation;
     @Column(name = "course_building_nbr")
-    private String CourseBuildingNum;
+    private String courseBuildingNum;
     @Column(name = "course_room")
-    private String CourseRoomNum;
+    private String courseRoomNum;
     @Column(name = "course_type") @NonNull
-    private String CourseType;
+    private String courseType;
     @Column(name = "seats_taken") 
-    private int SeatsTaken;
+    private int seatsTaken;
     @Column(name = "total_seats") 
-    private int SeatsTotal;
+    private int seatsTotal;
 
 }
