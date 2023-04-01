@@ -1,4 +1,4 @@
-/* package com.majors.majorpopulate.POJO;
+package com.majors.majorpopulate.POJO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,8 +23,7 @@ public class CoReq {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int entry;
     @Column(name = "course_id_c1")
-    private String course_id;
+    private String courseId;
     @Column(name = "course_id_c2")
     private String co_req;
 }
- */

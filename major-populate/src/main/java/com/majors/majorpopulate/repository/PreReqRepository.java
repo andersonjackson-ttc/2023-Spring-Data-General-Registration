@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.POJO.CourseDTO;
+import com.majors.majorpopulate.POJO.PreReq;
 
 @Repository
-public interface CourseRepository extends JpaRepository<CourseDTO, String>{
+public interface PreReqRepository extends JpaRepository<PreReq, Integer>{
     
     void save(Course tblCourseCatalog);
 
-    List<String> getPreReqsByCourseId(String course_id);
+    List<PreReq> findByCourseId(String course_id);
 }

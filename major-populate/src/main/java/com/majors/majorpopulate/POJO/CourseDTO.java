@@ -2,6 +2,8 @@ package com.majors.majorpopulate.POJO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_course_catalog")
 public class CourseDTO {
     
-    @Id @Column(name = "course_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "entry")
+    private int entry;
+    @Column(name = "course_id")
     private String courseId;
     @Column(name = "course_title")
     private String course_title;

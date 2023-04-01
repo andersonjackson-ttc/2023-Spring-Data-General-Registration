@@ -1,4 +1,4 @@
-/* package com.majors.majorpopulate.POJO;
+package com.majors.majorpopulate.POJO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,11 +23,10 @@ public class PreReq {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int entry;
     @Column(name = "course_id")
-    private String course_id;
+    private String courseId;
     @Column(name = "prereq")
     private String pre_req;
     @Column(name = "min_grade")
     private String min_grade;
 
 }
- */
