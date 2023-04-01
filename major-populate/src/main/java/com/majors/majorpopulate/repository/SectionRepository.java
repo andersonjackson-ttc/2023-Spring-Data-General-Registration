@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.majors.majorpopulate.Course;
-import com.majors.majorpopulate.POJO.PreReq;
+import com.majors.majorpopulate.POJO.SectionDTO;
 
 @Repository
-public interface PreReqRepository extends JpaRepository<PreReq, Integer>{
+public interface SectionRepository extends JpaRepository<SectionDTO, Integer>{
     
     void save(Course tblCourseCatalog);
 
-    List<PreReq> findByCourseId(String course_id);
+    List<SectionDTO> findByCourseId(String course_id);
 }

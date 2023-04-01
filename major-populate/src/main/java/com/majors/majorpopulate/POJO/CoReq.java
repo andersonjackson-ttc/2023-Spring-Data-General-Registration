@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_co_reqs")
+@Table(name = "tbl_co_req")
 public class CoReq {
 
     @Id

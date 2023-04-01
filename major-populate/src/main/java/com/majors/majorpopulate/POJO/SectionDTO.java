@@ -1,4 +1,4 @@
-/* package com.majors.majorpopulate.POJO;
+package com.majors.majorpopulate.POJO;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_sections")
+@Table(name = "tbl_courses_offered")
 public class SectionDTO {
 
     @Id
@@ -26,6 +26,8 @@ public class SectionDTO {
 
     @Column(name = "course_id") @NonNull
     private String CourseId;
+    @Column(name = "course_section")
+    private String CourseSection;
     @Column(name = "course_days")
     private String CourseDays;
     @Column(name = "course_term") @NonNull
@@ -44,8 +46,7 @@ public class SectionDTO {
     private String CourseType;
     @Column(name = "seats_taken") 
     private int SeatsTaken;
-    @Column(name = "seats_avail") 
-    private int SeatsAvailable;
+    @Column(name = "total_seats") 
+    private int SeatsTotal;
 
 }
- */
