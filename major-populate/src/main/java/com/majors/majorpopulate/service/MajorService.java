@@ -6,6 +6,7 @@ import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
 import com.majors.majorpopulate.POJO.RegisteredSection;
+import com.majors.majorpopulate.repository.MajorDTORepository;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
@@ -14,10 +15,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MajorService {
 
-    // make single connection to SQL. SqlCaller Class.
-    // @Service
+public class MajorService {
+    
     public static SqlCaller sql = new SqlCaller();
 
     public static List<Login> loggedInUser = new ArrayList<>();

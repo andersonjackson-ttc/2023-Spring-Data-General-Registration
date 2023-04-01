@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.CoReq;
+import com.majors.majorpopulate.POJO.ElectiveCourses;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.repository.CoReqRepository;
 import com.majors.majorpopulate.repository.CourseDTORepository;
+import com.majors.majorpopulate.repository.ElectiveCourseRepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
 import com.majors.majorpopulate.repository.SectionRepository;
 
@@ -19,9 +21,14 @@ public class CourseServiceImpl implements CourseService{
     
     @Autowired
     private PreReqRepository preReqRepo;
+    @Autowired
     private CoReqRepository coReqRepo;
+    @Autowired
     private CourseDTORepository courseRepo;
+    @Autowired
     private SectionRepository sectionRepo;
+    @Autowired
+    private ElectiveCourseRepository electiveCourseRepo;
 
     @Override
     public void saveCourse(Course tblCourseCatalog) {
@@ -52,6 +59,13 @@ public class CourseServiceImpl implements CourseService{
     public List<Section> getSectionByCourseId(String course_id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getSectionByCourseId'");
+    }
+
+    @Override
+    public List<ElectiveCourses> getCoursesByElectiveGroupId(int elective_id) {
+        List<ElectiveCourses> courseList;
+        courseList = electiveCourseRepo.findByElectiveGroupId(elective_id);
+        return courseList;
     }
 
 }
