@@ -1,10 +1,10 @@
-package com.majors.majorpopulate.POJO;
-
-import java.util.List;
+/* package com.majors.majorpopulate.POJO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +19,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_pre_reqs")
 public class PreReq {
     
-    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int entry;
+    @Column(name = "course_id")
     private String course_id;
-    @Column
+    @Column(name = "prereq")
     private String pre_req;
-    @Column
+    @Column(name = "min_grade")
     private String min_grade;
 
-    @ManyToMany
-    private List<Courses> Courses;
 }
+ */
