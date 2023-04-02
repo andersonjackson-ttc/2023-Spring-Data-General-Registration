@@ -21,7 +21,7 @@ public class MajorDTO {
     
     @Id
     @Column(name = "major_id")
-    private String major_id;
+    private String majorId;
     @Column(name = "major_name")
     private String majorName;
     

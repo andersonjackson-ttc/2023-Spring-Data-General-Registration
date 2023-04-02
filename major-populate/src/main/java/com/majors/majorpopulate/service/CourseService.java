@@ -19,4 +19,5 @@ public interface CourseService {
     String getNameByCourseId(String course_id);
     List<Section> getSectionByCourseId(String course_id);
     List<ElectiveCourses> getCoursesByElectiveGroupId(int elective_id);
+    
 }
