@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.POJO.CoReq;
+import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.ElectiveCourses;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.repository.CoReqRepository;
@@ -50,9 +51,9 @@ public class CourseServiceImpl implements CourseService{
     }
    
     @Override
-    public String getNameByCourseId(String course_id) {
-        String courseName;
-        return courseName = courseRepo.findByCourseId(course_id);
+    public CourseDTO findByCourseId(String course_id) {
+        CourseDTO course;
+        return course = courseRepo.findByCourseId(course_id);
     }
 
     @Override

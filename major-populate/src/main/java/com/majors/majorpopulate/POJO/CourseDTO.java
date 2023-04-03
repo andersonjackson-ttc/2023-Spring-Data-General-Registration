@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,9 @@ public class CourseDTO {
     @Column(name = "course_id")
     private String courseId;
     @Column(name = "course_title")
-    private String course_title;
+    public String courseTitle;
+    @Transient
+    private String status;
+
 
 }

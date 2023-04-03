@@ -26,6 +26,6 @@ public class GradRequirements {
     @Column(name = "req_type")
     private String reqType;
     @Column(name = "course_id")
-    private String courseId;
+    public String courseId;
     
 }

@@ -11,4 +11,5 @@ import com.majors.majorpopulate.POJO.GradRequirements;
 public interface GradReqRepository extends JpaRepository<GradRequirements, Integer>{
     
     List<GradRequirements> findByMajorId(int major_id);
+    List<GradRequirements> findAllByMajorName(String majorName);
 }

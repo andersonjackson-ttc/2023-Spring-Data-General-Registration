@@ -22,12 +22,6 @@ public class CourseController {
     @Autowired
     private CourseService cs;
 
-    @GetMapping("/showCourseName")
-    public String getCourseName(Model model, String course_id) {
-        String courseName = cs.getNameByCourseId(course_id);
-        model.addAttribute("pre_reqs_name", courseName);
-        return courseName;
-    }
     @GetMapping("/showPreReqs")
     public ResponseEntity<List<PreReq>> getPreReqsByCourseId(@RequestParam String course_id) {
         var response = new ResponseEntity<List<PreReq>>(cs.getPreReqsByCourseId(course_id), HttpStatus.OK);
@@ -43,5 +37,18 @@ public class CourseController {
         var response = new ResponseEntity<List<ElectiveCourses>>(cs.getCoursesByElectiveGroupId(elective_id),HttpStatus.OK);
         return response;
     }
+    /* @GetMapping("/mainpage")
+    public String populateInfo(Model model) throws Exception {
+        String majorName = MajorService.loggedInUser.get(0).getMajorName();
+        String name = MajorService.loggedInUser.get(0).getName();
+        Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
+        int studentId = MajorService.getStudentId();
+        MajorService.getCourseStatusForStudent(studentId, major);
+        model.addAttribute("information", new Major(name, majorName));
+        model.addAttribute("coreRequirements", major.getRequiredCourses());
+        model.addAttribute("electives", major.MajorElectiveGroups);
+
+        return "mainpage";
+    } */
 }
     

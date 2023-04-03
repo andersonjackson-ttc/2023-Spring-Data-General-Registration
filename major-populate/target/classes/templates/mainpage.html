@@ -29,17 +29,18 @@
         </tr>
         <tr th:each="coreRequirement : ${coreRequirements}" >
     
-          <td th:unless="${coreRequirement.CourseName == 'Course Unavailable'}" th:text="${coreRequirement.CourseName}" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
-          <td th:if="${coreRequirement.CourseName == 'Course Unavailable'}" th:text="${coreRequirement.CourseId}" class="no-sections-offered" th:attr="onclick=|coreInfoClick('${coreRequirement?.CourseName}')|" title="click for class information" ></td>
-            <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.CourseName != 'Course Unavailable'}"><span>Registered</span></td>
-            <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.CourseName != 'Course Unavailable'}"><span>Completed</span></td>
-            <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.CourseName != 'Course Unavailable'}"><span>Not Registered</span></td>
-            <td th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.CourseName == 'Course Unavailable'}"><span class="no-sections-offered">No Sections this Term</span></td>
-                <td id="pre-req-color" th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() > 0} and ${coreRequirement.CourseName != 'Course Unavailable'}">PreReq Required</td>
-                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.CourseName == 'Course Unavailable'}" class="no-sections-offered">No Sections this Term</td>
-                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.CourseName != 'Course Unavailable'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.CourseName})}">Click for Section Times</a></td>
-                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.CourseName != 'Course Unavailable'}"><span>Look In Schedule</span></td>
-                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.CourseName != 'Course Unavailable'}"><span>Completed</span></td>
+          <td th:text = "${coreRequirement?.courseTitle}"></td>
+          <!-- <td th:unless="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseTitle}" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
+          <td th:if="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseId}" class="no-sections-offered" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
+            <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Registered</span></td>
+            <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td>
+            <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Not Registered</span></td>
+            <td th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.courseTitle == 'Course Unavailable'}"><span class="no-sections-offered">No Sections this Term</span></td>
+                <td id="pre-req-color" th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() > 0} and ${coreRequirement.courseTitle != 'Course Unavailable'}">PreReq Required</td>
+                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.courseTitle == 'Course Unavailable'}" class="no-sections-offered">No Sections this Term</td>
+                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.courseTitle})}">Click for Section Times</a></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Look In Schedule</span></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td> -->
           </tr>
         <tr>
           <th>Electives / Number of Electives Required</th>

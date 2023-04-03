@@ -10,12 +10,18 @@ import com.majors.majorpopulate.repository.GradeRepository;
 public class GradeServiceImpl implements GradeService{
 
     @Autowired
-    private GradeRepository adminRepo;
+    private GradeRepository gradeRepo;
 
     @Override
     public void saveGrade(Grade tblStudentTranscript) {
-        this.adminRepo.save(tblStudentTranscript);
+        this.gradeRepo.save(tblStudentTranscript);
     }
+
+    @Override
+    public Grade findStatusByCourseIdAndStudentId(String courseId, int studentId) {
+        Grade status = gradeRepo.findStatusByCourseIdAndStudentId(courseId, studentId);
+        return status;
+        }
 
     
 }

@@ -25,15 +25,7 @@ public class MajorService {
     public MajorService() {
 
     }
-
-    // adds all the majors to a list to add to the dropdown Select option on
-    // form.html
-    public static List<String> populateMajorChoices() throws Exception {
-        List<String> majorList = new ArrayList<>();
-        majorList = sql.ShowMajorNames();
-        return majorList;
-    }
-
+   
     // Gets required classes from SQLcaller Class
     public static List<String> showRequiredCourses(String majorId) throws Exception {
         List<String> coursesList = new ArrayList<>();
@@ -72,6 +64,7 @@ public class MajorService {
         return major;
     }
 
+    //
     public static List<String> showCoursesByTerm(String term, Major major) {
         List<String> courseList = new ArrayList<>();
 

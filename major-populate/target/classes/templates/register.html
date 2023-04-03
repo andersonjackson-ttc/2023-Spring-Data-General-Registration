@@ -24,7 +24,7 @@
         <p style="color:red" th:errors="*{major}"></p>
         <select class="select" th:field="*{major}">
             <option value="">Choose a Major</option>
-            <option th:each="major : ${majorChoices}" th:text="${major}" th:value="${major}"></option>
+            <option th:each="major : ${majorChoices}" th:text="${major.majorName}" th:value="${major.majorName}"></option>
         </select>
         <input type="submit" value="Submit">
     </form>
