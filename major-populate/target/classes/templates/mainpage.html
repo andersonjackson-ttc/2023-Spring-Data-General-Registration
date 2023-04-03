@@ -30,6 +30,7 @@
         <tr th:each="coreRequirement : ${coreRequirements}" >
     
           <td th:text = "${coreRequirement?.courseTitle}"></td>
+          <td th:text="${coreRequirement.status}"></td>
           <!-- <td th:unless="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseTitle}" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
           <td th:if="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseId}" class="no-sections-offered" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
             <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Registered</span></td>

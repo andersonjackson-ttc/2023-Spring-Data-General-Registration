@@ -1,5 +1,7 @@
 package com.majors.majorpopulate.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,18 @@ public class GradeServiceImpl implements GradeService{
         this.gradeRepo.save(tblStudentTranscript);
     }
 
-    @Override
-    public Grade findStatusByCourseIdAndStudentId(String courseId, int studentId) {
-        Grade status = gradeRepo.findStatusByCourseIdAndStudentId(courseId, studentId);
-        return status;
-        }
+    // @Override
+    // public List<Grade> findByCourseIdAndStudentId(String courseId, int studentId) {
+    //     List<Grade> status; 
+    //     status = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+    //     return status;
+    // }
 
+    @Override
+    public List<Grade> findByCourseIdAndStudentId(String courseId, Integer studentId) {
+        List<Grade> status; 
+        status = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+        return status;
+    }
     
 }

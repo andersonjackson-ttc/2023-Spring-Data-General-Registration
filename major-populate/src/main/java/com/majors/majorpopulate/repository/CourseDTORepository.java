@@ -14,6 +14,7 @@ public interface CourseDTORepository extends JpaRepository<CourseDTO, Integer>{
     void save(Course tblCourseCatalog);
 
     List<CourseDTO> findByCourseId(String course_id);
+    
 
     String findCourseTitleByCourseId(String courseId);
 }

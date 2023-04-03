@@ -53,18 +53,18 @@ public class CourseController {
         return "preReqPage";
     }
 
-    /* @GetMapping("/mainpage")
-    public String populateInfo(Model model) throws Exception {
-        String majorName = MajorService.loggedInUser.get(0).getMajorName();
-        String name = MajorService.loggedInUser.get(0).getName();
-        Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
-        int studentId = MajorService.getStudentId();
-        MajorService.getCourseStatusForStudent(studentId, major);
-        model.addAttribute("information", new Major(name, majorName));
-        model.addAttribute("coreRequirements", major.getRequiredCourses());
-        model.addAttribute("electives", major.MajorElectiveGroups);
+    //  @GetMapping("/mainpage")
+    // public String populateInfo(Model model) throws Exception {
+    //     String majorName = MajorService.loggedInUser.get(0).getMajorName();
+    //     String name = MajorService.loggedInUser.get(0).getName();
+    //     Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
+    //     int studentId = MajorService.getStudentId();
+    //     MajorService.getCourseStatusForStudent(studentId, major);
+    //     model.addAttribute("information", new Major(name, majorName));
+    //     model.addAttribute("coreRequirements", major.getRequiredCourses());
+    //     model.addAttribute("electives", major.MajorElectiveGroups);
 
-        return "mainpage";
-    } */
+    //     return "mainpage";
+    // } 
 }
     

@@ -43,14 +43,22 @@ public class MajorServiceImpl implements MajorService2{
         for(int i = 0; i < requiredCourseList.size();i++)
         {
             String courseId = requiredCourseList.get(i).getCourseId().trim();
-            CourseDTO course = courseRepo.findByCourseId(courseId);
-            /* Grade grade = gradeRepo.findStatusByCourseIdAndStudentId(courseId, studentId);
-            String status = grade.getCourseStatus();
-            if(status == null){
-                course.setStatus("");
+            List<CourseDTO> course = courseRepo.findByCourseId(courseId);
+            List<Grade> grade = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+            String status;
+            if(grade.size() != 0) {
+                status = grade.get(0).getCourseStatus();
+                course.get(0).setStatus(status); 
+            } else {
+                course.get(0).setStatus("");
+            } 
+            // if(status == null){
+            // }
+            
+            if (course.size() == 0) continue;
+            else{
+                courseList.add(course.get(0));
             }
-            course.setStatus(status); */
-            courseList.add(course);
         }
         return courseList;
     }
