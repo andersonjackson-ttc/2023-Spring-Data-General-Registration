@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.majors.majorpopulate.POJO.CoReq;
+import com.majors.majorpopulate.POJO.CourseDTO;
+import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.ElectiveCourses;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.service.CourseService;
@@ -22,11 +24,11 @@ public class CourseController {
     @Autowired
     private CourseService cs;
 
-    @GetMapping("/showPreReqs")
-    public ResponseEntity<List<PreReq>> getPreReqsByCourseId(@RequestParam String course_id) {
-        var response = new ResponseEntity<List<PreReq>>(cs.getPreReqsByCourseId(course_id), HttpStatus.OK);
-        return response;
-    }
+    // @GetMapping("/showPreReqs")
+    // public ResponseEntity<List<PreReq>> getPreReqsByCourseId(@RequestParam String course_id) {
+    //     var response = new ResponseEntity<List<PreReq>>(cs.getPreReqsByCourseId(course_id), HttpStatus.OK);
+    //     return response;
+    // }
     @GetMapping("/showCoReqs")
     public ResponseEntity<List<CoReq>> getCoReqsByCourseId(@RequestParam String course_id) {
         var response = new ResponseEntity<List<CoReq>>(cs.getCoReqsByCourseId(course_id), HttpStatus.OK);
@@ -37,6 +39,20 @@ public class CourseController {
         var response = new ResponseEntity<List<ElectiveCourses>>(cs.getCoursesByElectiveGroupId(elective_id),HttpStatus.OK);
         return response;
     }
+
+    @GetMapping("/showPreReqPage")
+    public String preReqPage(Model model, @RequestParam String course_id) {
+        List<CourseDTO> courseName = cs.getNameByCourseId(course_id);
+        model.addAttribute("courseName", courseName.get(0));
+        List<PreReq> preReq = cs.getPreReqsByCourseId(course_id);
+        for (int i = 0; i < preReq.size(); i++) {
+            List<CourseDTO> preReqCourseTitle = cs.getNameByCourseId(preReq.get(i).getPre_req());
+            preReq.get(i).setCourseTitle(preReqCourseTitle.get(0).getCourseTitle());
+        }
+        model.addAttribute("preReqs", preReq);
+        return "preReqPage";
+    }
+
     /* @GetMapping("/mainpage")
     public String populateInfo(Model model) throws Exception {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();

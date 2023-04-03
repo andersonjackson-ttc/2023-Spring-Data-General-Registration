@@ -51,9 +51,10 @@ public class CourseServiceImpl implements CourseService{
     }
    
     @Override
-    public CourseDTO findByCourseId(String course_id) {
-        CourseDTO course;
-        return course = courseRepo.findByCourseId(course_id);
+    public List<CourseDTO> findByCourseId(String course_id) {
+        List<CourseDTO> course;
+        course = courseRepo.findByCourseId(course_id);
+        return course;
     }
 
     @Override
@@ -69,4 +70,14 @@ public class CourseServiceImpl implements CourseService{
         return courseList;
     }
 
+    /*
+     * stephen added 4/3 
+     */
+    @Override
+    public List<CourseDTO> getNameByCourseId(String course_id) {
+        List<CourseDTO> courseName;
+        courseName = courseRepo.findByCourseId(course_id);
+        return courseName;
+        
+    }
 }
