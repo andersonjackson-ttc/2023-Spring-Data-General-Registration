@@ -18,4 +18,5 @@ public class RegistrationServiceImpl implements RegistrationService {
         registerStatus = registerRepo.findByCourseIdAndStudentId(courseId, studentId);
         return registerStatus;
     }
+
 }

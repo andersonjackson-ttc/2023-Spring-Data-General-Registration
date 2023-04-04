@@ -169,6 +169,14 @@ input[type=text],input[type=password], select, textarea  {
     border-radius: 4px; */
   }
 
+  .not-complete-status {
+    color:rgb(250, 65, 65)
+  }
+  
+  .in-progress-status {
+    color: rgb(81, 145, 240);
+  }
+
   #pre-req-color {
     color:rgba(250, 124, 66, 0.95)
   }

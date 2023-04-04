@@ -8,10 +8,10 @@
 </head>
 <body>
     <h2 th:text="|Pre Requisite information for|"></h2>
-    <h2 th:text="${courseName.course_title}"></h2>
+    <h2 th:text="${courseName.courseTitle}"></h2>
     <h2 th:text="|Course ID: ${courseName.courseId}|"></h2>
 
-    <p th:text="|Information for ${courseName.course_title} Will go here and This tells a short discription of the course. But|"></p>
+    <p th:text="|Information for ${courseName.courseTitle} Will go here and This tells a short discription of the course. But|"></p>
     <p th:text="|we have no discription for these in this project.|"></p>
     <table>
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         <tr th:each="preReq : ${preReqs}">
         <td th:text="${preReq.pre_req}"></td>
-        <td th:text="${preReq.title}"></td>
+        <td th:text="${preReq.courseTitle}"></td>
         <td th:text="${preReq.min_grade}"></td>
         </tr>       
     </table>

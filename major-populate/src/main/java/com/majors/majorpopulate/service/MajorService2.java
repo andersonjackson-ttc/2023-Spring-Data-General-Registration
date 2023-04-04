@@ -12,4 +12,6 @@ public interface MajorService2 {
     List<MajorDTO> findAll();
     List<CourseDTO> findAllCoursesByMajorName(String majorName, int studentId);
 
+    void save(RegistrationDTO newRegisteredSection);
+
 }

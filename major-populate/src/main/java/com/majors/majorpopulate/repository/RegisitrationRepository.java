@@ -9,5 +9,4 @@ import com.majors.majorpopulate.POJO.RegistrationDTO;
 public interface RegisitrationRepository extends JpaRepository<RegistrationDTO, Integer>{
 
     List<RegistrationDTO> findByCourseIdAndStudentId(String courseId, Integer studentId);
-    
 }

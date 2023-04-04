@@ -5,6 +5,7 @@ import java.util.List;
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.POJO.SearchTerm;
 import com.majors.majorpopulate.POJO.Grade;
+import com.majors.majorpopulate.POJO.RegistrationDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -120,7 +121,15 @@ public class MajorPopulateController {
     @GetMapping("/handleRegistration")
     public String handleRegistration(Model model, String sectionId, String term) throws Exception {
         String courseId = MajorService.parseCourseId(sectionId);
-        MajorService.createRegisteredSection(sectionId, courseId, term);
+        String registeredStatus = "Registered";
+        RegistrationDTO newRegisteredSection = new RegistrationDTO();
+        newRegisteredSection.setMajorId(MajorService.loggedInUser.get(0).getMajorID());
+        newRegisteredSection.setCourseId(courseId);
+        newRegisteredSection.setRegDTS(registeredStatus);
+        newRegisteredSection.setStudentId(MajorService.getStudentId());
+        newRegisteredSection.setTerm(term);
+        ms2.save(newRegisteredSection);
+        // MajorService.createRegisteredSection(sectionId, courseId, term);
 
         return "registration";
     }
