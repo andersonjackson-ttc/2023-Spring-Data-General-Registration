@@ -29,7 +29,7 @@ public class RegistrationDTO {
     @Column(name = "course_id")
     private String courseId;
     @Column(name = "major_id")
-    private String courseGrade;
+    private String majorId;
     @Column(name = "reg_dts")
     private String regDTS;
 }
