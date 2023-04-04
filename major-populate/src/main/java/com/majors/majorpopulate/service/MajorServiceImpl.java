@@ -54,9 +54,9 @@ public class MajorServiceImpl implements MajorService2{
             String registeredStatus;
             if(grade.size() != 0) {
                 status = grade.get(0).getCourseStatus();
-                course.get(0).setStatus(status); 
+                course.get(0).setTanscriptStatus(status); 
             } else {
-                course.get(0).setStatus("Not Complete");
+                course.get(0).setTanscriptStatus("Not Complete");
             } 
             if (registration.size() != 0){
                 registeredStatus = registration.get(0).getRegDTS();
@@ -65,9 +65,6 @@ public class MajorServiceImpl implements MajorService2{
             else {
                 course.get(0).setRegisteredStatus("Not Registered");
             }
-            // if(status == null){
-            // }
-            
             if (course.size() == 0) continue;
             else{
                 courseList.add(course.get(0));

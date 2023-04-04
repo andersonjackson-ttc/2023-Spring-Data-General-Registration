@@ -29,7 +29,7 @@ public class CourseDTO {
     @Column(name = "course_title")
     public String courseTitle;
     @Transient
-    private String status;
+    private String tanscriptStatus;
     @Transient
     private String registeredStatus;
 
