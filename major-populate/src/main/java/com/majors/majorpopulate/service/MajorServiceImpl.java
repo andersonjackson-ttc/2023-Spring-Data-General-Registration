@@ -11,10 +11,12 @@ import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.GradRequirements;
 import com.majors.majorpopulate.POJO.Grade;
 import com.majors.majorpopulate.POJO.MajorDTO;
+import com.majors.majorpopulate.POJO.RegistrationDTO;
 import com.majors.majorpopulate.repository.CourseDTORepository;
 import com.majors.majorpopulate.repository.GradReqRepository;
 import com.majors.majorpopulate.repository.GradeRepository;
 import com.majors.majorpopulate.repository.MajorDTORepository;
+import com.majors.majorpopulate.repository.RegisitrationRepository;
 
 @Service
 public class MajorServiceImpl implements MajorService2{
@@ -27,6 +29,8 @@ public class MajorServiceImpl implements MajorService2{
     private CourseDTORepository courseRepo;
     @Autowired
     private GradeRepository gradeRepo;
+    @Autowired 
+    private RegisitrationRepository registerRepo;
 
     @Override
     public List<MajorDTO> findAll() {
@@ -45,13 +49,22 @@ public class MajorServiceImpl implements MajorService2{
             String courseId = requiredCourseList.get(i).getCourseId().trim();
             List<CourseDTO> course = courseRepo.findByCourseId(courseId);
             List<Grade> grade = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+            List<RegistrationDTO> registration = registerRepo.findByCourseIdAndStudentId(courseId, studentId);
             String status;
+            String registeredStatus;
             if(grade.size() != 0) {
                 status = grade.get(0).getCourseStatus();
                 course.get(0).setStatus(status); 
             } else {
-                course.get(0).setStatus("");
+                course.get(0).setStatus("Not Complete");
             } 
+            if (registration.size() != 0){
+                registeredStatus = registration.get(0).getRegDTS();
+                course.get(0).setRegisteredStatus(registeredStatus);
+            }
+            else {
+                course.get(0).setRegisteredStatus("Not Registered");
+            }
             // if(status == null){
             // }
             

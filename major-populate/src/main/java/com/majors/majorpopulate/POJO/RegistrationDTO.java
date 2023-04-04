@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,21 +16,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_course_catalog")
-public class CourseDTO {
+@Table(name = "tbl_registration")
+public class RegistrationDTO {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "entry")
     private int entry;
+    @Column(name = "student_id")
+    private int studentId;
+    @Column(name = "term")
+    private String term;
     @Column(name = "course_id")
     private String courseId;
-    @Column(name = "course_title")
-    public String courseTitle;
-    @Transient
-    private String status;
-    @Transient
-    private String registeredStatus;
-
-
+    @Column(name = "major_id")
+    private String courseGrade;
+    @Column(name = "reg_dts")
+    private String regDTS;
 }

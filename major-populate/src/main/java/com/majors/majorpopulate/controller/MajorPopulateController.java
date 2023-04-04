@@ -86,6 +86,7 @@ public class MajorPopulateController {
         var result = ms2.findAllCoursesByMajorName(majorName, studentId);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
+        // model.addAttribute("coreRequirements", major);
         model.addAttribute("electives", major.MajorElectiveGroups);
 
         return "mainpage";
