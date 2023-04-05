@@ -28,7 +28,7 @@ import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.student.Student;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
-import com.majors.majorpopulate.POJO.RegisteredSection;
+// import com.majors.majorpopulate.POJO.RegisteredSection;
 
 public class SqlCaller {
 
@@ -717,21 +717,21 @@ public class SqlCaller {
     /* 
      * 
      */
-    public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception {
-        sqlSt = dbConnect.createStatement();
-        List<RegisteredSection> rs = new ArrayList<>();
-        String query = "SELECT * FROM cpt275_db.tbl_registration WHERE student_id = " + studentId + "";
-        ResultSet result = sqlSt.executeQuery(query);
-        while (result.next()) {
-            RegisteredSection eachSection = new RegisteredSection(
-                    result.getString("major_id"),
-                    result.getString("course_id"),
-                    result.getString("section_id"),
-                    result.getString("term"));
-            rs.add(eachSection);
-        }
-        return rs;
-    }
+    // public List<RegisteredSection> getRegisteredSections(int studentId) throws Exception {
+    //     sqlSt = dbConnect.createStatement();
+    //     List<RegisteredSection> rs = new ArrayList<>();
+    //     String query = "SELECT * FROM cpt275_db.tbl_registration WHERE student_id = " + studentId + "";
+    //     ResultSet result = sqlSt.executeQuery(query);
+    //     while (result.next()) {
+    //         RegisteredSection eachSection = new RegisteredSection(
+    //                 result.getString("major_id"),
+    //                 result.getString("course_id"),
+    //                 result.getString("section_id"),
+    //                 result.getString("term"));
+    //         rs.add(eachSection);
+    //     }
+    //     return rs;
+    // }
 
     /*
      * // Removes a selected registered section from the schedule page.

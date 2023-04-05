@@ -21,6 +21,7 @@ import com.majors.majorpopulate.service.AdminService;
 import com.majors.majorpopulate.service.CourseService;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.MajorService2;
+import com.majors.majorpopulate.service.RegistrationService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
@@ -32,6 +33,8 @@ public class MajorPopulateController {
 
     @Autowired
     MajorService2 ms2;
+    @Autowired
+    private RegistrationService registrationService;
     @Autowired
     CourseService cs;
     
@@ -149,13 +152,15 @@ public class MajorPopulateController {
 
     @GetMapping("/schedule")
     public String getSchedule(Model model) throws Exception {
-        model.addAttribute("registeredSections", MajorService.getRegisteredSections());
+        List<RegistrationDTO> schedule = registrationService.findByStudentId(MajorService.getStudentId());
+        model.addAttribute("registeredSections", schedule);
         return "schedule";
     }
 
     @GetMapping("/removeSection")
     public String removeSection(String courseId) throws Exception {
-        MajorService.deleteSection(courseId);
+        registrationService.deleteByCourseIdAndStudentId(courseId, MajorService.getStudentId());
+        // MajorService.deleteSection(courseId);
         return "section-remove-confirm";
     }
 
@@ -234,7 +239,8 @@ public class MajorPopulateController {
 
     @GetMapping("/adminStudentSchedule")
     public String getAdminStudentSchedule(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception{
-        model.addAttribute("studentsSchedule", MajorService.getRegisteredSections(id));
+        List<RegistrationDTO> schedule = registrationService.findByStudentId(id);
+        model.addAttribute("studentsSchedule", schedule);
         model.addAttribute("student", MajorService.getStudentById(id));
         return "admin-student-schedule";
     }

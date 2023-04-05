@@ -15,8 +15,8 @@ public class GradeServiceImpl implements GradeService{
     private GradeRepository gradeRepo;
 
     @Override
-    public void saveGrade(Grade tblStudentTranscript) {
-        this.gradeRepo.save(tblStudentTranscript);
+    public void save(Grade tblStudentTranscript) {
+        gradeRepo.save(tblStudentTranscript);
     }
 
     // @Override

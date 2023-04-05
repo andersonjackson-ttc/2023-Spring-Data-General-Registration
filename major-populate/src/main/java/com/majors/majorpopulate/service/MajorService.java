@@ -5,7 +5,7 @@ import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.Major.MajorElectiveGroup;
-import com.majors.majorpopulate.POJO.RegisteredSection;
+// import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.MajorDTORepository;
 import com.majors.majorpopulate.repository.SqlCaller;
 import com.majors.majorpopulate.student.Login;
@@ -112,12 +112,12 @@ public class MajorService {
     /*
      * gets registered Sections from SqlCaller
      */
-    public static List<RegisteredSection> getRegisteredSections() throws Exception {
-        List<RegisteredSection> registeredSections = new ArrayList<>();
-        registeredSections = sql.getRegisteredSections(
-                sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
-        return registeredSections;
-    }
+    // public static List<RegisteredSection> getRegisteredSections() throws Exception {
+    //     List<RegisteredSection> registeredSections = new ArrayList<>();
+    //     registeredSections = sql.getRegisteredSections(
+    //             sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
+    //     return registeredSections;
+    // }
 
     public static int getStudentId() throws Exception {
         int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
@@ -191,11 +191,11 @@ public class MajorService {
     /*
      * Gets registered sections from a student id for the admin to edit/add grades/remove 
      */
-    public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
-        List<RegisteredSection> registeredSections = new ArrayList<>();
-        registeredSections = sql.getRegisteredSections(studentId);
-        return registeredSections;
-    }
+    // public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+    //     List<RegisteredSection> registeredSections = new ArrayList<>();
+    //     registeredSections = sql.getRegisteredSections(studentId);
+    //     return registeredSections;
+    // }
 
     /*
      * Removes a section from a students schedule FROM the admin side
