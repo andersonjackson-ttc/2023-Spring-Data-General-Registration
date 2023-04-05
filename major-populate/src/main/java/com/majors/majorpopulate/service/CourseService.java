@@ -19,7 +19,7 @@ public interface CourseService {
     List<CoReq> getCoReqsByCourseId(String course_id);
     List<CourseDTO> findByCourseId(String course_id);
     List<Section> getSectionByCourseId(String course_id);
-    List<ElectiveCourses> getCoursesByElectiveGroupId(int elective_id);
+    List<CourseDTO> getCoursesByElectiveGroupId(int elective_id);
     
     /*
      * edited by stephen for prereq page

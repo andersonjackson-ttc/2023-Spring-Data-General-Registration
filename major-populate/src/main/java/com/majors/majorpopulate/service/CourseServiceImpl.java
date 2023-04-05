@@ -1,5 +1,6 @@
 package com.majors.majorpopulate.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,13 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public List<ElectiveCourses> getCoursesByElectiveGroupId(int elective_id) {
-        List<ElectiveCourses> courseList;
-        courseList = electiveCourseRepo.findByElectiveGroupId(elective_id);
+    public List<CourseDTO> getCoursesByElectiveGroupId(int elective_id) {
+        List<ElectiveCourses> electiveCourseList = electiveCourseRepo.findByElectiveGroupId(elective_id);
+        List<CourseDTO> courseList= new ArrayList<CourseDTO>();
+        for (ElectiveCourses electiveCourses : electiveCourseList) {
+            List<CourseDTO> course = courseRepo.findByCourseId(electiveCourses.getCourseId());
+           courseList.addAll(course); 
+        }
         return courseList;
     }
 

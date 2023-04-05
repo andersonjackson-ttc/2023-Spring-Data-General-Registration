@@ -15,8 +15,8 @@
     <a th:href="@{/form}">Logout</a>
   </div>
   <div class="welcome-banner">
-    <h1 style="color:white;"  th:text="'Hello, ' + ${information.name} "></h1>
-    <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.majorName} "></h1>
+    <!-- <h1 style="color:white;"  th:text="'Hello, ' + ${information.name} "></h1>
+    <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.majorName} "></h1> -->
     <h2 style="color:white;">Here are your Courses...</h2>
   </div>
   <div class="main-container">
@@ -67,17 +67,16 @@
                   <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td> -->
         <tr>
           <th>Electives / Number of Electives Required</th>
-          <th># of Courses Available</th>
+          <th># of Courses Required</th>
           <th>Link</th>
           
         </tr>
-        <tr th:each="elective : ${electives}">
-          
-          <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td>
-          <td th:if ="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}"></td>
-          <td th:text="${elective.CoursesInElectiveGroup.size()}"></td>
+        <tr th:each="group : ${electiveGroups}">
+          <!-- <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td> -->
+          <td th:text="${group.ElectiveGroupName}"></td>
+          <td th:text="${group.NumRequired}"></td>
           <td th:block th:each="tx : ${coreRequirement}"></td>
-          <td><button th:if="${elective.CoursesInElectiveGroup.size() > 0}" class="update" th:attr="onclick=|electShowClick()|">Click for Electives</button></td>
+          <td><a role="button" class="update" th:href="@{/showElectiveCourses(groupId = ${group.electiveGroupId})}">Click for Electives</a></td>
         </tr>
       </table>
     </div>
@@ -87,13 +86,12 @@
     </div>
     
     <div class="electiveChoices">
-      <table class="table" th:each="elective : ${electives}">
-        <th th:if="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName} + ' ' + ${elective.NumRequired}">
-        </th>
-        <th:block th:each="txt : ${elective?.CoursesInElectiveGroup}" th:unless="${txt.CourseName.equals('Course Unavailable')}">
+      <table class="table" th:each="course : ${electiveCourses}">
+        <th th:if="${electiveCourses.size() > 0}" th:text="${course.courseTitle}"></th>
+        <th:block th:text="${course?.courseTitle}" th:unless="${course.courseTitle.equals('Course Unavailable')}">
         <tr >
-          <td th:text="${txt?.CourseName}" th:attr="onclick=|coreInfoClick('${txt?.CourseName}')|"></td>
-          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${txt?.CourseName})}">Click for Section Times</a></td>
+          <td th:text = "|${course.courseId}....${course?.courseTitle}|" th:onclick="|window.open('@{/showPreReqPage(course_id = ${course.courseId})}')|"></td>
+          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${course.courseTitle})}">Click for Section Times</a></td>
         </tr>
         </th:block>
       </table>

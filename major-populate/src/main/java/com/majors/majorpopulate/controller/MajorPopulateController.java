@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.service.AdminService;
+import com.majors.majorpopulate.service.CourseService;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.MajorService2;
 import com.majors.majorpopulate.student.Login;
@@ -31,6 +32,8 @@ public class MajorPopulateController {
 
     @Autowired
     MajorService2 ms2;
+    @Autowired
+    CourseService cs;
     
     @GetMapping("/form")
     public String getForm(Model model) throws Exception {
@@ -77,22 +80,32 @@ public class MajorPopulateController {
     }
 
     @GetMapping("/mainpage")
-    public String populateInfo(Model model) throws Exception {
+    public String populateInfo(Model model, @RequestParam(name= "groupId", required = false)Integer groupId) throws Exception {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
-        Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
+        //Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         int studentId = MajorService.getStudentId();
-        MajorService.getCourseStatusForStudent(studentId, major);
+        //MajorService.getCourseStatusForStudent(studentId, major);
 
         var result = ms2.findAllCoursesByMajorName(majorName, studentId);
+        var megs = ms2.findElectGroupsInMajor(majorName);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
-        // model.addAttribute("coreRequirements", major);
-        model.addAttribute("electives", major.MajorElectiveGroups);
-
+        model.addAttribute("electiveGroups", megs);
+        ////Mainpage refresh is not transfering all of the above information.  
+        if(groupId != null){
+        model.addAttribute("electiveCourses",cs.getCoursesByElectiveGroupId(groupId));
+        }
         return "mainpage";
     }
 
+    @GetMapping("/showElectiveCourses")
+    public String getElectiveNames(Model model, Integer groupId) throws Exception{
+
+        model.addAttribute("electiveCourses",cs.getCoursesByElectiveGroupId(groupId));
+        
+        return "mainpage";
+    }
     @GetMapping("/courseSearch")
     public String getCourseSearch(Model model, @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "searchTerm", required = false) String term) throws Exception {

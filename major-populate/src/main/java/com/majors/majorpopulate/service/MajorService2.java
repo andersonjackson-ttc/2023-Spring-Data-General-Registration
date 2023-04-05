@@ -13,5 +13,6 @@ public interface MajorService2 {
     List<CourseDTO> findAllCoursesByMajorName(String majorName, int studentId);
 
     void save(RegistrationDTO newRegisteredSection);
+    Object findElectGroupsInMajor(String majorName);
 
 }

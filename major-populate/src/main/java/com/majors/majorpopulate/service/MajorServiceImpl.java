@@ -11,12 +11,14 @@ import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.GradRequirements;
 import com.majors.majorpopulate.POJO.Grade;
 import com.majors.majorpopulate.POJO.MajorDTO;
+import com.majors.majorpopulate.POJO.MajorElectives;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.POJO.RegistrationDTO;
 import com.majors.majorpopulate.repository.CourseDTORepository;
 import com.majors.majorpopulate.repository.GradReqRepository;
 import com.majors.majorpopulate.repository.GradeRepository;
 import com.majors.majorpopulate.repository.MajorDTORepository;
+import com.majors.majorpopulate.repository.MajorElectRepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
 import com.majors.majorpopulate.repository.RegisitrationRepository;
 
@@ -35,6 +37,8 @@ public class MajorServiceImpl implements MajorService2{
     private RegisitrationRepository registerRepo;
     @Autowired
     private PreReqRepository preReqRepo;
+    @Autowired
+    private MajorElectRepository mERepo;
 
     @Override
     public List<MajorDTO> findAll() {
@@ -93,6 +97,11 @@ public class MajorServiceImpl implements MajorService2{
     @Override
     public void save(RegistrationDTO newRegisteredSection) {
        registerRepo.save(newRegisteredSection);
+    }
+
+    @Override
+    public List<MajorElectives> findElectGroupsInMajor(String majorName) {
+        return mERepo.findAllByMajorName(majorName);
     }
 
  

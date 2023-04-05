@@ -34,11 +34,7 @@ public class CourseController {
         var response = new ResponseEntity<List<CoReq>>(cs.getCoReqsByCourseId(course_id), HttpStatus.OK);
         return response;
     }
-    @GetMapping("/showCoursesInElectiveGroup")
-    public ResponseEntity<List<ElectiveCourses>> getCoursesByElectiveGroup(@RequestParam int elective_id){
-        var response = new ResponseEntity<List<ElectiveCourses>>(cs.getCoursesByElectiveGroupId(elective_id),HttpStatus.OK);
-        return response;
-    }
+    
 
     @GetMapping("/showPreReqPage")
     public String preReqPage(Model model, @RequestParam String course_id) {
