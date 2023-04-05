@@ -17,7 +17,8 @@
     <div class="container">
         <a role="button" class="buttons" th:href="@{/adminStudentSchedule(Id = ${student.studentId})}">View Student Schedule</a> <br>
         <a role="button" class="buttons" th:href="@{/modifyStudent(Id = ${student.studentId})}">Modify Student Profile</a><br>
-        <a role="button" class="buttons" th:href="@{/insertGrades(Id = ${student.studentId})}">Insert Grades</a>
+        <a role="button" class="buttons" th:href="@{/insertGrades(Id = ${student.studentId})}">Insert Grades From Student Schedule</a><br>
+        <a role="button" class="buttons" th:href="@{/exemptGrades(Id = ${student.studentId})}">Insert Grades For Student PreReqs</a>
     </div>
 </body>
 </html>

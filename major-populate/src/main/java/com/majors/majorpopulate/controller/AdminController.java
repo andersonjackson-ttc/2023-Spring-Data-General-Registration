@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.majors.majorpopulate.POJO.Grade;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.RegistrationService;
 
@@ -30,6 +31,17 @@ public class AdminController {
         registrationService.deleteByCourseIdAndStudentId(courseId, studentId);
         return "redirect:/insertGrades?Id=" + studentId;
     }
+
+    @GetMapping("/exemptGrades")
+    public String getExemptGradesForm(@RequestParam(value = "Id", required = false) int studentId, Model model){
+        model.addAttribute("studentId", studentId);
+        Grade grade = new Grade();
+        grade.setStudentId(studentId);
+        model.addAttribute("addGrade", grade);
+        return "admin-exempt-grades-form";
+    }
+
+
 
 
 
