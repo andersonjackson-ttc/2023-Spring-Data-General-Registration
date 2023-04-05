@@ -25,7 +25,7 @@
         <tr th:each="registeredSection : ${registeredSections}">
             <td th:text="${registeredSection.courseId}"></td>
             <td th:text="${registeredSection.majorId}"></td>
-            <td th:text="${registeredSection.sectionId}"></td>
+            <!-- <td th:text="${registeredSection.sectionId}"></td> -->
             <td th:text="${registeredSection.term}"></td>
             <td><a role="button" class="update" th:href="@{/removeSection(courseId = ${registeredSection.courseId})}">Remove This Section</a></td>
         </tr>
