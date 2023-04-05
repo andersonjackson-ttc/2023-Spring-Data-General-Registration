@@ -46,12 +46,24 @@ public class MajorServiceImpl implements MajorService2{
         majors = majorRepo.findAll();
         return majors;
     }
+    
+    @Override
+    public void save(RegistrationDTO newRegisteredSection) {
+       registerRepo.save(newRegisteredSection);
+    }
+
 
     @Override
     public List<CourseDTO> findAllCoursesByMajorName(String majorName, int studentId) {
         List<GradRequirements> requiredCourseList;
-        List<CourseDTO> courseList =  new ArrayList<CourseDTO>();
         requiredCourseList = gradReqRepo.findAllByMajorName(majorName);
+        List<CourseDTO> courseList =  getCourseBuild(requiredCourseList, studentId);
+        return courseList;
+        
+    }
+    
+    private List<CourseDTO> getCourseBuild(List<GradRequirements> requiredCourseList, int studentId) {
+        List<CourseDTO> localCourseList = new ArrayList<>();
         for(int i = 0; i < requiredCourseList.size();i++)
         {
             String courseId = requiredCourseList.get(i).getCourseId().trim();
@@ -74,30 +86,30 @@ public class MajorServiceImpl implements MajorService2{
                     course.get(0).setStatus("Not Complete");
                 }
             } 
-            List<PreReq> preReqForCourse = preReqRepo.findByCourseId(courseId);
-            for (int p = 0; p < preReqForCourse.size(); p++) {
-                course.get(0).setPreReqCheck(true);
-                List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
-                if(checkForPreReqGrade.size() == 0){
-                    System.out.println("no Grade");
-                    course.get(0).setPreReqCheck(false);
-                    break;
-                } else {
-                    System.out.println(checkForPreReqGrade.get(0).getCourseGrade());
-                }         
-            }
+            course.get(0).setPreReqCheck(getPreReqCheck(course.get(0), courseId, studentId));
             if (course.size() == 0) continue;
             else{
-                courseList.add(course.get(0));
+                localCourseList.add(course.get(0));
             }
         }
-        return courseList;
+        return localCourseList;
     }
-
-    @Override
-    public void save(RegistrationDTO newRegisteredSection) {
-       registerRepo.save(newRegisteredSection);
+    
+    private boolean getPreReqCheck(CourseDTO course, String courseId, int studentId) {
+        List<PreReq> preReqForCourse = preReqRepo.findByCourseId(courseId);
+        boolean localPreReqCheck = true;
+        for (int p = 0; p < preReqForCourse.size(); p++) {
+            List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
+            if(checkForPreReqGrade.size() == 0){
+                System.out.println("no Grade");
+                return false; 
+            } else {
+                System.out.println(checkForPreReqGrade.get(0).getCourseGrade());
+            }         
+        }
+        return localPreReqCheck; 
     }
+<<<<<<< Updated upstream
 
     @Override
     public List<MajorElectives> findElectGroupsInMajor(String majorName) {
@@ -105,5 +117,10 @@ public class MajorServiceImpl implements MajorService2{
     }
 
  
+=======
+    
+    
+    
+>>>>>>> Stashed changes
     
 }

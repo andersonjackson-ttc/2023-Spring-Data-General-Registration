@@ -40,14 +40,4 @@ public class AdminController {
         model.addAttribute("addGrade", grade);
         return "admin-exempt-grades-form";
     }
-
-
-
-
-
-
-
-
-    
-
 }
