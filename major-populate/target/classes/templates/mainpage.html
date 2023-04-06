@@ -76,7 +76,7 @@
           <td th:text="${group.ElectiveGroupName}"></td>
           <td th:text="${group.NumRequired}"></td>
           <td th:block th:each="tx : ${coreRequirement}"></td>
-          <td><a role="button" class="update" th:href="@{/showElectiveCourses(groupId = ${group.electiveGroupId})}">Click for Electives</a></td>
+          <td><a role="button" class="update" th:href="@{/showCoursesInElectiveGroup(groupId = ${group.electiveGroupId})}">Click for Electives</a></td>
         </tr>
       </table>
     </div>
@@ -85,7 +85,7 @@
 
     </div>
     
-    <div class="electiveChoices">
+    <!-- <div class="electiveChoices">
       <table class="table" th:each="course : ${electiveCourses}">
         <th th:if="${electiveCourses.size() > 0}" th:text="${course.courseTitle}"></th>
         <th:block th:text="${course?.courseTitle}" th:unless="${course.courseTitle.equals('Course Unavailable')}">
@@ -96,7 +96,7 @@
         </th:block>
       </table>
       </div>
-    </div>
+    </div> -->
   </body>
   </html>
 

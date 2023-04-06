@@ -1,6 +1,6 @@
-package com.majors.majorpopulate.POJO;
+//package com.majors.majorpopulate.POJO;
 
-import lombok.*;
+//import lombok.*;
 
 // @Getter
 // @Setter

@@ -3,7 +3,6 @@ package com.majors.majorpopulate.service;
 import java.util.List;
 
 import com.majors.majorpopulate.POJO.CourseDTO;
-import com.majors.majorpopulate.POJO.GradRequirements;
 import com.majors.majorpopulate.POJO.MajorDTO;
 import com.majors.majorpopulate.POJO.RegistrationDTO;
 

@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.majors.majorpopulate.POJO.Grade;
-import com.majors.majorpopulate.POJO.RegistrationDTO;
 import com.majors.majorpopulate.service.GradeService;
-import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.RegistrationService;
 
 import jakarta.servlet.http.HttpServletResponse;

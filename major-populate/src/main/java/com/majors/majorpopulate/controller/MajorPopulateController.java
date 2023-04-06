@@ -32,11 +32,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MajorPopulateController {
 
     @Autowired
-    MajorService2 ms2;
+    private MajorService2 ms2;
     @Autowired
     private RegistrationService registrationService;
     @Autowired
-    CourseService cs;
+    private CourseService cs;
     
     @GetMapping("/form")
     public String getForm(Model model) throws Exception {
@@ -95,20 +95,10 @@ public class MajorPopulateController {
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
         model.addAttribute("electiveGroups", megs);
-        ////Mainpage refresh is not transfering all of the above information.  
-        if(groupId != null){
-        model.addAttribute("electiveCourses",cs.getCoursesByElectiveGroupId(groupId));
-        }
+       
         return "mainpage";
     }
 
-    @GetMapping("/showElectiveCourses")
-    public String getElectiveNames(Model model, Integer groupId) throws Exception{
-
-        model.addAttribute("electiveCourses",cs.getCoursesByElectiveGroupId(groupId));
-        
-        return "mainpage";
-    }
     @GetMapping("/courseSearch")
     public String getCourseSearch(Model model, @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "searchTerm", required = false) String term) throws Exception {

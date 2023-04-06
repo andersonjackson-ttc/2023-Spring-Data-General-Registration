@@ -1,8 +1,6 @@
 package com.majors.majorpopulate.controller;
 
 import java.util.List;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.majors.majorpopulate.POJO.CoReq;
 import com.majors.majorpopulate.POJO.CourseDTO;
-import com.majors.majorpopulate.POJO.CourseDTO;
-import com.majors.majorpopulate.POJO.ElectiveCourses;
 import com.majors.majorpopulate.POJO.PreReq;
 import com.majors.majorpopulate.service.CourseService;
+import com.majors.majorpopulate.service.MajorService;
 
 @Controller 
 public class CourseController {
@@ -24,17 +21,18 @@ public class CourseController {
     @Autowired
     private CourseService cs;
 
-    // @GetMapping("/showPreReqs")
-    // public ResponseEntity<List<PreReq>> getPreReqsByCourseId(@RequestParam String course_id) {
-    //     var response = new ResponseEntity<List<PreReq>>(cs.getPreReqsByCourseId(course_id), HttpStatus.OK);
-    //     return response;
-    // }
     @GetMapping("/showCoReqs")
     public ResponseEntity<List<CoReq>> getCoReqsByCourseId(@RequestParam String course_id) {
         var response = new ResponseEntity<List<CoReq>>(cs.getCoReqsByCourseId(course_id), HttpStatus.OK);
         return response;
     }
-    
+    @GetMapping("/showCoursesInElectiveGroup")
+    public String showCoursesByElectiveGroup(Model model, @RequestParam int groupId) throws Exception{
+        int studentId = MajorService.getStudentId();
+        var response = cs.findByElectiveGroupId(groupId, studentId);
+        model.addAttribute("electiveCourses",response);
+        return "electivePage";
+    }
 
     @GetMapping("/showPreReqPage")
     public String preReqPage(Model model, @RequestParam String course_id) {
@@ -49,18 +47,5 @@ public class CourseController {
         return "preReqPage";
     }
 
-    //  @GetMapping("/mainpage")
-    // public String populateInfo(Model model) throws Exception {
-    //     String majorName = MajorService.loggedInUser.get(0).getMajorName();
-    //     String name = MajorService.loggedInUser.get(0).getName();
-    //     Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
-    //     int studentId = MajorService.getStudentId();
-    //     MajorService.getCourseStatusForStudent(studentId, major);
-    //     model.addAttribute("information", new Major(name, majorName));
-    //     model.addAttribute("coreRequirements", major.getRequiredCourses());
-    //     model.addAttribute("electives", major.MajorElectiveGroups);
-
-    //     return "mainpage";
-    // } 
 }
     

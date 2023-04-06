@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.majors.majorpopulate.Course;
+//import com.majors.majorpopulate.Course;
 import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.GradRequirements;
 import com.majors.majorpopulate.POJO.Grade;
@@ -109,7 +109,6 @@ public class MajorServiceImpl implements MajorService2{
         }
         return localPreReqCheck; 
     }
-<<<<<<< Updated upstream
 
     @Override
     public List<MajorElectives> findElectGroupsInMajor(String majorName) {
@@ -117,10 +116,8 @@ public class MajorServiceImpl implements MajorService2{
     }
 
  
-=======
     
     
     
->>>>>>> Stashed changes
     
 }

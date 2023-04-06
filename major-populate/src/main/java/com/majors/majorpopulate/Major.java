@@ -29,11 +29,5 @@ public class Major {
 
     public record RequiredCourses(
         List<Course> RequiredCourses
-    ){}
-
-
-
-    
-
-    
+    ){}    
 }
