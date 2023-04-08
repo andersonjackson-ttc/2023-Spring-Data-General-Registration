@@ -68,6 +68,7 @@
         <tr>
           <th>Electives / Number of Electives Required</th>
           <th># of Courses Required</th>
+          <th># of Courses Completed</th>
           <th>Link</th>
           
         </tr>
@@ -75,8 +76,8 @@
           <!-- <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td> -->
           <td th:text="${group.ElectiveGroupName}"></td>
           <td th:text="${group.NumRequired}"></td>
-          <td th:block th:each="tx : ${coreRequirement}"></td>
-          <td><a role="button" class="update" th:href="@{/showCoursesInElectiveGroup(groupId = ${group.electiveGroupId})}">Click for Electives</a></td>
+          <td th:text="${group.NumCompleted}"></td>
+          <td><a th:unless="${group.NumCompleted >= group.NumRequired}" role="button" class="update" th:href="@{/showCoursesInElectiveGroup(groupId = ${group.electiveGroupId})}">Click for Electives</a><span th:if="${group.NumCompleted >= group.NumRequired}">No Courses Required</span></td>
         </tr>
       </table>
     </div>

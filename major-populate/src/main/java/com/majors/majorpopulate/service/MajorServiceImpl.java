@@ -39,6 +39,8 @@ public class MajorServiceImpl implements MajorService2{
     private PreReqRepository preReqRepo;
     @Autowired
     private MajorElectRepository mERepo;
+    @Autowired 
+    private CourseService cs;
 
     @Override
     public List<MajorDTO> findAll() {
@@ -52,14 +54,12 @@ public class MajorServiceImpl implements MajorService2{
        registerRepo.save(newRegisteredSection);
     }
 
-
     @Override
     public List<CourseDTO> findAllCoursesByMajorName(String majorName, int studentId) {
         List<GradRequirements> requiredCourseList;
         requiredCourseList = gradReqRepo.findAllByMajorName(majorName);
         List<CourseDTO> courseList =  getCourseBuild(requiredCourseList, studentId);
-        return courseList;
-        
+        return courseList; 
     }
     
     private List<CourseDTO> getCourseBuild(List<GradRequirements> requiredCourseList, int studentId) {
@@ -111,8 +111,19 @@ public class MajorServiceImpl implements MajorService2{
     }
 
     @Override
-    public List<MajorElectives> findElectGroupsInMajor(String majorName) {
-        return mERepo.findAllByMajorName(majorName);
+    public List<MajorElectives> findElectGroupsInMajor(String majorName, int studentId) {
+        List<MajorElectives> electiveGroups = mERepo.findAllByMajorName(majorName);
+        for (MajorElectives group : electiveGroups) {
+            int numCompleted = 0;
+            List<CourseDTO> courses = cs.findByElectiveGroupId(group.getElectiveGroupId(), studentId);
+            for (CourseDTO course : courses) {
+                if (course.getStatus().equalsIgnoreCase("complete")){
+                   numCompleted++; 
+                } 
+            }
+            group.setNumCompleted(numCompleted);
+        }
+        return electiveGroups;
     }
 
  

@@ -113,12 +113,12 @@ public class SqlCaller {
         return "could not find major ID";
     }
 
-    /*
+    /* 
      * ADDED BY STEPHEN
      * Gets required "Core Sections" (classes) just there to populate the main page
      * with something
      */
-    public List<String> getRequiredCoreClasses(String majorId) throws Exception {
+    /* public List<String> getRequiredCoreClasses(String majorId) throws Exception {
         List<String> requiredCoreCourses = new ArrayList<>();
         sqlSt = dbConnect.createStatement();
         String query = String.format("SELECT course_id FROM tbl_grad_requirement WHERE major_id = %s", majorId);
@@ -127,7 +127,7 @@ public class SqlCaller {
             requiredCoreCourses.add(result.getString("course_id"));
         }
         return requiredCoreCourses;
-    }
+    } */
 
     /*
      * By: John Percival

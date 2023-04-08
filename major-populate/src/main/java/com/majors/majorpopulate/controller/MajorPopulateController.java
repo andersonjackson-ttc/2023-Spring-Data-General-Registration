@@ -91,7 +91,7 @@ public class MajorPopulateController {
         //MajorService.getCourseStatusForStudent(studentId, major);
 
         var result = ms2.findAllCoursesByMajorName(majorName, studentId);
-        var megs = ms2.findElectGroupsInMajor(majorName);
+        var megs = ms2.findElectGroupsInMajor(majorName,studentId);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
         model.addAttribute("electiveGroups", megs);
