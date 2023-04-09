@@ -37,6 +37,11 @@ public class CourseController {
     @GetMapping("/showPreReqPage")
     public String preReqPage(Model model, @RequestParam String course_id) {
         List<CourseDTO> courseName = cs.getNameByCourseId(course_id);
+        if (courseName.size() == 0){
+            model.addAttribute("courseName", null);
+            model.addAttribute("courseId", course_id);
+            return "preReqPage";
+        }
         model.addAttribute("courseName", courseName.get(0));
         List<PreReq> preReq = cs.getPreReqsByCourseId(course_id);
         for (int i = 0; i < preReq.size(); i++) {

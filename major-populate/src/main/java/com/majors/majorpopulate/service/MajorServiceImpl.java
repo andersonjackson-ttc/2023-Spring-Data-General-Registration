@@ -71,6 +71,16 @@ public class MajorServiceImpl implements MajorService2{
             List<Grade> grade = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
             String status;
             String registeredStatus;
+            if(course.size() == 0){
+                CourseDTO emptyCourseName = new CourseDTO();
+
+                emptyCourseName.setCourseId(courseId);
+                emptyCourseName.setCourseTitle(courseId);
+                emptyCourseName.setStatus("No Course This Term");
+                emptyCourseName.setRegisteredStatus("Not Registered");
+                localCourseList.add(emptyCourseName);
+                continue;
+            }
             if(grade.size() != 0) {
                 status = grade.get(0).getCourseStatus();
                 course.get(0).setStatus(status); 
@@ -87,10 +97,10 @@ public class MajorServiceImpl implements MajorService2{
                 }
             } 
             course.get(0).setPreReqCheck(getPreReqCheck(course.get(0), courseId, studentId));
-            if (course.size() == 0) continue;
-            else{
+            // // if (course.size() == 0) continue;
+            // else{
                 localCourseList.add(course.get(0));
-            }
+            // }
         }
         return localCourseList;
     }
