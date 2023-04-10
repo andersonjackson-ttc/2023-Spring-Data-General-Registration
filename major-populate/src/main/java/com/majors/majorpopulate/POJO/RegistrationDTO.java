@@ -1,6 +1,5 @@
 package com.majors.majorpopulate.POJO;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,20 +16,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_student_transcript")
-public class Grade {
+@Table(name = "tbl_registration")
+public class RegistrationDTO {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int entry;
     @Column(name = "student_id")
     private int studentId;
-    @Column(name = "term_id")
-    private String termId;
+    @Column(name = "term")
+    private String term;
     @Column(name = "course_id")
     private String courseId;
-    @Column(name = "course_grade")
-    private String courseGrade;
-    @Column(name = "course_status")
-    private String courseStatus;
+    @Column(name = "major_id")
+    private String majorId;
+    @Column(name = "reg_dts")
+    private String regDTS;
 }

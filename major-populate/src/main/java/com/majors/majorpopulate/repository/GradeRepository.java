@@ -1,12 +1,12 @@
 package com.majors.majorpopulate.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.majors.majorpopulate.POJO.Grade;
 
-@Repository
 public interface GradeRepository extends JpaRepository<Grade, Integer> {
     
+    List<Grade> findByCourseIdAndStudentId(String courseId, Integer studentId);
 }

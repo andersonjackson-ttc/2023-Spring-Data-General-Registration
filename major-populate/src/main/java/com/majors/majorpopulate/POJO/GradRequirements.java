@@ -6,24 +6,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_co_req")
-public class CoReq {
+@Table(name = "tbl_grad_requirement")
+public class GradRequirements {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int entry;
-    @Column(name = "course_id_c1")
-    private String courseId;
-    @Column(name = "course_id_c2")
-    private String co_req;
+    @Column(name = "major_id")
+    private int majorId;
+    @Column(name = "major_name")
+    private String majorName;
+    @Column(name = "req_type")
+    private String reqType;
+    @Column(name = "course_id")
+    public String courseId;
+    
 }

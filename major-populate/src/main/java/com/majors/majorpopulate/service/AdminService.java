@@ -1,4 +1,8 @@
 package com.majors.majorpopulate.service;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+
 import com.majors.majorpopulate.repository.AdminRepository;
 import lombok.*;
 
@@ -27,10 +31,10 @@ public class AdminService {
     String courseTermDates, String courseTime, String courseLocation, String courseBuildingNum,
     String courseRoomNum, String courseType, String seatsTaken, String seatsAvailable) throws Exception {
 
-        adminRepo.updateSection(courseTitle, courseSection,
-                courseDays, courseTerm, courseTermDates,
-                courseTime, courseLocation, courseBuildingNum,
-                courseRoomNum, courseType, seatsTaken, seatsAvailable);
+        /* adminRepo.updateSection(CourseTitle, CourseSection,
+                CourseDays, CourseTerm, CourseTermDates,
+                CourseTime, CourseLocation, CourseBuildingNum,
+                CourseRoomNum, CourseType, SeatsTaken, SeatsAvailable); */
     }
 
     public void adminAddStudent(String studentName, String studentPassword, String majorName) throws Exception {

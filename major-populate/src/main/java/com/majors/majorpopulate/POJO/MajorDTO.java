@@ -1,11 +1,8 @@
 package com.majors.majorpopulate.POJO;
-import java.util.List;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,16 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_courses")
-public class Courses {
+@Table(name = "tbl_majors")
+public class MajorDTO {
     
-    @Id @Column 
-    private String course_id;
-    @Column
-    private String course_name;
+    @Id
+    @Column(name = "major_id")
+    private String majorId;
+    @Column(name = "major_name")
+    private String majorName;
+    
 
-    @ManyToMany
-    private List<PreReq> pre_reqs;
-    @ManyToMany
-    private List<CoReq> co_reqs;
 }

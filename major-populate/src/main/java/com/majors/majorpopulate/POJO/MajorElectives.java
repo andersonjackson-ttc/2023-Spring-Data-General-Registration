@@ -1,5 +1,6 @@
 package com.majors.majorpopulate.POJO;
 
+import org.springframework.data.annotation.Transient;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,20 +18,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tbl_student_transcript")
-public class Grade {
-    
+@Table(name = "tbl_major_electives")
+public class MajorElectives {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int entry;
-    @Column(name = "student_id")
-    private int studentId;
-    @Column(name = "term_id")
-    private String termId;
-    @Column(name = "course_id")
-    private String courseId;
-    @Column(name = "course_grade")
-    private String courseGrade;
-    @Column(name = "course_status")
-    private String courseStatus;
+    @Column(name = "major_id")
+    private int majorId;
+    @Column(name = "major_name")
+    private String majorName;
+    @Column(name ="elective_id")
+    private int electiveGroupId;
+    @Column(name = "elective_group")
+    private String electiveGroupName;
+    @Column (name = "nbr_required")
+    private int numRequired;
+    @Transient
+    public int numCompleted;
 }
