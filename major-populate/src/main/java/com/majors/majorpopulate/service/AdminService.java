@@ -23,15 +23,14 @@ public class AdminService {
      * data and repackage it here as a hashtable, to send it
      * to the adminRepo. Not sure which will work better.
      */
-    public void updateSection(String CourseTitle, String CourseSection,
-            String CourseDays, String CourseTerm, List<Date> CourseTermDates,
-            List<LocalTime> CourseTime, String CourseLocation, String CourseBuildingNum,
-            String CourseRoomNum, String CourseType, int SeatsTaken, int SeatsAvailable) throws Exception {
+    public void updateSection(String courseTitle, String courseSection, String courseDays, String courseTerm,
+    String courseTermDates, String courseTime, String courseLocation, String courseBuildingNum,
+    String courseRoomNum, String courseType, String seatsTaken, String seatsAvailable) throws Exception {
 
-        adminRepo.updateSection(CourseTitle, CourseSection,
-                CourseDays, CourseTerm, CourseTermDates,
-                CourseTime, CourseLocation, CourseBuildingNum,
-                CourseRoomNum, CourseType, SeatsTaken, SeatsAvailable);
+        adminRepo.updateSection(courseTitle, courseSection,
+                courseDays, courseTerm, courseTermDates,
+                courseTime, courseLocation, courseBuildingNum,
+                courseRoomNum, courseType, seatsTaken, seatsAvailable);
     }
 
     public void adminAddStudent(String studentName, String studentPassword, String majorName) throws Exception {
