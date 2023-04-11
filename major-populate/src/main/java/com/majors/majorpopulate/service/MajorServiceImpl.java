@@ -125,12 +125,18 @@ public class MajorServiceImpl implements MajorService2{
         List<MajorElectives> electiveGroups = mERepo.findAllByMajorName(majorName);
         for (MajorElectives group : electiveGroups) {
             int numCompleted = 0;
+            int numberRegistered = 0;
+           
             List<CourseDTO> courses = cs.findByElectiveGroupId(group.getElectiveGroupId(), studentId);
             for (CourseDTO course : courses) {
                 if (course.getStatus().equalsIgnoreCase("complete")){
                    numCompleted++; 
-                } 
+                }
+                if (course.getRegisteredStatus() != null && course.getRegisteredStatus().equalsIgnoreCase("registered")){
+                    numberRegistered++;
+                }
             }
+            group.setNumberRegistered(numberRegistered);
             group.setNumCompleted(numCompleted);
         }
         return electiveGroups;
