@@ -16,3 +16,5 @@ major-populate/target/maven-status/maven-compiler-plugin/testCompile/default-tes
 *.class
 *.class
 major-populate/target/classes/application.properties
+major-populate/src/main/resources/application.properties
+major-populate/target/classes/application.properties
