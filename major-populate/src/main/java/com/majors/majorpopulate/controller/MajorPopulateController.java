@@ -143,6 +143,7 @@ public class MajorPopulateController {
     @GetMapping("/schedule")
     public String getSchedule(Model model) throws Exception {
         List<RegistrationDTO> schedule = registrationService.findByStudentId(MajorService.getStudentId());
+        model.addAttribute("studentInfo", MajorService.loggedInUser.get(0));
         model.addAttribute("registeredSections", schedule);
         return "schedule";
     }

@@ -68,15 +68,15 @@
                   <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td> -->
         <tr>
           <th>Electives / Number of Electives Required</th>
-          <th># of Courses Required</th>
+          <th># of Courses Registered</th>
           <th># of Courses Completed</th>
           <th>Link</th>
           
         </tr>
         <tr th:each="group : ${electiveGroups}">
           <!-- <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td> -->
-          <td th:text="${group.ElectiveGroupName}"></td>
-          <td th:text="${group.NumRequired}"></td>
+          <td th:text="|${group.ElectiveGroupName} / (${group.NumRequired})|"></td>
+          <td th:text="${group.numberRegistered}"></td>
           <td th:text="${group.NumCompleted}"></td>
           <td><a th:unless="${group.NumCompleted >= group.NumRequired}" role="button" class="update" th:href="@{/showCoursesInElectiveGroup(groupId = ${group.electiveGroupId})}">Click for Electives</a><span th:if="${group.NumCompleted >= group.NumRequired}">No Courses Required</span></td>
         </tr>

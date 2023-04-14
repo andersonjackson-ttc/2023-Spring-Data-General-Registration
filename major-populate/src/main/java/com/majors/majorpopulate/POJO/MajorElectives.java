@@ -36,4 +36,6 @@ public class MajorElectives {
     private int numRequired;
     @Transient
     public int numCompleted;
+    @Transient
+    public int numberRegistered;
 }
