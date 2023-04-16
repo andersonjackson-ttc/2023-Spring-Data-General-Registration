@@ -26,7 +26,7 @@
           <input type="text" th:field="*{courseId}" placeholder="Enter CourseId">
 
         <select th:field="*{courseGrade}" >
-            <option value="">Choose A Grade</option>
+            <option value="">Choose Grade</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -34,7 +34,8 @@
             <option value="W">W</option>
         </Select>
         <Select type="text" th:field="*{courseStatus}">
-            <option value="">Choose a Course Status</option>
+            <option value="">Select Course Status</option>
+            <option value="In Progress">In Progress</option>
             <option value="Complete">Complete</option>
             <option value="Not Complete">Not Complete</option>
             <option value="Withdrawn">Withdrawn</option>

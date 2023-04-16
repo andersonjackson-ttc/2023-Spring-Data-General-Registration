@@ -12,4 +12,5 @@ public interface PreReqRepository extends JpaRepository<PreReq, Integer>{
     void save(Course tblCourseCatalog);
 
     List<PreReq> findByCourseId(String course_id);
+    List<PreReq> findByPreReq(String pre_req);
 }

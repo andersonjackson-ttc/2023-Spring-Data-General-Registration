@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.GradRequirements;
 import com.majors.majorpopulate.POJO.Grade;
+import com.majors.majorpopulate.POJO.Student;
 import com.majors.majorpopulate.POJO.MajorDTO;
 import com.majors.majorpopulate.POJO.MajorElectives;
 import com.majors.majorpopulate.POJO.PreReq;
@@ -21,6 +22,7 @@ import com.majors.majorpopulate.repository.MajorDTORepository;
 import com.majors.majorpopulate.repository.MajorElectRepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
 import com.majors.majorpopulate.repository.RegisitrationRepository;
+import com.majors.majorpopulate.repository.StudentRepo;
 
 @Service
 public class MajorServiceImpl implements MajorService2{
@@ -41,6 +43,8 @@ public class MajorServiceImpl implements MajorService2{
     private MajorElectRepository mERepo;
     @Autowired 
     private CourseService cs;
+    @Autowired
+    private StudentRepo studentRepo;
 
     @Override
     public List<MajorDTO> findAll() {
@@ -142,9 +146,88 @@ public class MajorServiceImpl implements MajorService2{
         return electiveGroups;
     }
 
- 
-    
-    
-    
-    
+
+    //Checking status of registered course
+    public String checkTranscriptStatus (int studentId, String courseId){
+        String rtnval;
+        List<Grade> studentTranscript = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+        String courseStatus = studentTranscript.get(4).toString();
+        //String courseGrade = studentTranscript.get(3).toString();
+        rtnval = courseStatus;
+        return rtnval;
+    }
+
+    //Checks grade of completed course
+    public String checkCourseGrade (int studentId, String courseId){
+        String rtnval;
+        List<Grade> studentTranscript = gradeRepo.findByCourseIdAndStudentId(courseId, studentId);
+        String courseGrade = studentTranscript.get(3).toString();
+        rtnval = courseGrade;
+        return rtnval;
+    }
+        
+    //Return list of courses that are now available for signup based on student transcript. 
+    //      IF "in progress" || "complete"  it opens classes for signup
+    public List<PreReq> openPreReqs (String courseId, int studentId){
+        // doesnt check transcript for IP and COMPLETES
+        //adds to list for rtnval
+        //check for duplicates
+        List<PreReq> rtnval = new ArrayList<>();
+        List<Student> studentInfo = studentRepo.findMajorByStudentId(studentId);
+        String studentMajor = studentInfo.get(3).toString();
+        List<GradRequirements> gradReqs = gradReqRepo.findAllByMajorName(studentMajor); // Holds reqs for students major
+        List<Grade> studentTranscript = gradeRepo.findByCourseIdAndStudentId(courseId, studentId); //Holds all classes in student current transcript
+        List<PreReq> preReqs;
+        String check;
+        boolean gradNeed = false;
+        for(int i = 0; i < studentTranscript.size(); i++){
+            Grade course = studentTranscript.get(i);
+            // need to check prereqs against only major grad reqs
+            preReqs = preReqRepo.findByPreReq(course.getCourseId()); //Local compare of course to ALL prereqs
+            for(int j = 0; j < preReqs.size(); j++){
+                //compare prereqs to gradreqs then add to rtnval with no duplicates
+                check = preReqs.get(j).getCourseId();
+                for(int k = 0; k <gradReqs.size();k++){
+                    if(check.compareTo(gradReqs.get(k).getCourseId()) == 0){ //courseId is equal to grad req ID
+                        gradNeed = true;
+                        //Check to make sure its not in rtnval already
+                        //rtnval.add(preReqs.get(j));
+                        break; //No need to continue thru grad reqs -- jump to next prereq
+                    }
+                }
+                if(gradNeed){
+                    boolean duplicate = false;
+                    if(rtnval.size() == 0) //first addition
+                        rtnval.add(preReqs.get(j));
+                    else{
+                        for(int z = 0; z < rtnval.size(); z++){
+                            if(check.compareTo(rtnval.get(z).getCourseId()) == 0){
+                                duplicate = true;
+                            }
+                        }
+                        if (!duplicate)
+                            rtnval.add(preReqs.get(j));
+                    }
+                }
+
+            }
+
+            if(checkTranscriptStatus(studentId, course.getCourseId()).compareTo("In Progress") == 0){
+                //open prereqs
+                
+            }
+            else if(checkTranscriptStatus(studentId, course.getCourseId()).compareTo("Complete") == 0){
+                //check mingrade
+                //if()
+                //then open prereqs
+                
+            }
+            else{
+                //not complete default
+            }
+        }
+        //List<PreReq> rtnval = preReqRepo.findByCourseId(courseId);
+        return rtnval;
+    }
+
 }

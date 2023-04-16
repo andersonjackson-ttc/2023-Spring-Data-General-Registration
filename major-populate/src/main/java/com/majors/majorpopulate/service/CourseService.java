@@ -19,7 +19,7 @@ public interface CourseService {
     List<CourseDTO> findByCourseId(String course_id);
     List<Section> getSectionByCourseId(String course_id);
     List<CourseDTO> findByElectiveGroupId(int elective_id, int studentId);
-    
+    List<PreReq> findByPreReq(String prereq);
     /*
      * edited by stephen for prereq page
      */
