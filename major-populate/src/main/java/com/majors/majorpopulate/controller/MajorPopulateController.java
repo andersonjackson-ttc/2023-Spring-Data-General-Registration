@@ -37,7 +37,7 @@ public class MajorPopulateController {
     private RegistrationService registrationService;
     @Autowired
     private CourseService cs;
-    
+
     @GetMapping("/form")
     public String getForm(Model model) throws Exception {
         boolean invalid = false;
@@ -83,19 +83,21 @@ public class MajorPopulateController {
     }
 
     @GetMapping("/mainpage")
-    public String populateInfo(Model model, @RequestParam(name= "groupId", required = false)Integer groupId) throws Exception {
+    public String populateInfo(Model model, @RequestParam(name = "groupId", required = false) Integer groupId)
+            throws Exception {
         String majorName = MajorService.loggedInUser.get(0).getMajorName();
         String name = MajorService.loggedInUser.get(0).getName();
-        //Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
+        // Major major =
+        // MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         int studentId = MajorService.getStudentId();
-        //MajorService.getCourseStatusForStudent(studentId, major);
+        // MajorService.getCourseStatusForStudent(studentId, major);
 
         var result = ms2.findAllCoursesByMajorName(majorName, studentId);
         var megs = ms2.findElectGroupsInMajor(majorName);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
         model.addAttribute("electiveGroups", megs);
-       
+
         return "mainpage";
     }
 
@@ -221,14 +223,16 @@ public class MajorPopulateController {
     }
 
     @GetMapping("studentSearchMainpage")
-    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception {
+    public String getStudentSearchMainpage(@RequestParam(value = "Id", required = false) int id, Model model)
+            throws Exception {
         var o = MajorService.getStudentById(id);
         model.addAttribute("student", o);
         return "admin-student-mainpage";
     }
 
     @GetMapping("/adminStudentSchedule")
-    public String getAdminStudentSchedule(@RequestParam(value = "Id", required = false) int id, Model model) throws Exception{
+    public String getAdminStudentSchedule(@RequestParam(value = "Id", required = false) int id, Model model)
+            throws Exception {
         List<RegistrationDTO> schedule = registrationService.findByStudentId(id);
         model.addAttribute("studentsSchedule", schedule);
         model.addAttribute("student", MajorService.getStudentById(id));
@@ -259,7 +263,7 @@ public class MajorPopulateController {
     }
 
     @GetMapping("/adminGradeSubmitForm")
-    public String getAdminGradeSubmitForm(int studentId, String courseId, String term, Model model){
+    public String getAdminGradeSubmitForm(int studentId, String courseId, String term, Model model) {
         Grade grade = new Grade();
         grade.setStudentId(studentId);
         grade.setCourseId(courseId);
