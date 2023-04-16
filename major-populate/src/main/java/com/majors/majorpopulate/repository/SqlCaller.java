@@ -307,7 +307,7 @@ public class SqlCaller {
 
         query = String.format("Select * "
                 + "FROM tbl_courses_offered "
-                + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
+                + "WHERE course_title = '%s' and course_term IN (%s)", courseName, term);
 
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {

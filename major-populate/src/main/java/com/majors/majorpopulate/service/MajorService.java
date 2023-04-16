@@ -12,6 +12,7 @@ import com.majors.majorpopulate.student.Student;
 
 //import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,6 +21,11 @@ public class MajorService {
     public static SqlCaller sql = new SqlCaller();
 
     public static List<Login> loggedInUser = new ArrayList<>();
+
+    public static ArrayList<String> termListOrder = new ArrayList<String>(
+        Arrays.asList("2023 Spring Full",
+            "2023 Spring 1", "2023 Spring 2", "2023 Summer Full", "2023 Summer 1",
+            "2023 Summer 2", "2023 Fall Full", "2023 Fall 1", "2023 Fall 2"));
 
     public MajorService() {
 
@@ -55,7 +61,23 @@ public class MajorService {
         if (term == null || term == "") {
             section = sql.getSectionTimesByCourseName(name);
         } else {
-            section = sql.getCourseNameByTerm(name, term);
+            String[] termList = {"2023 Spring Full", "2023 Spring 1", "2023 Spring 2", "2023 Summer Full", "2023 Summer 1", "2023 Summer 2", "2023 Fall Full", "2023 Fall 1", "2023 Fall 2"};
+            String termListToPass = "";
+            for (int i = 0; i < termList.length; i++) {
+                if (!term.equals(termList[i])){
+                    continue;
+                } else if(term.equals(termList[i])){
+                    for (int j = i + 1; j < termList.length; j++) {
+                        termListToPass += "'" + termList[j] + "', ";
+                    }
+                    break;
+                }
+            }
+            if(!termListToPass.equals("")){
+                termListToPass = termListToPass.substring(0, termListToPass.length() - 2);
+            }else termListToPass = null;
+            System.out.println(termListToPass);
+            section = sql.getCourseNameByTerm(name, termListToPass);
         }
         return section;
     }

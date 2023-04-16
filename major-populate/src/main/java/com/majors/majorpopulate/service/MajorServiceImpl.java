@@ -1,6 +1,7 @@
 package com.majors.majorpopulate.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,15 +109,43 @@ public class MajorServiceImpl implements MajorService2{
     private boolean getPreReqCheck(CourseDTO course, String courseId, int studentId) {
         List<PreReq> preReqForCourse = preReqRepo.findByCourseId(courseId);
         boolean localPreReqCheck = true;
+        int complete = 0;
+        int registered = 0;
+        ArrayList<String> termList = new ArrayList<String>();
         for (int p = 0; p < preReqForCourse.size(); p++) {
             List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
             if(checkForPreReqGrade.size() == 0){
                 System.out.println("no Grade");
-                return false; 
+                List<RegistrationDTO> checkRegistrationTerm = registerRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
+                if(checkRegistrationTerm.size() != 0){
+                    System.out.println(checkRegistrationTerm.get(0).getTerm());
+                    //course.setPreReqRegistered(true);
+                    // course.setStatus("Pre Req Registered");
+                    //course.setPreReqTerm(checkRegistrationTerm.get(0).getTerm());
+                    termList.add(checkRegistrationTerm.get(0).getTerm());
+                    registered++;
+                } 
+                else return false;
             } else {
                 System.out.println(checkForPreReqGrade.get(0).getCourseGrade());
-            }         
+                complete++;
+            }    
         }
+        if(complete + registered != preReqForCourse.size()){
+            course.setPreReqRegistered(false); 
+        } else if(registered > 0){
+            System.out.println(termList);
+            termList.sort(Comparator.comparingInt(MajorService.termListOrder::indexOf));
+            System.out.println(termList);
+            if(termList.size() <= 1){
+                course.setPreReqTerm(termList.get(0));
+            } else {
+                course.setPreReqTerm(termList.get(termList.size() -1));
+            }
+        }
+        else {
+            course.setPreReqRegistered(true);
+        }     
         return localPreReqCheck; 
     }
 
