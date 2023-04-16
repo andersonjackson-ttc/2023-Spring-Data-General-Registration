@@ -45,7 +45,10 @@
             <span th:case="'Complete'" class="registered-status" >In Transcript</span>
             <span th:case="'In Progress'" class="in-progress-status">Check Schedule</span>
             <span th:case="'No Course This Term'">No Sections Available</span>
-            <span th:case="*"><a th:if="${coreRequirement.preReqCheck == true}" role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement.courseTitle})}">Click for Section Times</a><span id="pre-req-color" th:unless="${coreRequirement.preReqCheck == true}">PreReqRequired</span></span>
+            <span th:case="'Pre Req Registered'"></span>
+            <span th:case="*"><a th:if="${coreRequirement.preReqCheck == true or coreRequirement.preReqRegistered == true}" role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement.courseTitle}, searchTerm = ${coreRequirement.preReqTerm})}">Click for Section Times</a>
+              <span th:if="${coreRequirement.preReqTerm != null}" th:text="|Must Register after ${coreRequirement.preReqTerm}|"></span>
+              <span id="pre-req-color" th:unless="${coreRequirement.preReqCheck == true or coreRequirement.preReqRegistered == true}">PreReqRequired</span></span>
           </td>
           <!-- <td th:if="${coreRequirement.status == 'In Progress'}">Check Schedule</td>
           <td th:unless="${coreRequirement.status == 'Complete'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement.courseTitle})}">Click for Section Times</a></td> -->
