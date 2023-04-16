@@ -1,5 +1,7 @@
 package com.majors.majorpopulate.POJO;
 
+import org.springframework.data.annotation.Transient;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,5 +33,9 @@ public class MajorElectives {
     @Column(name = "elective_group")
     private String electiveGroupName;
     @Column (name = "nbr_required")
-    private int numRequired; 
+    private int numRequired;
+    @Transient
+    public int numCompleted;
+    @Transient
+    public int numberRegistered;
 }

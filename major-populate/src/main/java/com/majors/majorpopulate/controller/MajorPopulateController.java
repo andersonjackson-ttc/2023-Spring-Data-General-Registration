@@ -93,7 +93,7 @@ public class MajorPopulateController {
         // MajorService.getCourseStatusForStudent(studentId, major);
 
         var result = ms2.findAllCoursesByMajorName(majorName, studentId);
-        var megs = ms2.findElectGroupsInMajor(majorName);
+        var megs = ms2.findElectGroupsInMajor(majorName,studentId);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", result);
         model.addAttribute("electiveGroups", megs);
@@ -145,6 +145,7 @@ public class MajorPopulateController {
     @GetMapping("/schedule")
     public String getSchedule(Model model) throws Exception {
         List<RegistrationDTO> schedule = registrationService.findByStudentId(MajorService.getStudentId());
+        model.addAttribute("studentInfo", MajorService.loggedInUser.get(0));
         model.addAttribute("registeredSections", schedule);
         return "schedule";
     }
