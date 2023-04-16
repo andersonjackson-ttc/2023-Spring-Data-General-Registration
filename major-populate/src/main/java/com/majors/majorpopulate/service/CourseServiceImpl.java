@@ -109,7 +109,7 @@ public class CourseServiceImpl implements CourseService{
         List<PreReq> preReqForCourse = preReqRepo.findByCourseId(course.getCourseId());
         boolean localPreReqCheck = true;
         for (int p = 0; p < preReqForCourse.size(); p++) {
-            List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
+            List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPreReq(), studentId);
             if(checkForPreReqGrade.size() == 0){
                 System.out.println("no Grade");
                 return false; 
@@ -128,5 +128,11 @@ public class CourseServiceImpl implements CourseService{
         courseName = courseRepo.findByCourseId(course_id);
         return courseName;
         
+    }
+
+    @Override
+    public List<PreReq> findByPreReq(String pre_req) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByPreReq'");
     }
 }

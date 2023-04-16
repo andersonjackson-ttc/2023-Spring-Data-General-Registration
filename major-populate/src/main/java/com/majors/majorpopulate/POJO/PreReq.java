@@ -26,7 +26,7 @@ public class PreReq {
     @Column(name = "course_id")
     private String courseId;
     @Column(name = "prereq")
-    private String pre_req;
+    private String preReq;
     @Column(name = "min_grade")
     private String min_grade;
     @Transient

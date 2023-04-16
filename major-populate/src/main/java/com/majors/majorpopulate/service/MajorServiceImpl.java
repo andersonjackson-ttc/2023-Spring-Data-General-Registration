@@ -113,7 +113,7 @@ public class MajorServiceImpl implements MajorService2{
         List<PreReq> preReqForCourse = preReqRepo.findByCourseId(courseId);
         boolean localPreReqCheck = true;
         for (int p = 0; p < preReqForCourse.size(); p++) {
-            List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPre_req(), studentId);
+            List<Grade> checkForPreReqGrade = gradeRepo.findByCourseIdAndStudentId(preReqForCourse.get(p).getPreReq(), studentId);
             if(checkForPreReqGrade.size() == 0){
                 System.out.println("no Grade");
                 return false; 
