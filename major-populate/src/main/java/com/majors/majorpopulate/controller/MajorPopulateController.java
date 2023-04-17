@@ -19,6 +19,7 @@ import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.service.AdminService;
 import com.majors.majorpopulate.service.CourseService;
+import com.majors.majorpopulate.service.GradeService;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.MajorService2;
 import com.majors.majorpopulate.service.RegistrationService;
@@ -56,6 +57,7 @@ public class MajorPopulateController {
         if (result.hasErrors())
             return "register";
         MajorService.CreateStudent(student);
+    
         return "redirect:/form";
     }
 
@@ -145,8 +147,10 @@ public class MajorPopulateController {
     @GetMapping("/schedule")
     public String getSchedule(Model model) throws Exception {
         List<RegistrationDTO> schedule = registrationService.findByStudentId(MajorService.getStudentId());
+        ms2.getCourseNames(schedule);
         model.addAttribute("studentInfo", MajorService.loggedInUser.get(0));
         model.addAttribute("registeredSections", schedule);
+        
         return "schedule";
     }
 

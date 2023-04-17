@@ -18,12 +18,14 @@
     <table class="table">
         <tr>
             <th>Course Id</th>
+            <th>Course Name</th>
             <th>Major Name</th>
             <th>Section Id</th>
             <th>Term</th>
         </tr>
         <tr th:each="registeredSection : ${registeredSections}">
             <td th:text="${registeredSection.courseId}"></td>
+            <td th:text="${registeredSection.courseName}"></td>
             <td th:text="${studentInfo.majorName}"></td>
             <!-- <td th:text="${registeredSection.sectionId}"></td> -->
             <td th:text="${registeredSection.term}"></td>

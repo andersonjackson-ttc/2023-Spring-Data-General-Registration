@@ -171,6 +171,15 @@ public class MajorServiceImpl implements MajorService2{
         return electiveGroups;
     }
 
+    @Override
+    public List<CourseDTO> getCourseNames(List<RegistrationDTO> schedule) {
+        List<CourseDTO> scheduleWithNames = new ArrayList<>();
+        for (int i = 0; i < schedule.size(); i++) {
+            
+        }    
+        return null;
+    }
+
  
     
     
