@@ -17,7 +17,7 @@
       <h2 th:text="|Hello Lets Modify the Course: ${courseOffer.Title}|"> </h2>
       <form method="post" th:object="${courseOffer}" th:action="@{/modifyCourse}">
 
-          <input  type="hidden" th:field="*{Id}"  th:value ="*{Id}">
+          <input  type="hidden" th:field="*{entry}"  th:value ="*{entry}">
           <label for="Title" >Title</label>
           <input type="text" id="Title" th:field="*{Title}"  th:value ="*{Title}" placeholder="Title" pattern="[a-zA-z\s]{5,}" title= "Only Alphabetics Characters"/>
           <label for="Section" >Section</label>

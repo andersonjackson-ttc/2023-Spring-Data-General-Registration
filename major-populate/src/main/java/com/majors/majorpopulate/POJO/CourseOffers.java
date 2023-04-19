@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CourseOffers {
  
-    private int Id;
+    private int entry;
     private String Title;
     private String Section;
     private String Days;
