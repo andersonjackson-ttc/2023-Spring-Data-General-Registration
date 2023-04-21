@@ -2,8 +2,9 @@ package com.majors.majorpopulate.controller;
 
 import java.util.List;
 
-import com.majors.majorpopulate.POJO.SearchTerm;
+import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.CourseOffers;
+import com.majors.majorpopulate.POJO.SearchTerm;
 import com.majors.majorpopulate.POJO.Grade;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.Section;
 import com.majors.majorpopulate.service.AdminService;
+import com.majors.majorpopulate.service.CourseService;
 import com.majors.majorpopulate.service.MajorService;
+import com.majors.majorpopulate.service.MajorService2;
+import com.majors.majorpopulate.service.RegistrationService;
+import com.majors.majorpopulate.service.SectionService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
@@ -31,7 +36,14 @@ public class MajorPopulateController {
     
     @Autowired
     MajorService majorService;
-
+    @Autowired
+    private MajorService2 ms2;
+    @Autowired
+    private RegistrationService registrationService;
+    @Autowired
+    private CourseService cs;
+    @Autowired
+    private SectionService ss;
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception {
@@ -83,7 +95,10 @@ public class MajorPopulateController {
         String name = MajorService.loggedInUser.get(0).getName();
         Major major = MajorService.getMajorById(MajorService.loggedInUser.get(0).getMajorID());
         int studentId = MajorService.getStudentId();
-        MajorService.getCourseStatusForStudent(studentId, major);
+        // MajorService.getCourseStatusForStudent(studentId, major);
+
+        var result = ms2.findAllCoursesByMajorName(majorName, studentId);
+        var megs = ms2.findElectGroupsInMajor(majorName, studentId);
         model.addAttribute("information", new Major(name, majorName));
         model.addAttribute("coreRequirements", major.getRequiredCourses());
         model.addAttribute("electives", major.MajorElectiveGroups);
@@ -99,11 +114,11 @@ public class MajorPopulateController {
             courseSelected = true;
         }
         model.addAttribute("showTable", courseSelected);
-        List<Section> section = MajorService.getSectionTimesByCourseName(name, term);
+        CourseDTO course = cs.findByCourseTitle(name);
         List<String> terms = MajorService.getTerm();
         model.addAttribute("terms", terms);
         model.addAttribute("major", name);
-        model.addAttribute("sectionTimes", section);
+        model.addAttribute("sectionTimes", ss.getSectionsByCourseId(course.getCourseId()));
         model.addAttribute("result", new SearchTerm());
         return "course-search";
     }
@@ -126,7 +141,11 @@ public class MajorPopulateController {
 
     @GetMapping("/schedule")
     public String getSchedule(Model model) throws Exception {
-        model.addAttribute("registeredSections", MajorService.getRegisteredSections());
+        List<RegistrationDTO> schedule = registrationService.findByStudentId(MajorService.getStudentId());
+        ms2.getCourseNames(schedule);
+        model.addAttribute("studentInfo", MajorService.loggedInUser.get(0));
+        model.addAttribute("registeredSections", schedule);
+
         return "schedule";
     }
 
