@@ -44,7 +44,9 @@
           <td th:switch="${eCourse.status}">
             <span th:case="'Complete'" class="registered-status" >In Transcript</span>
             <span th:case="'In Progress'" class="in-progress-status">Check Schedule</span>
-            <span th:case="*"><a th:if="${eCourse.preReqCheck == true}" role="button" class="update" th:href="@{/courseSearch(name = ${eCourse.courseTitle})}">Click for Section Times</a><span id="pre-req-color" th:unless="${eCourse.preReqCheck == true}">PreReqRequired</span></span>
+            <span th:case="*"><a th:if="${eCourse.preReqCheck == true or eCourse.preReqRegistered == true}" role="button" class="update" th:href="@{/courseSearch(name = ${eCourse.courseTitle}, searchTerm = ${eCourse.preReqTerm})}">Click for Section Times</a>
+              <span th:if="${eCourse.preReqTerm != null}" th:text="|Must Register after ${eCourse.preReqTerm}|"></span>
+              <span id="pre-req-color" th:unless="${eCourse.preReqCheck == true or eCourse.preReqRegistered == true}">PreReqRequired</span></span>
           </td>
           <!-- <td th:if="${eCourse.status == 'In Progress'}">Check Schedule</td>
           <td th:unless="${eCourse.status == 'Complete'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${eCourse.courseTitle})}">Click for Section Times</a></td> -->

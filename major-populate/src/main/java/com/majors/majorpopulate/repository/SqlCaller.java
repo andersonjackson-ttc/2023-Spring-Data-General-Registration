@@ -140,7 +140,7 @@ public class SqlCaller {
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {
             CourseOffers courseOffer = new CourseOffers();
-            //courseOffer.setId(result.getInt("Id"));
+            courseOffer.setEntry(result.getInt("entry"));
             courseOffer.setTitle(
                     result.getString("course_title").equals("") ? "Not Available" : result.getString("course_title"));
             courseOffer.setSection(result.getString("course_section").equals("") ? "Not Available"
@@ -170,11 +170,11 @@ public class SqlCaller {
     public CourseOffers getCoursesById(int id) throws SQLException {
         CourseOffers course = new CourseOffers();
         sqlSt = dbConnect.createStatement();
-        String query = String.format("SELECT * FROM tbl_courses_offered where Id = '" + id + "'");
+        String query = String.format("SELECT * FROM tbl_courses_offered where entry = '" + id + "'");
         ResultSet result = sqlSt.executeQuery(query);
 
         while (result.next()) {
-            course.setId(result.getInt("Id"));
+            course.setEntry(result.getInt("entry"));
             course.setTitle(
                     result.getString("course_title").equals("") ? "no Available" : result.getString("course_title"));
             course.setSection(result.getString("course_section").equals("") ? "no Available"
@@ -223,8 +223,8 @@ public class SqlCaller {
                 + course.getSection() + "',course_days= '" + course.getDays() + "',course_term= '" + course.getTerm()
                 + "',course_term_dates= '" + course.getTermDate() + "',course_time= '" + course.getTime()
                 + "',course_location= '" + course.getLocation() + "',course_building_nbr= '" + course.getBuilding()
-                + "',course_room= '" + course.getRoom() + "',course_type= '" + course.getType() + "' where  Id = '"
-                + course.getId() + "'";
+                + "',course_room= '" + course.getRoom() + "',course_type= '" + course.getType() + "' where entry = '"
+                + course.getEntry() + "'";
         try {
             sqlSt.execute(SQL);
         } catch (SQLException ex) {
@@ -307,7 +307,7 @@ public class SqlCaller {
 
         query = String.format("Select * "
                 + "FROM tbl_courses_offered "
-                + "WHERE course_title = '%s' and course_term = '%s'", courseName, term);
+                + "WHERE course_title = '%s' and course_term IN (%s)", courseName, term);
 
         ResultSet result = sqlSt.executeQuery(query);
         while (result.next()) {

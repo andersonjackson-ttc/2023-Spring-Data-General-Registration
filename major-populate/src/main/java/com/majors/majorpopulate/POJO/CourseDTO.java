@@ -36,6 +36,10 @@ public class CourseDTO {
     private String grade;
     @Transient
     private boolean preReqCheck;
+    @Transient
+    private boolean preReqRegistered;
+    @Transient
+    private String preReqTerm;
 
 
 }
