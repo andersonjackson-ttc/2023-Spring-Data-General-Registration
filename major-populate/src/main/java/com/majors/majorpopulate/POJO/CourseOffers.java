@@ -1,4 +1,5 @@
 package com.majors.majorpopulate.POJO;
+
 import lombok.*;
 
 @Getter
@@ -6,8 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseOffers {
-    
-    private int Id;
+ 
+    private int entry;
     private String Title;
     private String Section;
     private String Days;
@@ -18,4 +19,5 @@ public class CourseOffers {
     private String Building;
     private String Room;
     private String Type;
+
 }

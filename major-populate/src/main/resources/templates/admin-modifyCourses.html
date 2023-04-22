@@ -35,7 +35,7 @@
             <th>Action</th>
         </tr>
         <tr th:each="courseOffer : ${courseOffers}">
-            <td th:text="${courseOffer.Id}"></td>
+            <td th:text="${courseOffer.entry}"></td>
             <td th:text="${courseOffer.Title}"></td>
             <td th:text="${courseOffer.Section}"></td>
             <td th:text="${courseOffer.Days}"></td>
@@ -46,7 +46,7 @@
             <td th:text="${courseOffer.Building}"></td>
             <td th:text="${courseOffer.Room}"></td>
             <td th:text="${courseOffer.Type}"></td>
-            <td><a role="button" th:href="@{/modifyCourse(Id = ${courseOffer.Id})}" class="update" >Update</a></td>
+            <td><a role="button" th:href="@{/modifyCourse(Id = ${courseOffer.entry})}" class="update" >Update</a></td>
         </tr>
     </table>
 

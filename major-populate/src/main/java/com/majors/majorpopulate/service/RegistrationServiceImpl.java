@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.majors.majorpopulate.POJO.CourseDTO;
 import com.majors.majorpopulate.POJO.RegistrationDTO;
 import com.majors.majorpopulate.repository.CourseDTORepository;
-import com.majors.majorpopulate.repository.RegistrationRepository;
+import com.majors.majorpopulate.repository.RegisitrationRepository;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
-    private RegistrationRepository registerRepo;
+    private RegisitrationRepository registerRepo;
     @Autowired
     private CourseDTORepository courseRepo;
 

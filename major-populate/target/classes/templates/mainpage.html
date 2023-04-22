@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainpage-styles.css">
+    <script src="javascript.js"></script>
+    <title>Main Page</title>
+</head>
+<body>
+  <div class="topnav">
+    <a th:href="@{/mainpage}">Main Page</a>
+    <a th:href="@{/courseSearch}">Course Search</a>
+    <a th:href="@{/schedule}">Schedule</a>
+    <a th:href="@{/form}">Logout</a>
+  </div>
+  <div class="welcome-banner">
+    <!-- <h1 style="color:white;"  th:text="'Hello, ' + ${information.name} "></h1>
+    <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.majorName} "></h1> -->
+    <h2 style="color:white;">Here are your Courses...</h2>
+  </div>
+  <div class="main-container">
+    <div class="container">
+      <table class="table">
+        <tr>
+          <th>Core Requirements</th>
+          <th>Completed Status</th>
+          <th>Registered Status</th>
+          <th>Link</th>
+        </tr>
+        <tr th:each="coreRequirement : ${coreRequirements}" >
+    
+          <td th:text = "|${coreRequirement.courseId}....${coreRequirement?.courseTitle}|" th:onclick="|window.open('@{/showPreReqPage(course_id = ${coreRequirement.courseId})}')|"></td>
+          <td th:switch="${coreRequirement.status}">
+            <span  th:case="'Complete'" th:text="${coreRequirement.status}" class="registered-status"></span>
+            <span  th:case="'In Progress'" th:text="${coreRequirement.status}" class="in-progress-status"></span>
+            <span  th:case="*" th:text="${coreRequirement.status}" class="not-complete-status"></span>
+          </td>
+          <td th:switch="${coreRequirement.registeredStatus}">
+            <span  th:case="'Registered'" th:text="${coreRequirement.registeredStatus}" class="in-progress-status"></span>
+            <span  th:case="'Not Registered'" th:text="${coreRequirement.registeredStatus}" class="not-complete-status"></span>
+            <span  th:case="*" th:text="'Complete'" class="registered-status"></span>
+          </td>
+          <td th:switch="${coreRequirement.status}">
+            <span th:case="'Complete'" class="registered-status" >In Transcript</span>
+            <span th:case="'In Progress'" class="in-progress-status">Check Schedule</span>
+            <span th:case="'No Course This Term'">No Sections Available</span>
+            <span th:case="'Pre Req Registered'"></span>
+            <span th:case="*"><a th:if="${coreRequirement.preReqCheck == true or coreRequirement.preReqRegistered == true}" role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement.courseTitle}, searchTerm = ${coreRequirement.preReqTerm})}">Click for Section Times</a>
+              <span th:if="${coreRequirement.preReqTerm != null}" th:text="|Must Register after ${coreRequirement.preReqTerm}|"></span>
+              <span id="pre-req-color" th:unless="${coreRequirement.preReqCheck == true or coreRequirement.preReqRegistered == true}">PreReqRequired</span></span>
+          </td>
+          <!-- <td th:if="${coreRequirement.status == 'In Progress'}">Check Schedule</td>
+          <td th:unless="${coreRequirement.status == 'Complete'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement.courseTitle})}">Click for Section Times</a></td> -->
+        </tr>
+          
+          
+          
+          
+          
+          <!-- <td th:unless="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseTitle}" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
+          <td th:if="${coreRequirement.courseTitle == 'Course Unavailable'}" th:text="${coreRequirement.courseId}" class="no-sections-offered" th:attr="onclick=|coreInfoClick('${coreRequirement?.courseTitle}')|" title="click for class information" ></td>
+            <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Registered</span></td>
+            <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td>
+            <td id="not-registered-status" th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Not Registered</span></td>
+            <td th:if="${coreRequirement?.Status == 'Not Registered'} and ${coreRequirement.courseTitle == 'Course Unavailable'}"><span class="no-sections-offered">No Sections this Term</span></td>
+                <td id="pre-req-color" th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() > 0} and ${coreRequirement.courseTitle != 'Course Unavailable'}">PreReq Required</td>
+                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.courseTitle == 'Course Unavailable'}" class="no-sections-offered">No Sections this Term</td>
+                <td th:if="${coreRequirement.Status == 'Not Registered'} and ${coreRequirement.PreRequisites.size() == 0} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${coreRequirement?.courseTitle})}">Click for Section Times</a></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Registered'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Look In Schedule</span></td>
+                  <td class="registered-status" th:if="${coreRequirement?.Status == 'Completed'} and ${coreRequirement.courseTitle != 'Course Unavailable'}"><span>Completed</span></td> -->
+        <tr>
+          <th>Electives / Number of Electives Required</th>
+          <th># of Courses Registered</th>
+          <th># of Courses Completed</th>
+          <th>Link</th>
+          
+        </tr>
+        <tr th:each="group : ${electiveGroups}">
+          <!-- <td th:unless="${elective.CoursesInElectiveGroup.size() > 0}" th:text="${elective.ElectiveGroupName + ' no Sections available'}"></td> -->
+          <td th:text="|${group.ElectiveGroupName} / (${group.NumRequired})|"></td>
+          <td th:text="${group.numberRegistered}"></td>
+          <td th:text="${group.NumCompleted}"></td>
+          <td><a th:unless="${group.NumCompleted >= group.NumRequired}" role="button" class="update" th:href="@{/showCoursesInElectiveGroup(groupId = ${group.electiveGroupId})}">Click for Electives</a><span th:if="${group.NumCompleted >= group.NumRequired}">No Courses Required</span></td>
+        </tr>
+      </table>
+    </div>
+    <!-- this is the div for Class information -->
+    <div class="information">
+
+    </div>
+    
+    <!-- <div class="electiveChoices">
+      <table class="table" th:each="course : ${electiveCourses}">
+        <th th:if="${electiveCourses.size() > 0}" th:text="${course.courseTitle}"></th>
+        <th:block th:text="${course?.courseTitle}" th:unless="${course.courseTitle.equals('Course Unavailable')}">
+        <tr >
+          <td th:text = "|${course.courseId}....${course?.courseTitle}|" th:onclick="|window.open('@{/showPreReqPage(course_id = ${course.courseId})}')|"></td>
+          <td><a role="button" class="update" th:href="@{/courseSearch(name = ${course.courseTitle})}">Click for Section Times</a></td>
+        </tr>
+        </th:block>
+      </table>
+      </div>
+    </div> -->
+  </body>
+  </html>
+
+  
+<!-- 
+opens the information in a different tab
+  <table>
+    <tr>
+        <td th:onclick="|window.open('@{/(courseId = ${courseId.CourseId})}')|">hello</td>
+    </tr> -->

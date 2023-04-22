@@ -24,7 +24,5 @@ public interface CourseService {
      * edited by stephen for prereq page
      */
     List<CourseDTO> getNameByCourseId(String course_id);
-
-    CourseDTO findByCourseTitle(String name);
     
 }

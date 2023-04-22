@@ -1,10 +1,11 @@
 package com.majors.majorpopulate.student;
+
 import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Login {
     
     private String name;
@@ -16,5 +17,4 @@ public class Login {
         this.name = name;
         this.password = password;
     }
-
 }

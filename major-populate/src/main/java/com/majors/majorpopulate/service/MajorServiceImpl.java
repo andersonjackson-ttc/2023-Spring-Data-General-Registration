@@ -21,7 +21,7 @@ import com.majors.majorpopulate.repository.GradeRepository;
 import com.majors.majorpopulate.repository.MajorDTORepository;
 import com.majors.majorpopulate.repository.MajorElectRepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
-import com.majors.majorpopulate.repository.RegistrationRepository;
+import com.majors.majorpopulate.repository.RegisitrationRepository;
 
 @Service
 public class MajorServiceImpl implements MajorService2{
@@ -35,7 +35,7 @@ public class MajorServiceImpl implements MajorService2{
     @Autowired
     private GradeRepository gradeRepo;
     @Autowired 
-    private RegistrationRepository registerRepo;
+    private RegisitrationRepository registerRepo;
     @Autowired
     private PreReqRepository preReqRepo;
     @Autowired
@@ -170,19 +170,4 @@ public class MajorServiceImpl implements MajorService2{
         }
         return electiveGroups;
     }
-
-    @Override
-    public List<CourseDTO> getCourseNames(List<RegistrationDTO> schedule) {
-        List<CourseDTO> scheduleWithNames = new ArrayList<>();
-        for (int i = 0; i < schedule.size(); i++) {
-            
-        }    
-        return null;
-    }
-
- 
-    
-    
-    
-    
 }

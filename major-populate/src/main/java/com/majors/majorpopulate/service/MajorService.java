@@ -1,65 +1,36 @@
 package com.majors.majorpopulate.service;
 
-import com.majors.majorpopulate.Course;
-import com.majors.majorpopulate.Major;
-import com.majors.majorpopulate.Major.MajorElectiveGroup;
+//import com.majors.majorpopulate.Course;
+//import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.POJO.CourseOffers;
 import com.majors.majorpopulate.Section;
-import com.majors.majorpopulate.POJO.RegisteredSection;
+//import com.majors.majorpopulate.Major.MajorElectiveGroup;
+// import com.majors.majorpopulate.POJO.RegisteredSection;
 import com.majors.majorpopulate.repository.SqlCaller;
-import com.majors.majorpopulate.repository.StudentRepository;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 
-@Service 
-public class MajorService implements MajorServiceInterface{
-    @Autowired 
-    StudentRepository studentRepository;
-
-    public Student getStudent(int id){
-        return studentRepository.findById(id).get();
-    }
-
+public class MajorService {
     
-    @Autowired
-    SqlCaller NonStaticSql;
-    static SqlCaller sql;
+    public static SqlCaller sql = new SqlCaller();
 
-    @Autowired
-    public void setStaticSQL(SqlCaller NonStaticSql){
-        MajorService.sql = NonStaticSql;
-    }
-    
     public static List<Login> loggedInUser = new ArrayList<>();
+
+    public static ArrayList<String> termListOrder = new ArrayList<String>(
+        Arrays.asList("2023 Spring Full",
+            "2023 Spring 1", "2023 Spring 2", "2023 Summer Full", "2023 Summer 1",
+            "2023 Summer 2", "2023 Fall Full", "2023 Fall 1", "2023 Fall 2"));
 
     public MajorService() {
 
     }
-
-    // adds all the majors to a list to add to the dropdown Select option on
-    // form.html
-    public static List<String> populateMajorChoices() throws Exception {
-        List<String> majorList = new ArrayList<>();
-        majorList = sql.ShowMajorNames();
-        return majorList;
-    }
-
-    // Gets required classes from SQLcaller Class
-    public static List<String> showRequiredCourses(String majorId) throws Exception {
-        List<String> coursesList = new ArrayList<>();
-        coursesList = sql.getRequiredCoreClasses(majorId);
-        return coursesList;
-    }
-
+   
     // Enters new user login credentials into the sql-db
     public static void CreateStudent(Student student) throws Exception {
         sql.CreateStudent(student.getName(), student.getPassword(), student.getMajor());
@@ -84,33 +55,29 @@ public class MajorService implements MajorServiceInterface{
         return "0";
     }
 
-    // Calls getMajorById from sqlCaller and populates the logged in "users" major
-    // in the controller
-    public static Major getMajorById(String majorId) throws Exception {
-        Major major = sql.GetMajorById(majorId);
-        return major;
-    }
-
-    public static List<String> showCoursesByTerm(String term, Major major) {
-        List<String> courseList = new ArrayList<>();
-
-        for (Course course : major.RequiredCourses) {
-            for (Section eachClass : course.getClasses()) {
-                if (eachClass.CourseTerm() == term) {
-                    courseList.add(course.getCourseName());
-                }
-            }
-        }
-        return courseList;
-    }
-
     // gets sections times and info for the selected course from mainpage.html
     public static List<Section> getSectionTimesByCourseName(String name, String term) throws Exception {
         List<Section> section;
         if (term == null || term == "") {
             section = sql.getSectionTimesByCourseName(name);
         } else {
-            section = sql.getCourseNameByTerm(name, term);
+            String[] termList = {"2023 Spring Full", "2023 Spring 1", "2023 Spring 2", "2023 Summer Full", "2023 Summer 1", "2023 Summer 2", "2023 Fall Full", "2023 Fall 1", "2023 Fall 2"};
+            String termListToPass = "";
+            for (int i = 0; i < termList.length; i++) {
+                if (!term.equals(termList[i])){
+                    continue;
+                } else if(term.equals(termList[i])){
+                    for (int j = i + 1; j < termList.length; j++) {
+                        termListToPass += "'" + termList[j] + "', ";
+                    }
+                    break;
+                }
+            }
+            if(!termListToPass.equals("")){
+                termListToPass = termListToPass.substring(0, termListToPass.length() - 2);
+            }else termListToPass = null;
+            System.out.println(termListToPass);
+            section = sql.getCourseNameByTerm(name, termListToPass);
         }
         return section;
     }
@@ -134,17 +101,7 @@ public class MajorService implements MajorServiceInterface{
         String parsedCourseId = String.format("%s-%s", split[0], split[1]);
         return parsedCourseId;
     }
-
-    /*
-     * gets registered Sections from SqlCaller
-     */
-    public static List<RegisteredSection> getRegisteredSections() throws Exception {
-        List<RegisteredSection> registeredSections = new ArrayList<>();
-        registeredSections = sql.getRegisteredSections(
-            sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
-        return registeredSections;
-    }
-
+   
     public static int getStudentId() throws Exception {
         int studentId = sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword());
         return studentId;
@@ -160,35 +117,6 @@ public class MajorService implements MajorServiceInterface{
         List<Student> studentList;
         studentList = sql.getStudentListByName(studentName);
         return studentList;
-    }
-
-    /*
-     * Curtis
-     * sets course grade and status
-     */
-    public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException {
-        for (Course course : major.RequiredCourses) {
-            if (course != null) {
-                var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
-                course.setStatus(courseStatus);
-                var courseGrade = sql.getGrade(student_id, course.getCourseId());
-                course.setGrade(courseGrade);
-            } else {
-                continue;
-            }
-        }
-        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
-            for (Course course : meg.CoursesInElectiveGroup()) {
-                if (course != null) {
-                    var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
-                    course.setStatus(courseStatus);
-                    var courseGrade = sql.getGrade(student_id, course.getCourseId());
-                    course.setGrade(courseGrade);
-                } else {
-                    continue;
-                }
-            }
-        }
     }
 
     /*
@@ -215,15 +143,6 @@ public class MajorService implements MajorServiceInterface{
     }
 
     /*
-     * Gets registered sections from a student id for the admin to edit/add grades/remove 
-     */
-    public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
-        List<RegisteredSection> registeredSections = new ArrayList<>();
-        registeredSections = sql.getRegisteredSections(studentId);
-        return registeredSections;
-    }
-
-    /*
      * Removes a section from a students schedule FROM the admin side
      */
     public static void adminDeleteSection(int studentId, String courseId) throws Exception {
@@ -239,10 +158,76 @@ public class MajorService implements MajorServiceInterface{
         sql.updateStudent(student);
 
     }
-
-    @Override
-    public Major getMajorByName(String majorName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMajorByName'");
-    }
 }
+// Calls getMajorById from sqlCaller and populates the logged in "users" major
+    // in the controller
+    /* public static Major getMajorById(String majorId) throws Exception {
+        Major major = sql.GetMajorById(majorId);
+        return major;
+    } */
+
+    /* //
+    public static List<String> showCoursesByTerm(String term, Major major) {
+        List<String> courseList = new ArrayList<>();
+
+        for (Course course : major.RequiredCourses) {
+            for (Section eachClass : course.getClasses()) {
+                if (eachClass.CourseTerm() == term) {
+                    courseList.add(course.getCourseName());
+                }
+            }
+        }
+        return courseList;
+    } */
+    
+    /*
+     * Gets registered sections from a student id for the admin to edit/add grades/remove 
+     */
+    // public static List<RegisteredSection> getRegisteredSections(int studentId) throws Exception{
+    //     List<RegisteredSection> registeredSections = new ArrayList<>();
+    //     registeredSections = sql.getRegisteredSections(studentId);
+    //     return registeredSections;
+    // }
+      /*
+     * Curtis
+     * sets course grade and status
+     */
+    /* public static void getCourseStatusForStudent(int student_id, Major major) throws SQLException {
+        for (Course course : major.RequiredCourses) {
+            if (course != null) {
+                var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
+                course.setStatus(courseStatus);
+                var courseGrade = sql.getGrade(student_id, course.getCourseId());
+                course.setGrade(courseGrade);
+            } else {
+                continue;
+            }
+        }
+        for (MajorElectiveGroup meg : major.MajorElectiveGroups) {
+            for (Course course : meg.CoursesInElectiveGroup()) {
+                if (course != null) {
+                    var courseStatus = sql.getCourseStatus(student_id, course.getCourseId());
+                    course.setStatus(courseStatus);
+                    var courseGrade = sql.getGrade(student_id, course.getCourseId());
+                    course.setGrade(courseGrade);
+                } else {
+                    continue;
+                }
+            }
+        }
+    }  */
+     /*
+     * gets registered Sections from SqlCaller
+     */
+    // public static List<RegisteredSection> getRegisteredSections() throws Exception {
+    //     List<RegisteredSection> registeredSections = new ArrayList<>();
+    //     registeredSections = sql.getRegisteredSections(
+    //             sql.getStudentId(loggedInUser.get(0).getName(), loggedInUser.get(0).getPassword()));
+    //     return registeredSections;
+    // }
+    /* // Gets required classes from SQLcaller Class
+    public static List<String> showRequiredCourses(String majorId) throws Exception {
+        List<String> coursesList = new ArrayList<>();
+        coursesList = sql.getRequiredCoreClasses(majorId);
+        return coursesList;
+    } */

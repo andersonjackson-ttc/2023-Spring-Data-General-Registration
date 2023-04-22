@@ -4,10 +4,10 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class SearchTerm {
+
     public String description;
 
 }

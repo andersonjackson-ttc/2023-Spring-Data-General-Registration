@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form-stylesheet.css">
+    <title>Exempt Grades</title>
+</head>
+<body>
+    <div class="topnav">
+        <a th:href="@{/adminMainpage}">Admin Portal</a>
+        <a th:href="@{/studentSearch}">Student Search</a>
+        <a th:href="@{/AdminCourseSearch}">Courses Search </a>
+        <a th:href="@{/form}">Logout</a>
+      </div>
+    
+      
+      <div class="container">
+      <form action="#" th:object="${addGrade}" th:action="@{/gradeSubmit}" method="POST">
+         <h2>Information Recap for Submission</h2>
+         <p th:text="'Student Id: ' + *{studentId}"></p>
+         <!-- <p th:text="|Term Id: *{termId}|"></p>
+         <p th:text="|Course Id: *{courseId}|"></p> -->
+          <input type="hidden" th:field="*{studentId}" th:value="*{studentId}">
+          <input type="text" th:field="*{termId}" placeholder="Enter Term">
+          <input type="text" th:field="*{courseId}" placeholder="Enter CourseId">
+
+        <select th:field="*{courseGrade}" >
+            <option value="">Choose A Grade</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="W">W</option>
+        </Select>
+        <Select type="text" th:field="*{courseStatus}">
+            <option value="">Choose a Course Status</option>
+            <option value="Complete">Complete</option>
+            <option value="Not Complete">Not Complete</option>
+            <option value="Withdrawn">Withdrawn</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</body>
+</html>

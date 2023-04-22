@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
 import lombok.*;
 
 @Entity
@@ -33,7 +32,7 @@ public class SectionDTO {
     private String courseDays;
     @Column(name = "course_term") @NonNull
     private String courseTerm;
-    @Column(name = "course_term_dates") @NonNull 
+    @Column(name = "course_term_dates") @NonNull
     private List<Date> courseTermDates;
     @Column(name = "course_time")
     private List<LocalTime> courseTime;

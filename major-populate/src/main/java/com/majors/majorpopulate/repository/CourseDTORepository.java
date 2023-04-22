@@ -16,6 +16,4 @@ public interface CourseDTORepository extends JpaRepository<CourseDTO, Integer>{
     
 
     String findCourseTitleByCourseId(String courseId);
-
-    CourseDTO findByCourseTitle(String name);
 }

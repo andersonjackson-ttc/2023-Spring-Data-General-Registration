@@ -21,7 +21,7 @@ import com.majors.majorpopulate.repository.CourseDTORepository;
 import com.majors.majorpopulate.repository.ElectiveCourseRepository;
 import com.majors.majorpopulate.repository.GradeRepository;
 import com.majors.majorpopulate.repository.PreReqRepository;
-import com.majors.majorpopulate.repository.RegistrationRepository;
+import com.majors.majorpopulate.repository.RegisitrationRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService{
@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private GradeRepository gradeRepo;
     @Autowired
-    private RegistrationRepository registerRepo;
+    private RegisitrationRepository registerRepo;
 
     @Override
     public void saveCourse(Course tblCourseCatalog) {
@@ -63,6 +63,12 @@ public class CourseServiceImpl implements CourseService{
         List<CourseDTO> course;
         course = courseRepo.findByCourseId(course_id);
         return course;
+    }
+
+    @Override
+    public List<Section> getSectionByCourseId(String course_id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSectionByCourseId'");
     }
 
     @Override
@@ -153,17 +159,4 @@ public class CourseServiceImpl implements CourseService{
         return courseName;
         
     }
-
-    @Override
-    public List<Section> getSectionByCourseId(String course_id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSectionByCourseId'");
-    }
-
-    @Override
-    public CourseDTO findByCourseTitle(String name) {
-        return courseRepo.findByCourseTitle(name);
-    }
-
-    
 }
