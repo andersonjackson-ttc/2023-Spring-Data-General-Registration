@@ -12,4 +12,6 @@ public interface SectionRepository extends JpaRepository<SectionDTO, Integer>{
     void save(Course tblCourseCatalog);
 
     List<SectionDTO> findByCourseId(String course_id);
+
+    Object findAllById(String courseId);
 }
