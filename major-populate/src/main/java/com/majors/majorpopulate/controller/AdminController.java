@@ -29,7 +29,7 @@ public class AdminController {
     @GetMapping("/deleteCourseFromRegistration")
     public String removeSection(String courseId, int studentId) throws Exception {
         registrationService.deleteByCourseIdAndStudentId(courseId, studentId);
-        return "redirect:/insertGrades?Id=" + studentId;
+        return "redirect:/exemptGrades?Id=" + studentId;
     }
 
     @GetMapping("/exemptGrades")
