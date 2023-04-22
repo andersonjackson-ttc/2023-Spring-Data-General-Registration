@@ -2,7 +2,7 @@ package com.majors.majorpopulate.service;
 
 import java.util.List;
 
-import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties.Registration;
+
 
 import com.majors.majorpopulate.POJO.RegistrationDTO;
 
@@ -11,6 +11,8 @@ public interface RegistrationService {
     void deleteByCourseIdAndStudentId(String courseId, Integer studentId);
     List<RegistrationDTO> findByStudentId(Integer studentId);
     void delete(RegistrationDTO course);
+
+    List<RegistrationDTO> findCoursesByStudentIdOrdered(Integer studentId);
 
 
 

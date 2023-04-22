@@ -47,4 +47,15 @@ public class RegistrationServiceImpl implements RegistrationService {
         registerRepo.delete(course);
     }
 
+    @Override
+    public List<RegistrationDTO> findCoursesByStudentIdOrdered(Integer studentId) {
+        List<RegistrationDTO> registeredCourses; 
+        registeredCourses = registerRepo.findCoursesByStudentIdOrdered(studentId);
+        for (int i = 0; i < registeredCourses.size(); i++) {
+            List<CourseDTO> course = courseRepo.findByCourseId(registeredCourses.get(i).getCourseId());
+            registeredCourses.get(i).setCourseName(course.get(0).getCourseTitle());
+        }
+        return registeredCourses;
+    }
+
 }
