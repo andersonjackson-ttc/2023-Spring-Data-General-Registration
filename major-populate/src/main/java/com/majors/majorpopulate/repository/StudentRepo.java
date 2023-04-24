@@ -1,12 +1,13 @@
-// package com.majors.majorpopulate.repository;
+package com.majors.majorpopulate.repository;
 
-// import java.util.List;
+import java.util.List;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.majors.majorpopulate.POJO.Student;
-// /*
-// public interface StudentRepo extends JpaRepository<Student, Integer> {
+import com.majors.majorpopulate.POJO.Student;
+
+public interface StudentRepo extends JpaRepository<Student, Integer> {
     
-//     List<Student> findMajorByStudentId(Integer studentId);
-// }*/
+    Student findByNameAndPassword(String name, String password);
+    // List<Student> findMajorByStudentId(Integer studentId);
+}

@@ -23,6 +23,7 @@ import com.majors.majorpopulate.service.GradeService;
 import com.majors.majorpopulate.service.MajorService;
 import com.majors.majorpopulate.service.MajorService2;
 import com.majors.majorpopulate.service.RegistrationService;
+import com.majors.majorpopulate.service.StudentService;
 import com.majors.majorpopulate.student.Login;
 import com.majors.majorpopulate.student.Student;
 
@@ -38,6 +39,10 @@ public class MajorPopulateController {
     private RegistrationService registrationService;
     @Autowired
     private CourseService cs;
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private GradeService gradeService;
 
     @GetMapping("/form")
     public String getForm(Model model) throws Exception {
@@ -57,7 +62,18 @@ public class MajorPopulateController {
         if (result.hasErrors())
             return "register";
         MajorService.CreateStudent(student);
-    
+     
+        com.majors.majorpopulate.POJO.Student studentId = studentService.findByNameAndPassword(student.getName(), student.getPassword());
+        System.out.println(studentId.getId());
+        Grade eng100 = new Grade();
+        Grade rwr100 = new Grade();
+        Grade mat033 = new Grade();
+        eng100 = MajorService.getEng100(eng100, studentId.getId());
+        rwr100 = MajorService.getRwr100(rwr100, studentId.getId());
+        mat033 = MajorService.getMat033(mat033, studentId.getId());
+        gradeService.save(eng100);
+        gradeService.save(rwr100);
+        gradeService.save(mat033);
         return "redirect:/form";
     }
 
@@ -275,6 +291,11 @@ public class MajorPopulateController {
         grade.setTermId(term);
         model.addAttribute("addGrade", grade);
         return "admin-grade-submit-form";
+    }
+
+    @GetMapping("/homepage")
+    public String getHomePage(){
+        return "homepage";
     }
 
 }

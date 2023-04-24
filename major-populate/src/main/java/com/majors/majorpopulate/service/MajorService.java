@@ -3,6 +3,7 @@ package com.majors.majorpopulate.service;
 //import com.majors.majorpopulate.Course;
 //import com.majors.majorpopulate.Major;
 import com.majors.majorpopulate.POJO.CourseOffers;
+import com.majors.majorpopulate.POJO.Grade;
 import com.majors.majorpopulate.Section;
 //import com.majors.majorpopulate.Major.MajorElectiveGroup;
 // import com.majors.majorpopulate.POJO.RegisteredSection;
@@ -157,6 +158,33 @@ public class MajorService {
     public static void updateStudent(Student student) throws Exception {
         sql.updateStudent(student);
 
+    }
+
+    public static Grade getEng100(Grade eng100, int studentId) {
+        eng100.setCourseId("ENG-100");
+        eng100.setCourseGrade("A");
+        eng100.setCourseStatus("Complete");
+        eng100.setStudentId(studentId);
+        eng100.setTermId("2023 Spring 1");
+        return eng100;
+    }
+
+    public static Grade getRwr100(Grade rwr100, int studentId) {
+        rwr100.setCourseId("RWR-100");
+        rwr100.setCourseGrade("A");
+        rwr100.setCourseStatus("Complete");
+        rwr100.setStudentId(studentId);
+        rwr100.setTermId("2023 Spring 1");
+        return rwr100;
+    }
+
+    public static Grade getMat033(Grade mat033, int studentId) {
+        mat033.setCourseId("MAT-033");
+        mat033.setCourseGrade("A");
+        mat033.setCourseStatus("Complete");
+        mat033.setStudentId(studentId);
+        mat033.setTermId("2023 Spring 1");
+        return mat033;
     }
 }
 // Calls getMajorById from sqlCaller and populates the logged in "users" major
