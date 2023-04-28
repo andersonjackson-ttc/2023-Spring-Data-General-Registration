@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainpage-styles.css">
+    <script src="javascript.js"></script>
+    <title>Elective Course Page</title>
+</head>
+<body>
+  <div class="topnav">
+    <a th:href="@{/mainpage}">Main Page</a>
+    <a th:href="@{/courseSearch}">Course Search</a>
+    <a th:href="@{/schedule}">Schedule</a>
+    <a th:href="@{/form}">Logout</a>
+  </div>
+  <div class="welcome-banner">
+    <!-- <h1 style="color:white;"  th:text="'Hello, ' + ${information.name} "></h1>
+    <h1 style="color:white;"  th:text="'Your Major is, ' + ${information.majorName} "></h1> -->
+    <h2 style="color:white;">Here are your Courses...</h2>
+  </div>
+  <div class="main-container">
+    <div class="container">
+      <table class="table">
+        <tr>
+          <th>Elective Courses</th>
+          <th>Completed Status</th>
+          <th>Registered Status</th>
+          <th>Link</th>
+        </tr>
+        <tr th:each="eCourse : ${electiveCourses}" >
+    
+          <td th:text = "|${eCourse.courseId}....${eCourse?.courseTitle}|" th:onclick="|window.open('@{/showPreReqPage(course_id = ${eCourse.courseId})}')|"></td>
+          <td th:switch="${eCourse.status}">
+            <span  th:case="'Complete'" th:text="${eCourse.status}" class="registered-status"></span>
+            <span  th:case="'In Progress'" th:text="${eCourse.status}" class="in-progress-status"></span>
+            <span  th:case="*" th:text="${eCourse.status}" class="not-complete-status"></span>
+          </td>
+          <td th:switch="${eCourse.registeredStatus}">
+            <span  th:case="'Registered'" th:text="${eCourse.registeredStatus}" class="in-progress-status"></span>
+            <span  th:case="'Not Registered'" th:text="${eCourse.registeredStatus}" class="not-complete-status"></span>
+            <span  th:case="*" th:text="'Complete'" class="registered-status"></span>
+          </td>
+          <td th:switch="${eCourse.status}">
+            <span th:case="'Complete'" class="registered-status" >In Transcript</span>
+            <span th:case="'In Progress'" class="in-progress-status">Check Schedule</span>
+            <span th:case="*"><a th:if="${eCourse.preReqCheck == true or eCourse.preReqRegistered == true}" role="button" class="update" th:href="@{/courseSearch(name = ${eCourse.courseTitle}, searchTerm = ${eCourse.preReqTerm})}">Click for Section Times</a>
+              <span th:if="${eCourse.preReqTerm != null}" th:text="|Must Register after ${eCourse.preReqTerm}|"></span>
+              <span id="pre-req-color" th:unless="${eCourse.preReqCheck == true or eCourse.preReqRegistered == true}">PreReqRequired</span></span>
+          </td>
+          <!-- <td th:if="${eCourse.status == 'In Progress'}">Check Schedule</td>
+          <td th:unless="${eCourse.status == 'Complete'}"><a role="button" class="update" th:href="@{/courseSearch(name = ${eCourse.courseTitle})}">Click for Section Times</a></td> -->
+        </tr>

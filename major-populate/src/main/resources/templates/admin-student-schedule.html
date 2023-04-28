@@ -19,15 +19,15 @@
     <table class="table" th:unless="${studentsSchedule.size() == 0}">
         <tr>
             <th>Course Id</th>
-            <th>Major Id</th>
-            <th>Section Id</th>
+            <th>Course Name</th>
+            <th>Major Name</th>
             <th>Term</th>
             <th>Remove Section</th>
         </tr>
         <tr th:each="studentSchedule : ${studentsSchedule}">
             <td th:text="${studentSchedule.courseId}"></td>
-            <td th:text="${studentSchedule.majorId}"></td>
-            <td th:text="${studentSchedule.sectionId}"></td>
+            <td th:text="${studentSchedule.courseName}"></td>
+            <td th:text="${student.major}"></td>
             <td th:text="${studentSchedule.term}"></td>
             <td><a role="button" class="update" th:href="@{/adminRemoveSection(courseId = ${studentSchedule.courseId}, studentId = ${student.studentId})}">Remove This Section</a></td>
         </tr>

@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pre-req-page.css">
+    <title>Pre Reqs Page</title>
+</head>
+<body>
+    <div class="courseId" th:if="${courseName == null}">
+        <h2 th:text="|Pre Requisite information for|"></h2>
+        <h2 th:text="${courseId}"></h2>
+        <h2 th:text="|Course ID: ${courseId}|"></h2>
+    
+        <p th:text="|Information for ${courseId} Will go here and This tells a short discription of the course. But|"></p>
+        <p th:text="|we have no discription for these in this project.|"></p>
+        <p>No Information For this Course this Term</p>
+    </div>
+    <div class="courseName" th:unless="${courseName == null}">
+        <h2 th:text="|Pre Requisite information for|"></h2>
+        <h2 th:text="${courseName.courseTitle}"></h2>
+        <h2 th:text="|Course ID: ${courseName.courseId}|"></h2>
+    
+        <p th:text="|Information for ${courseName.courseTitle} Will go here and This tells a short discription of the course. But|"></p>
+        <p th:text="|we have no discription for these in this project.|"></p>
+    </div>
+    <table th:unless="${courseName == null}">
+        <tr>
+            <th>Pre Req Course Id</th>
+            <th>Pre Req Course Title</th>
+            <th>Min Grade</th>
+        </tr>
+        <tr th:each="preReq : ${preReqs}">
+        <td th:text="${preReq.pre_req}"></td>
+        <td th:text="${preReq.courseTitle}"></td>
+        <td th:text="${preReq.min_grade}"></td>
+        </tr>       
+    </table>
+</body>
+</html>

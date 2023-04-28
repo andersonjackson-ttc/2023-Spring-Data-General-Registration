@@ -3,16 +3,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Sections</title>
-</head>
-<body>
-    <h2>Hello</h2>
-
-    <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/admin-styles/admin-mainpage-styles.css">
     <title>Admin Student Schedule</title>
 </head>
@@ -29,16 +19,16 @@
     <table class="table" th:unless="${studentsSchedule.size() == 0}">
         <tr>
             <th>Course Id</th>
-            <th>Major Id</th>
-            <th>Section Id</th>
+            <th>Major Name</th>
             <th>Term</th>
+            <th>Status</th>
             <th>Add Grade</th>
         </tr>
         <tr th:each="studentSchedule : ${studentsSchedule}">
             <td th:text="${studentSchedule.courseId}"></td>
-            <td th:text="${studentSchedule.majorId}"></td>
-            <td th:text="${studentSchedule.sectionId}"></td>
+            <td th:text="${student.major}"></td>
             <td th:text="${studentSchedule.term}"></td>
+            <td th:text="${studentSchedule.regDTS}"></td>
             <td><a role="button" class="update" th:href="@{/adminGradeSubmitForm(studentId = ${student.studentId}, courseId = ${studentSchedule.courseId}, 
                 term = ${studentSchedule.term})}">Add To Transcript</a></td>
         </tr>
